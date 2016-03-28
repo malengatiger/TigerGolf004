@@ -529,6 +529,7 @@ public class CoachMainActivity extends AppCompatActivity
         mLocationRequest.setInterval(2000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setFastestInterval(1000);
+
         startLocationUpdates();
     }
 
