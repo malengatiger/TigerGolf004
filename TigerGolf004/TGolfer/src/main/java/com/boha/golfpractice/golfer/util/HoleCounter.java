@@ -27,15 +27,15 @@ public class HoleCounter extends CardView{
 
     public HoleCounter(Context context) {
         super(context);
-        initializeView();
+        initializeFields();
     }
 
     public HoleCounter(Context context, AttributeSet attrs) {
         super(context,attrs);
-        initializeView();
+        initializeFields();
     }
 
-    private void initializeView() {
+    private void initializeFields() {
         View v = inflate(getContext(), R.layout.hole_counter, null);
         iconPrevious = (ImageView) v.findViewById(R.id.iconPrev);
         iconNext = (ImageView) v.findViewById(R.id.iconNext);
