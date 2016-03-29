@@ -21,7 +21,7 @@ public class PracticeSessionDTO implements Serializable, Comparable<PracticeSess
     private Integer numberOfHoles;
     private Integer totalStrokes;
     private Integer underPar;
-    private Integer overPar, par, gender = 0;
+    private Integer overPar, par;
     private Boolean closed;
     private List<HoleStatDTO> holeStatList;
     private List<VideoUploadDTO> videoUploadList;
@@ -29,6 +29,7 @@ public class PracticeSessionDTO implements Serializable, Comparable<PracticeSess
     private Integer golfCourseID, totalMistakes;
     private GolfCourseDTO golfCourse;
     private Boolean needsUpload = false;
+    private Short gender = 0;
 
     public Boolean getNeedsUpload() {
         return needsUpload;
@@ -41,11 +42,11 @@ public class PracticeSessionDTO implements Serializable, Comparable<PracticeSess
     public PracticeSessionDTO() {
     }
 
-    public Integer getGender() {
+    public Short getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(Short gender) {
         this.gender = gender;
     }
 

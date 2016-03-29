@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -64,7 +65,9 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
         holder.numberOfSessions.setText("" + player.getPracticeSessionList().size());
         holder.number.setVisibility(View.GONE);
         holder.lastPractice.setVisibility(View.GONE);
+
         if (!player.getPracticeSessionList().isEmpty()) {
+            Collections.sort(player.getPracticeSessionList());
             PracticeSessionDTO p = player.getPracticeSessionList().get(0);
             holder.golfCourse.setText(p.getGolfCourseName());
             holder.sessionDate.setText(sdf.format(new Date(p.getSessionDate())));
