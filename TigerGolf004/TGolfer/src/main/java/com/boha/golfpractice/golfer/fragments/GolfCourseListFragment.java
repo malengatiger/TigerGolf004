@@ -12,12 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.boha.golfpractice.golfer.R;
-import com.boha.golfpractice.golfer.activities.MonApp;
 import com.boha.golfpractice.golfer.adapters.GolfCourseListAdapter;
 import com.boha.golfpractice.golfer.dto.GolfCourseDTO;
 import com.boha.golfpractice.golfer.dto.ResponseDTO;
 import com.boha.golfpractice.golfer.util.MonLog;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,9 +151,9 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MonApp app = (MonApp) getActivity().getApplication();
-        RefWatcher refWatcher = app.getRefWatcher();
-        refWatcher.watch(this);
+//        MonApp app = (MonApp) getActivity().getApplication();
+//        RefWatcher refWatcher = app.getRefWatcher();
+//        refWatcher.watch(this);
     }
 
     @Override

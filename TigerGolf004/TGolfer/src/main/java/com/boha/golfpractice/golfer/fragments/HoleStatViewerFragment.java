@@ -12,12 +12,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.boha.golfpractice.golfer.R;
-import com.boha.golfpractice.golfer.activities.MonApp;
 import com.boha.golfpractice.golfer.dto.ClubUsedDTO;
 import com.boha.golfpractice.golfer.dto.HoleDTO;
 import com.boha.golfpractice.golfer.dto.HoleStatDTO;
 import com.boha.golfpractice.golfer.util.MonLog;
-import com.squareup.leakcanary.RefWatcher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -201,9 +199,9 @@ public class HoleStatViewerFragment extends Fragment implements PageFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MonApp app = (MonApp)getActivity().getApplication();
-        RefWatcher refWatcher = app.getRefWatcher();
-        refWatcher.watch(this);
+//        MonApp app = (MonApp)getActivity().getApplication();
+//        RefWatcher refWatcher = app.getRefWatcher();
+//        refWatcher.watch(this);
     }
     String title = "Hole Statistics";
     @Override

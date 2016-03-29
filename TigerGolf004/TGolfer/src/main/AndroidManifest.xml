@@ -9,8 +9,6 @@
 
     <!-- DEBUG KEY: AIzaSyDfG9K7XcN97tl3uQpm1194Xn1eaZT_MLc -->
     <!-- PROD KEY: AIzaSyCgYFuzzP2Pz2ycziCpgO5mz6YMCy58BoU -->
-
-
     <application
         android:name=".activities.MonApp"
         android:allowBackup="true"
@@ -74,6 +72,16 @@
             android:name=".activities.PictureActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.SessionSummaryActivity" />
+
+        <service
+            android:name=".services.PracticeSessionGcmService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -104,7 +104,7 @@ public class OKUtil {
         urlBuilder.addQueryParameter("JSON", gson.toJson(req));
         String url = urlBuilder.build().toString();
 
-        Log.w(LOG, "### sending request to server, requestType: "
+        Log.w(LOG, "### sending ASYNC GET request to server, requestType: "
                 + req.getRequestType()
                 + "\n" + url);
 
@@ -130,7 +130,7 @@ public class OKUtil {
                 .post(body)
                 .build();
 
-        Log.w(LOG, "### sending request to server, requestList: "
+        Log.w(LOG, "### sending ASYNC POST request to server, requestList: "
                 + req.getRequests().size()
                 + "\n" + url);
         execute(client, request, false, activity,listener);
@@ -148,7 +148,7 @@ public class OKUtil {
         urlBuilder.addQueryParameter("JSON", gson.toJson(req));
         String url = urlBuilder.build().toString();
 
-        Log.w(LOG, "### sending request to server, requestType: "
+        Log.w(LOG, "### sending SYNC GET request to server, requestType: "
                 + req.getRequestType()
                 + "\n" + url);
 
@@ -157,17 +157,61 @@ public class OKUtil {
                 .build();
         Response response = client.newCall(okHttpRequest).execute();
         ResponseDTO m;
-        if (req.isZipResponse()) {
-            m = processZipResponse(response);
-        } else {
-            m = processResponse(response);
-        }
+        if (response.isSuccessful()) {
+            if (req.isZipResponse()) {
+                m = processZipResponse(response);
+            } else {
+                m = processResponse(response);
+            }
 
-        final long end = System.currentTimeMillis();
-        Log.e(LOG, "### Server responded, " + okHttpRequest.urlString() + "\nround trip elapsed: " + getElapsed(start, end)
-                + ", server elapsed: " + m.getElapsedSeconds()
-                + ", statusCode: " + m.getStatusCode()
-                + "\nmessage: " + m.getMessage());
+            final long end = System.currentTimeMillis();
+            Log.e(LOG, "### Server responded, " + okHttpRequest.urlString() + "\nround trip elapsed: " + getElapsed(start, end)
+                    + ", server elapsed: " + m.getElapsedSeconds()
+                    + ", statusCode: " + m.getStatusCode()
+                    + "\nmessage: " + m.getMessage());
+        } else {
+            throw new IOException();
+        }
+        return m;
+    }
+    public ResponseDTO sendSynchronousPOST(final Context ctx, final RequestDTO req) throws OKHttpException, IOException {
+        final long start = System.currentTimeMillis();
+        String url = getURL(ctx);
+        OkHttpClient client = new OkHttpClient();
+        configureTimeouts(client);
+
+
+        RequestBody body = new FormEncodingBuilder()
+                .add("JSON", gson.toJson(req))
+                .build();
+
+        Request okHttpRequest = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Log.w(LOG, "### sending SYNC POST request to server, requestType: "
+                + req.getRequestType()
+                + "\n" + url);
+
+        Response response = client.newCall(okHttpRequest).execute();
+        ResponseDTO m;
+        if (response.isSuccessful()) {
+            if (req.isZipResponse()) {
+                m = processZipResponse(response);
+            } else {
+                m = processResponse(response);
+            }
+
+            final long end = System.currentTimeMillis();
+            Log.e(LOG, "### Server responded, " + okHttpRequest.urlString() + "\nround trip elapsed: " + getElapsed(start, end)
+                    + ", server elapsed: " + m.getElapsedSeconds()
+                    + ", statusCode: " + m.getStatusCode()
+                    + "\nmessage: " + m.getMessage());
+        } else {
+            m = new ResponseDTO();
+            m.setStatusCode(9);
+            m.setMessage("Problem with Server response because of a bad request");
+        }
         return m;
     }
 
@@ -185,7 +229,7 @@ public class OKUtil {
                 .url(url)
                 .post(body)
                 .build();
-        Log.w(LOG, "### sending request to server, requestType: "
+        Log.w(LOG, "### sending ASYNC POST request to server, requestType: "
                 + req.getRequestType()
                 + "\n" + url);
         execute(client, request, req.isZipResponse(), activity,listener);

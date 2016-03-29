@@ -9,11 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -27,18 +24,11 @@ import com.boha.golfpractice.golfer.dto.ClubUsedDTO;
 import com.boha.golfpractice.golfer.dto.HoleDTO;
 import com.boha.golfpractice.golfer.dto.HoleStatDTO;
 import com.boha.golfpractice.golfer.dto.PracticeSessionDTO;
-import com.boha.golfpractice.golfer.dto.RequestDTO;
-import com.boha.golfpractice.golfer.dto.ResponseDTO;
 import com.boha.golfpractice.golfer.dto.ShotShapeDTO;
 import com.boha.golfpractice.golfer.services.PracticeUploadService;
 import com.boha.golfpractice.golfer.util.HoleCounter;
 import com.boha.golfpractice.golfer.util.MonLog;
-import com.boha.golfpractice.golfer.util.OKHttpException;
-import com.boha.golfpractice.golfer.util.OKUtil;
 import com.boha.golfpractice.golfer.util.SnappyPractice;
-import com.boha.golfpractice.golfer.util.Util;
-import com.boha.golfpractice.golfer.util.WebCheck;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.Collections;
 import java.util.List;
@@ -101,6 +91,17 @@ public class HoleStatFragment extends Fragment {
         if (getArguments() != null) {
             practiceSession = (PracticeSessionDTO) getArguments().getSerializable("session");
             setPracticeSession(practiceSession);
+            //check holeStats
+            int count = 0;
+            for (HoleStatDTO hs: practiceSession.getHoleStatList()) {
+                if (hs.getHoleStatID() == null) {
+                    count++;
+                }
+            }
+            MonLog.w(getActivity(),LOG,"holeStats with null ID: " + count);
+            if (count > 0) {
+                throw new RuntimeException("Fucked!");
+            }
 
         }
     }
@@ -116,7 +117,7 @@ public class HoleStatFragment extends Fragment {
         SnappyPractice.addCurrentPracticeSession(app, practiceSession, null);
 
 
-        //receive notification when PracticeUploadService has completed work
+        //receive notification when PracticeUploadService has completed its work
         IntentFilter mStatusIntentFilter = new IntentFilter(
                 PracticeUploadService.BROADCAST_PUS);
         PracticeBroadcastReceiver rec = new PracticeBroadcastReceiver();
@@ -185,7 +186,7 @@ public class HoleStatFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MonLog.d(getActivity(), LOG, "PracticeUploadService starting ...");
+                practiceSession.setNeedsUpload(true);
                 sendSession();
 
             }
@@ -419,6 +420,7 @@ public class HoleStatFragment extends Fragment {
                 return hs;
             }
         }
+
         throw new RuntimeException("This hole should be found");
     }
 
@@ -468,31 +470,8 @@ public class HoleStatFragment extends Fragment {
     }
 
     private void sendSession() {
-        aggregateSession();
-        RequestDTO w = new RequestDTO(RequestDTO.ADD_PRACTICE_SESSION);
-        w.setPracticeSession(practiceSession);
-        w.setZipResponse(false);
-
-        if (WebCheck.checkNetworkAvailability(getActivity()).isNetworkUnavailable()) {
-            return;
-        }
-        OKUtil util = new OKUtil();
-        try {
-            util.sendPOSTRequest(getActivity(), w, getActivity(), new OKUtil.OKListener() {
-                @Override
-                public void onResponse(final ResponseDTO response) {
-                    MonLog.w(getActivity(), LOG, "PracticeSession updated on SERVER");
-                }
-
-                @Override
-                public void onError(String message) {
-                    Util.showErrorToast(getActivity(), message);
-
-                }
-            });
-        } catch (OKHttpException e) {
-            e.printStackTrace();
-        }
+        Intent m = new Intent(getContext(),PracticeUploadService.class);
+        getContext().startService(m);
 
     }
 
@@ -566,9 +545,9 @@ public class HoleStatFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MonApp app = (MonApp)getActivity().getApplication();
-        RefWatcher refWatcher = app.getRefWatcher();
-        refWatcher.watch(this);
+//        MonApp app = (MonApp)getActivity().getApplication();
+//        RefWatcher refWatcher = app.getRefWatcher();
+//        refWatcher.watch(this);
     }
 
     private class PracticeBroadcastReceiver extends BroadcastReceiver {
@@ -576,8 +555,8 @@ public class HoleStatFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             MonLog.e(getActivity(), LOG, "$$$$$$$$$$$$ PracticeBroadcastReceiver onReceive");
-            PracticeSessionDTO m = (PracticeSessionDTO) intent.getSerializableExtra("session");
-            practiceSession.setPracticeSessionID(m.getPracticeSessionID());
+            practiceSession = (PracticeSessionDTO) intent.getSerializableExtra("session");
+
         }
     }
 
@@ -590,61 +569,5 @@ public class HoleStatFragment extends Fragment {
         void onGreenClubSelectionRequired();
     }
 
-    public interface SwipeListener {
-        void onForwardSwipe();
 
-        void onBackwardSwipe();
-    }
-
-    private GestureDetectorCompat gDetect;
-
-    public class GestureListener extends GestureDetector.SimpleOnGestureListener {
-        private float flingMin = 100;
-        private float velocityMin = 100;
-        private SwipeListener listener;
-
-        public GestureListener(SwipeListener listener) {
-            this.listener = listener;
-        }
-
-        @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2,
-                               float velocityX, float velocityY) {
-            boolean forward = false;
-            boolean backward = false;
-            //calculate the change in X position within the fling gesture
-            float horizontalDiff = event2.getX() - event1.getX();
-            float verticalDiff = event2.getY() - event1.getY();
-
-            float absHDiff = Math.abs(horizontalDiff);
-            float absVDiff = Math.abs(verticalDiff);
-            float absVelocityX = Math.abs(velocityX);
-            float absVelocityY = Math.abs(velocityY);
-
-            if (absHDiff > absVDiff && absHDiff > flingMin && absVelocityX > velocityMin) {
-                if (horizontalDiff > 0)
-                    backward = true;
-                else
-                    forward = true;
-            } else if (absVDiff > flingMin && absVelocityY > velocityMin) {
-                if (verticalDiff > 0)
-                    backward = true;
-                else
-                    forward = true;
-            }
-            if (forward) {
-                listener.onForwardSwipe();
-            } else if (backward) {
-                listener.onBackwardSwipe();
-            }
-
-            return true;
-        }
-
-        @Override
-        public boolean onDown(MotionEvent event) {
-            return true;
-        }
-
-    }
 }

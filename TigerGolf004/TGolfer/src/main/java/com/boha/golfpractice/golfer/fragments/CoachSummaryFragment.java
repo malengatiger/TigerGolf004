@@ -27,7 +27,6 @@ import com.boha.golfpractice.golfer.util.OKUtil;
 import com.boha.golfpractice.golfer.util.SharedUtil;
 import com.boha.golfpractice.golfer.util.SnappyGeneral;
 import com.boha.golfpractice.golfer.util.Util;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,8 +200,8 @@ public class CoachSummaryFragment extends Fragment implements PageFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MonApp app = (MonApp) getActivity().getApplication();
-        RefWatcher refWatcher = app.getRefWatcher();
-        refWatcher.watch(this);
+//        MonApp app = (MonApp) getActivity().getApplication();
+//        RefWatcher refWatcher = app.getRefWatcher();
+//        refWatcher.watch(this);
     }
 }

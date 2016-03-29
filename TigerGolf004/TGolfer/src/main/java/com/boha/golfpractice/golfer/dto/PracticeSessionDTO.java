@@ -29,6 +29,15 @@ public class PracticeSessionDTO implements Serializable {
     private Integer playerID, coachID;
     private Integer golfCourseID, totalMistakes;
     private GolfCourseDTO golfCourse;
+    private Boolean needsUpload = false;
+
+    public Boolean getNeedsUpload() {
+        return needsUpload;
+    }
+
+    public void setNeedsUpload(Boolean needsUpload) {
+        this.needsUpload = needsUpload;
+    }
 
     public PracticeSessionDTO() {
     }

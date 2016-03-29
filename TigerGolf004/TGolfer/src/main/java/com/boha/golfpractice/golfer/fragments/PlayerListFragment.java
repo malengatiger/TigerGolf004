@@ -142,12 +142,15 @@ public class PlayerListFragment extends Fragment implements PageFragment {
                         startActivity(m);
                         break;
                     case 1:
-                        mListener.onPlayerProfileUpdate(player);
+                        mListener.onVideoSession(player);
                         break;
                     case 2:
-                        Util.showToast(getContext(),"Under Construction");
+                        mListener.onPlayerProfileUpdate(player);
                         break;
                     case 3:
+                        Util.showToast(getContext(),"Under Construction");
+                        break;
+                    case 4:
                         Util.showToast(getContext(),"Under Construction");
                         break;
                 }

@@ -13,7 +13,6 @@ import com.boha.golfpractice.golfer.dto.ClubDTO;
 import com.boha.golfpractice.golfer.dto.PracticeSessionDTO;
 import com.boha.golfpractice.golfer.dto.ShotShapeDTO;
 import com.boha.golfpractice.golfer.fragments.HoleStatFragment;
-import com.boha.golfpractice.golfer.services.PracticeUploadService;
 import com.boha.golfpractice.golfer.util.MonLog;
 import com.boha.golfpractice.golfer.util.SnappyPractice;
 import com.boha.golfpractice.golfer.util.Util;
@@ -31,6 +30,7 @@ public class SessionControllerActivity extends AppCompatActivity implements Hole
         setContentView(R.layout.activity_hole_stat);
         practiceSession = (PracticeSessionDTO) getIntent().getSerializableExtra("session");
         addFragment();
+
 
         String subTitle = "Practice Session";
         Util.setCustomActionBar(getApplicationContext(),
@@ -54,8 +54,10 @@ public class SessionControllerActivity extends AppCompatActivity implements Hole
 
     @Override
     public void onHoleStatUpdated(PracticeSessionDTO session) {
+        session.setNeedsUpload(true);
         practiceSession = session;
         isUpdated = true;
+
         SnappyPractice.addCurrentPracticeSession((MonApp) getApplication(), session, new SnappyPractice.DBWriteListener() {
             @Override
             public void onDataWritten() {
@@ -109,10 +111,10 @@ public class SessionControllerActivity extends AppCompatActivity implements Hole
 
     @Override
     public void onBackPressed() {
-        if (isUpdated) {
-            Intent m = new Intent(getApplicationContext(), PracticeUploadService.class);
-            startService(m);
-        }
+//        if (isUpdated) {
+//            Intent m = new Intent(getApplicationContext(), PracticeUploadService.class);
+//            startService(m);
+//        }
         finish();
     }
 }

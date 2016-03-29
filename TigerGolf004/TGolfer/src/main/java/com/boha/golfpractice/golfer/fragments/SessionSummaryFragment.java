@@ -20,7 +20,6 @@ import com.boha.golfpractice.golfer.util.MonLog;
 import com.boha.golfpractice.golfer.util.OKHttpException;
 import com.boha.golfpractice.golfer.util.OKUtil;
 import com.boha.golfpractice.golfer.util.SnappyPractice;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -59,7 +58,7 @@ public class SessionSummaryFragment extends Fragment implements PageFragment {
     @Override
     public void onResume() {
         super.onResume();
-        MonLog.w(getActivity(), LOG, "########### onResume");
+        MonLog.w(getActivity(), LOG, "----------------------- onResume");
         switch (type) {
             case FROM_PLAYER:
                 practiceSessionList = player.getPracticeSessionList();
@@ -221,10 +220,11 @@ public class SessionSummaryFragment extends Fragment implements PageFragment {
 
     @Override
     public String getPageTitle() {
-        return "";
+        return "Session Summary";
     }
 
     private void getRemoteData() {
+        MonLog.d(getContext(),LOG,"getRemoteData ........................");
         RequestDTO w = new RequestDTO(RequestDTO.GET_SESSIONS_IN_PERIOD);
         w.setPlayerID(player.getPlayerID());
         w.setDays(seekBar.getProgress());
@@ -253,8 +253,8 @@ public class SessionSummaryFragment extends Fragment implements PageFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MonApp app = (MonApp) getActivity().getApplication();
-        RefWatcher refWatcher = app.getRefWatcher();
-        refWatcher.watch(this);
+//        MonApp app = (MonApp) getActivity().getApplication();
+//        RefWatcher refWatcher = app.getRefWatcher();
+//        refWatcher.watch(this);
     }
 }

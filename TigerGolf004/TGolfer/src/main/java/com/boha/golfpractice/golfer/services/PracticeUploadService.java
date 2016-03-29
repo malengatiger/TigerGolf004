@@ -14,6 +14,7 @@ import com.boha.golfpractice.golfer.dto.ResponseDTO;
 import com.boha.golfpractice.golfer.util.MonLog;
 import com.boha.golfpractice.golfer.util.OKUtil;
 import com.boha.golfpractice.golfer.util.SnappyPractice;
+import com.boha.golfpractice.golfer.util.WebCheck;
 
 import java.util.List;
 
@@ -35,12 +36,24 @@ public class PracticeUploadService extends IntentService {
         MonLog.e(getApplicationContext(),LOG,"################ onHandleIntent");
         if (intent != null) {
 
+            if (WebCheck.checkNetworkAvailability(getApplicationContext()).isNetworkUnavailable()) {
+                MonLog.w(getApplicationContext(),LOG,"################ isNetworkUnavailable = true");
+                return;
+            }
             SnappyPractice.getCurrentPracticeSession(
                     (MonApp) getApplication(),
                     new SnappyPractice.DBReadListener() {
                 @Override
                 public void onDataRead(ResponseDTO response) {
-                    sendPracticeSession(response.getPracticeSessionList().get(0));
+                    if (!response.getPracticeSessionList().isEmpty()) {
+                        PracticeSessionDTO s = response.getPracticeSessionList().get(0);
+                        if (s.getNeedsUpload()) {
+                            sendPracticeSession(s);
+                        } else {
+                            MonLog.d(getApplicationContext(),LOG,"################ nothing to upload, quittin");
+                        }
+                    }
+
                 }
 
                 @Override
@@ -76,7 +89,7 @@ public class PracticeUploadService extends IntentService {
         session.setGolfCourse(null);
         RequestDTO req = new RequestDTO(RequestDTO.ADD_PRACTICE_SESSION);
         req.setPracticeSession(session);
-        req.setZipResponse(false);
+        req.setZipResponse(true);
         new DTask().execute(req);
 
     }
@@ -150,9 +163,22 @@ public class PracticeUploadService extends IntentService {
             ResponseDTO resp = null;
             try {
                 OKUtil util = new OKUtil();
-                resp = util.sendSynchronousGET(getApplicationContext(),req);
+                resp = util.sendSynchronousPOST(getApplicationContext(),req);
                 if (resp.getStatusCode() == 0) {
                     Log.w(LOG,"......Practice Session sent to server: OK");
+                    PracticeSessionDTO s = resp.getPracticeSessionList().get(0);
+                    s.setNeedsUpload(false);
+                    SnappyPractice.addCurrentPracticeSession((MonApp) getApplication(), s, new SnappyPractice.DBWriteListener() {
+                        @Override
+                        public void onDataWritten() {
+
+                        }
+
+                        @Override
+                        public void onError(String message) {
+
+                        }
+                    });
                 }
             } catch (Exception e) {
                 Log.e(LOG,"Failed to do PracticeSession",e);
@@ -167,10 +193,22 @@ public class PracticeUploadService extends IntentService {
             if (resp.getStatusCode() == 0) {
                 MonLog.w(getApplicationContext(),LOG,
                         "Yebo! PracticeSession saved on server, broadcasting success");
+                final PracticeSessionDTO ps = resp.getPracticeSessionList().get(0);
+                ps.setNeedsUpload(false);
+                SnappyPractice.addCurrentPracticeSession((MonApp) getApplication(), ps, new SnappyPractice.DBWriteListener() {
+                    @Override
+                    public void onDataWritten() {
+                        Intent m = new Intent(BROADCAST_PUS);
+                        m.putExtra("session",ps);
+                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(m);
+                    }
 
-                Intent m = new Intent(BROADCAST_PUS);
-                m.putExtra("session",resp.getPracticeSessionList().get(0));
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(m);
+                    @Override
+                    public void onError(String message) {
+
+                    }
+                });
+
 
 
             }

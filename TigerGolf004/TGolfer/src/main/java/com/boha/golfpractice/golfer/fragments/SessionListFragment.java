@@ -22,7 +22,6 @@ import com.boha.golfpractice.golfer.util.OKHttpException;
 import com.boha.golfpractice.golfer.util.OKUtil;
 import com.boha.golfpractice.golfer.util.SnappyPractice;
 import com.boha.golfpractice.golfer.util.Util;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.List;
 
@@ -186,9 +185,9 @@ public class SessionListFragment extends Fragment implements PageFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MonApp app = (MonApp)getActivity().getApplication();
-        RefWatcher refWatcher = app.getRefWatcher();
-        refWatcher.watch(this);
+//        MonApp app = (MonApp)getActivity().getApplication();
+//        RefWatcher refWatcher = app.getRefWatcher();
+//        refWatcher.watch(this);
     }
     public interface SessionListListener {
         void onSessionClicked(PracticeSessionDTO session);

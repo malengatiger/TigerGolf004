@@ -1,31 +1,37 @@
 package com.boha.golfpractice.golfer.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boha.golfpractice.golfer.R;
+import com.boha.golfpractice.golfer.dto.GolfCourseDTO;
+import com.boha.golfpractice.golfer.dto.HoleDTO;
+import com.boha.golfpractice.golfer.dto.HoleStatDTO;
 import com.boha.golfpractice.golfer.dto.PracticeSessionDTO;
 import com.boha.golfpractice.golfer.dto.RequestDTO;
 import com.boha.golfpractice.golfer.dto.ResponseDTO;
+import com.boha.golfpractice.golfer.fragments.GolfCourseListFragment;
 import com.boha.golfpractice.golfer.fragments.PageFragment;
 import com.boha.golfpractice.golfer.fragments.SessionListFragment;
 import com.boha.golfpractice.golfer.fragments.SessionSummaryFragment;
@@ -35,17 +41,31 @@ import com.boha.golfpractice.golfer.util.OKHttpException;
 import com.boha.golfpractice.golfer.util.OKUtil;
 import com.boha.golfpractice.golfer.util.SharedUtil;
 import com.boha.golfpractice.golfer.util.SnappyGeneral;
+import com.boha.golfpractice.golfer.util.SnappyGolfCourse;
 import com.boha.golfpractice.golfer.util.SnappyPractice;
 import com.boha.golfpractice.golfer.util.Util;
+import com.boha.golfpractice.golfer.util.WebCheck;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PlayerMainActivity extends AppCompatActivity implements SessionListFragment.SessionListListener {
+public class PlayerMainActivity extends AppCompatActivity
+        implements SessionListFragment.SessionListListener,
+        GolfCourseListFragment.GolfCourseListListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
+    GoogleApiClient mGoogleApiClient;
+    LocationRequest mLocationRequest;
+    Location mCurrentLocation;
     private CharSequence mTitle;
 
     DrawerLayout mDrawerLayout;
@@ -57,50 +77,44 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
     ViewPager mPager;
     StaffPagerAdapter adapter;
     int currentPageIndex;
+    ImageView hero;
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_main);
         ctx = getApplicationContext();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) mDrawerLayout.findViewById(R.id.nav_view);
 
-        circleImage = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.NAVHEADER_logo);
-        navImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.NAVHEADER_image);
-        navText = (TextView) navigationView.getHeaderView(0).findViewById(R.id.NAVHEADER_text);
-        if (navText != null) {
-            navText.setText(SharedUtil.getPlayer(ctx).getFirstName());
-        }
-        setMenuDestinations();
-        mDrawerLayout.openDrawer(GravityCompat.START);
-
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
         mPager = (ViewPager) findViewById(R.id.viewpager);
-        mPager.setOffscreenPageLimit(4);
-        PagerTitleStrip strip = (PagerTitleStrip) mPager.findViewById(R.id.pager_title_strip);
-        strip.setVisibility(View.VISIBLE);
-        //strip.setBackgroundColor(themeDarkColor);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //window.setStatusBarColor(themeDarkColor);
-            //window.setNavigationBarColor(themeDarkColor);
-        }
+        hero = (ImageView) findViewById(R.id.image);
+
         Util.setCustomActionBar(ctx, getSupportActionBar(), "TGolf", getString(R.string.record_prac),
                 ContextCompat.getDrawable(ctx, R.drawable.golfball48));
         snackbar = Snackbar.make(mPager, "Refreshing data from cloud server, hang on a second ...", Snackbar.LENGTH_INDEFINITE);
 
-        buildPages();
         getCachedPractices();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        hero.setImageDrawable(Util.getRandomBackgroundImage(getApplicationContext()));
+    }
     static List<PageFragment> pageFragmentList;
     SessionListFragment sessionListFragment;
     SessionSummaryFragment sessionSummaryFragment;
-    List<PracticeSessionDTO> practiceSessionList;
+    GolfCourseListFragment golfCourseListFragment;
+    List<PracticeSessionDTO> practiceSessionList = new ArrayList<>();
+    List<GolfCourseDTO> golfCourseList = new ArrayList<>();
 
     private void buildPages() {
-        MonLog.w(ctx,"PlayerMainActivity","########### buildPages");
+        MonLog.w(ctx,"PlayerMainActivity","########### ----------------buildPages");
         pageFragmentList = new ArrayList<>();
         sessionListFragment = SessionListFragment.newInstance(practiceSessionList);
         sessionListFragment.setApp((MonApp) getApplication());
@@ -110,8 +124,12 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
         sessionSummaryFragment.setPlayer(SharedUtil.getPlayer(ctx));
         sessionSummaryFragment.setType(SessionSummaryFragment.FROM_CACHE);
 
+        golfCourseListFragment = GolfCourseListFragment.newInstance(golfCourseList);
+        golfCourseListFragment.setListener(this);
+
         pageFragmentList.add(sessionListFragment);
         pageFragmentList.add(sessionSummaryFragment);
+        pageFragmentList.add(golfCourseListFragment);
 
         adapter = new StaffPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(adapter);
@@ -168,6 +186,71 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
     }
 
     static final int PRACTICE_SESSION_START = 123;
+    static final float ACCURACY_THRESHOLD = 50;
+
+    @Override
+    public void onLocationChanged(Location location) {
+        MonLog.d(getApplicationContext(), LOG, "------ onLocationChanged " + location.getLatitude()
+                + " " + location.getLongitude() + " " + location.getAccuracy());
+
+        if (location.getAccuracy() <= ACCURACY_THRESHOLD) {
+            mCurrentLocation = location;
+            stopLocationUpdates();
+            if (snackbar != null)
+                snackbar.dismiss();
+            if (directionsRequired) {
+                directionsRequired = false;
+                Util.startDirections(getApplicationContext(),
+                        mCurrentLocation.getLatitude(),
+                        mCurrentLocation.getLongitude(),
+                        golfCourse.getLatitude(),
+                        golfCourse.getLongitude());
+
+            } else {
+                getCourses();
+            }
+        }
+    }
+
+    private void getCourses() {
+        MonLog.w(getApplicationContext(), LOG, "============== getCourses .............");
+        RequestDTO w = new RequestDTO(RequestDTO.GET_GOLF_COURSES_BY_LOCATION);
+        w.setLatitude(mCurrentLocation.getLatitude());
+        w.setLongitude(mCurrentLocation.getLongitude());
+        w.setRadius(50);
+        w.setZipResponse(true);
+        setRefreshActionButtonState(true);
+        snackbar.show();
+        OKUtil okUtil = new OKUtil();
+        try {
+            okUtil.sendGETRequest(getApplicationContext(), w, this, new OKUtil.OKListener() {
+                @Override
+                public void onResponse(ResponseDTO response) {
+                    setRefreshActionButtonState(false);
+                    snackbar.dismiss();
+                    MonLog.i(getApplicationContext(), LOG, "Golf Courses found: " + response.getGolfCourseList().size());
+                    golfCourseList = response.getGolfCourseList();
+                    buildPages();
+                    SnappyGolfCourse.addFavoriteGolfCourses((MonApp) getApplication(), golfCourseList, null);
+                }
+
+                @Override
+                public void onError(String message) {
+                    setRefreshActionButtonState(false);
+                    snackbar.dismiss();
+                    if (golfCourseList == null || golfCourseList.isEmpty()) {
+                        Util.showErrorToast(getApplicationContext(), "No golf courses found. There may be a problem with the server");
+                    }
+                }
+            });
+        } catch (OKHttpException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 
     @Override
     public void onSessionClicked(PracticeSessionDTO session) {
@@ -187,11 +270,12 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
 
     @Override
     public void onNewSessionRequested() {
-        Intent m = new Intent(ctx, GolfCourseListActivity.class);
-        startActivityForResult(m, NEW_SESSION_REQUESTED);
+//        Intent m = new Intent(ctx, GolfCourseListActivity.class);
+//        startActivityForResult(m, NEW_SESSION_REQUESTED);
+        mPager.setCurrentItem(2);
+        Util.showToast(getApplicationContext(),"Select the Golf Course action to start the process");
     }
 
-    PracticeSessionDTO practiceSession;
 
     @Override
     public void onActivityResult(int reqCode, int resCode, Intent data) {
@@ -202,6 +286,118 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
                     sessionListFragment.addPracticeSession(practiceSession);
                 }
         }
+    }
+
+    @Override
+    public void onGolfCourseClicked(GolfCourseDTO course) {
+        MonLog.d(getApplicationContext(), LOG, "####### onGolfCourseClicked");
+    }
+
+    @Override
+    public void onCourseSearchRequired() {
+        startLocationUpdates();
+    }
+
+    PracticeSessionDTO practiceSession;
+
+    @Override
+    public void onStartSession(GolfCourseDTO c) {
+        MonLog.d(getApplicationContext(), LOG, "++++++ onStartSession: "
+                + c.getGolfCourseName());
+        practiceSession = new PracticeSessionDTO();
+        practiceSession.setGolfCourseID(c.getGolfCourseID());
+        practiceSession.setGolfCourseName(c.getGolfCourseName());
+        practiceSession.setGolfCourse(c);
+        practiceSession.setPlayerID(SharedUtil.getPlayer(getApplicationContext()).getPlayerID());
+        practiceSession.setSessionDate(new Date().getTime());
+        for (HoleDTO hole : c.getHoleList()) {
+            HoleStatDTO m = new HoleStatDTO();
+            m.setHole(hole);
+            practiceSession.getHoleStatList().add(m);
+        }
+        sendPracticeSession(practiceSession);
+    }
+    private void sendPracticeSession(PracticeSessionDTO s) {
+
+        snackbar = Snackbar.make(mPager, "Sending data for Practice Session, hang on a sec", Snackbar.LENGTH_INDEFINITE);
+
+        RequestDTO w = new RequestDTO(RequestDTO.ADD_PRACTICE_SESSION);
+        w.setPracticeSession(s);
+        w.setZipResponse(false);
+
+        if (WebCheck.checkNetworkAvailability(getApplicationContext()).isNetworkUnavailable()) {
+            cacheSession(practiceSession);
+            startHoleStat();
+            return;
+        }
+        snackbar.show();
+        setRefreshActionButtonState(true);
+        OKUtil util = new OKUtil();
+        setRefreshActionButtonState(true);
+        try {
+            util.sendPOSTRequest(this, w, this, new OKUtil.OKListener() {
+                @Override
+                public void onResponse(final ResponseDTO response) {
+                    setRefreshActionButtonState(false);
+                    snackbar.dismiss();
+                    practiceSession = response.getPracticeSessionList().get(0);
+                    cacheSession(practiceSession);
+                    startHoleStat();
+                }
+
+                @Override
+                public void onError(String message) {
+                    setRefreshActionButtonState(false);
+                    snackbar.dismiss();
+                    cacheSession(practiceSession);
+                    startHoleStat();
+
+                }
+            });
+        } catch (OKHttpException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static final int EDIT_HOLE_STATS_REQUIRED = 1765;
+
+    private void startHoleStat() {
+        Intent m = new Intent(getApplicationContext(), SessionControllerActivity.class);
+        m.putExtra("session", practiceSession);
+        startActivityForResult(m, EDIT_HOLE_STATS_REQUIRED);
+    }
+
+    private void cacheSession(PracticeSessionDTO practiceSession) {
+        this.practiceSession = practiceSession;
+        SnappyPractice.addCurrentPracticeSession((MonApp) getApplication(),
+                practiceSession, new SnappyPractice.DBWriteListener() {
+                    @Override
+                    public void onDataWritten() {
+                        onBackPressed();
+                    }
+
+                    @Override
+                    public void onError(String message) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onGetSessions(GolfCourseDTO course) {
+        Util.showToast(getApplicationContext(), "Under Construction");
+    }
+
+    boolean directionsRequired;
+    GolfCourseDTO golfCourse;
+
+    @Override
+    public void onGetDirections(GolfCourseDTO course) {
+        directionsRequired = true;
+        golfCourse = course;
+        snackbar = Snackbar.make(mPager, "Confirming device location before starting directions", Snackbar.LENGTH_INDEFINITE);
+        snackbar.show();
+        startLocationUpdates();
     }
 
     private static class StaffPagerAdapter extends FragmentStatePagerAdapter {
@@ -262,14 +458,16 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
         SnappyPractice.getPracticeSessions((MonApp) getApplication(), new SnappyPractice.DBReadListener() {
             @Override
             public void onDataRead(ResponseDTO response) {
-                if (response.getPracticeSessionList().isEmpty()) {
-                    getPracticeSessions();
-                } else {
+
+                if (!response.getPracticeSessionList().isEmpty()) {
                     practiceSessionList = response.getPracticeSessionList();
                     snackbar.dismiss();
+                    Log.e(LOG,"SnappyPractice.getPracticeSessions onDataRead ........starting buildPages.");
                     buildPages();
                 }
-                //getPracticeSessions();
+
+                getCachedCourses();
+                getPracticeSessions();
             }
 
             @Override
@@ -279,6 +477,21 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
         });
     }
 
+
+    private void getCachedCourses() {
+        SnappyGolfCourse.getGolfCourses((MonApp) getApplication(), new SnappyGolfCourse.DBReadListener() {
+            @Override
+            public void onDataRead(ResponseDTO response) {
+                golfCourseList = response.getGolfCourseList();
+                buildPages();
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+    }
     private void getPracticeSessions() {
 
         RequestDTO w = new RequestDTO(RequestDTO.GET_PLAYER_DATA);
@@ -340,4 +553,87 @@ public class PlayerMainActivity extends AppCompatActivity implements SessionList
                 "---------- onBackPressed");
 
     }
+    public void onStart() {
+        MonLog.d(getApplicationContext(), LOG,
+                "##******************* onStart - GoogleApiClient connecting ... ");
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.disconnect();
+            MonLog.e(getApplicationContext(), LOG, "### onStop - locationClient disconnecting ");
+        }
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        MonLog.e(getApplicationContext(), LOG,
+                "+++  GoogleApiClient onConnected() ...");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.e(LOG, "Manifest.permission.ACCESS_FINE_LOCATION, is a problemo, returning ...");
+            return;
+        }
+        mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setInterval(2000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setFastestInterval(1000);
+
+        startLocationUpdates();
+    }
+
+    protected void startLocationUpdates() {
+        snackbar = Snackbar.make(mPager, "Getting GPS location so we can find golf courses around you", Snackbar.LENGTH_INDEFINITE);
+        MonLog.d(getApplicationContext(), LOG, "### startLocationUpdates ....");
+        if (mGoogleApiClient.isConnected()) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+
+
+            MonLog.d(getApplicationContext(), LOG, "## GoogleApiClient connected, requesting location updates ...");
+        } else {
+            MonLog.e(getApplicationContext(), LOG, "------- GoogleApiClient is NOT connected, not sure where we are...");
+            mGoogleApiClient.connect();
+
+        }
+    }
+
+
+    protected void stopLocationUpdates() {
+
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(
+                    mGoogleApiClient, this);
+            MonLog.w(getApplicationContext(), LOG, "### stopLocationUpdates ...removeLocationUpdates fired");
+        } else {
+            MonLog.e(getApplicationContext(), LOG, "##################### stopLocationUpdates googleApiClient is NULL ...");
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+    static final String LOG = PlayerMainActivity.class.getSimpleName();
 }

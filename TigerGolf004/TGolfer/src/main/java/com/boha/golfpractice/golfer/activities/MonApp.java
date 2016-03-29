@@ -11,16 +11,16 @@ import android.util.Log;
 
 import com.boha.golfpractice.golfer.dto.CoachDTO;
 import com.boha.golfpractice.golfer.dto.PlayerDTO;
+import com.boha.golfpractice.golfer.services.PracticeSessionGcmService;
 import com.boha.golfpractice.golfer.util.SharedUtil;
 import com.boha.golfpractice.golfer.util.Statics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.gcm.GcmNetworkManager;
+import com.google.android.gms.gcm.PeriodicTask;
 import com.snappydb.DB;
 import com.snappydb.DBFactory;
 import com.snappydb.SnappydbException;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
@@ -63,18 +63,18 @@ import java.util.HashMap;
 public class MonApp extends Application implements Application.ActivityLifecycleCallbacks {
     static final String PROPERTY_ID = "UA-53661372-2";
     HashMap<TrackerName, Tracker> mTrackers = new HashMap<>();
-    private AlarmManager alarmMgr1, alarmMgr2, alarmMgr3,alarmMgr4, alarmMgr5;
-    private PendingIntent alarmIntent1,alarmIntent2, alarmIntent3,alarmIntent4, alarmIntent5;
+    private AlarmManager alarmMgr1, alarmMgr2, alarmMgr3, alarmMgr4, alarmMgr5;
+    private PendingIntent alarmIntent1, alarmIntent2, alarmIntent3, alarmIntent4, alarmIntent5;
     private boolean messageActivityVisible;
     static final String LOG = MonApp.class.getSimpleName();
     private GcmNetworkManager mGcmNetworkManager;
     public static Picasso picasso;
     public DB snappyDB;
-    private RefWatcher refWatcher;
-
-    public RefWatcher getRefWatcher() {
-        return refWatcher;
-    }
+//    private RefWatcher refWatcher;
+//
+//    public RefWatcher getRefWatcher() {
+//        return refWatcher;
+//    }
 
     public DB getSnappyDB() {
         try {
@@ -108,7 +108,7 @@ public class MonApp extends Application implements Application.ActivityLifecycle
                 t = analytics.newTracker(PROPERTY_ID);
             }
             if (trackerId == TrackerName.GLOBAL_TRACKER) {
-               // t = analytics.newTracker(R.xml.global_tracker);
+                // t = analytics.newTracker(R.xml.global_tracker);
             }
             mTrackers.put(trackerId, t);
         }
@@ -120,7 +120,7 @@ public class MonApp extends Application implements Application.ActivityLifecycle
     public void onCreate() {
         //MultiDex.install(getApplicationContext());
         super.onCreate();
-        refWatcher = LeakCanary.install(this);
+//        refWatcher = LeakCanary.install(this);
         StringBuilder sb = new StringBuilder();
         sb.append("\n\n\n#######################################\n");
         sb.append("###################################################\n");
@@ -150,7 +150,7 @@ public class MonApp extends Application implements Application.ActivityLifecycle
         //SnappyDB
         try {
             snappyDB = DBFactory.open(getApplicationContext());
-            Log.w(LOG,"################ SnappyDB has been opened");
+            Log.w(LOG, "################ SnappyDB has been opened");
         } catch (SnappydbException e) {
             e.printStackTrace();
         }
@@ -179,83 +179,31 @@ public class MonApp extends Application implements Application.ActivityLifecycle
             Log.d(LOG, "###### ACRA Crash Reporting has NOT been initiated, in DEBUG mode");
         }
 
-//        startLocationTask();
-//        startDataTask();
-//        startPhotoTask();
-//        startYouTubeTask();
-//        startRequestsTask();
+        startPracticeSessionTask();
 
     }
 
     static final int MINUTE_IN_SECONDS = 60,
             HALF_HOUR_IN_SECONDS = 60 * 30,
+            FIFTEEN_MINUTES_IN_SECONDS = MINUTE_IN_SECONDS * 15,
             HOUR_IN_SECONDS = 60 * 60,
             TWO_HOURS_IN_SECONDS = HOUR_IN_SECONDS * 2,
             FIVE_MINUTE_IN_SECONDS = 60 * 5;
-    public static final String LOCATION_TAG = "TrackerServiceTask",
-        REQUESTS_TAG = "requestsTag",
-        DATA_TAG = "DataRefresh", PHOTO_TAG = "PhotoUpload", YOUTUBE_TAG = "YouTubeUpload" ;
+    public static final String
+            PRACTICE_SESSION_TAG = "practiceTag", YOUTUBE_TAG = "YouTubeUpload";
 
-//    private void startRequestsTask() {
-//        PeriodicTask task = new PeriodicTask.Builder()
-//                .setService(RequestsTaskService.class)
-//                .setPeriod(HALF_HOUR_IN_SECONDS)
-//                .setPersisted(true)
-//                .setTag(REQUESTS_TAG)
-//                .setRequiredNetwork(PeriodicTask.NETWORK_STATE_CONNECTED)
-//                .build();
-//
-//        mGcmNetworkManager.schedule(task);
-//        Log.i(LOG, "###### mGcmNetworkManager task for REQUESTS upload scheduled: " );
-//    }
-//    private void startPhotoTask() {
-//        PeriodicTask task = new PeriodicTask.Builder()
-//                .setService(PhotoTaskService.class)
-//                .setPeriod(HALF_HOUR_IN_SECONDS)
-//                .setPersisted(true)
-//                .setTag(PHOTO_TAG)
-//                .setRequiredNetwork(PeriodicTask.NETWORK_STATE_UNMETERED)
-//                .build();
-//
-//        mGcmNetworkManager.schedule(task);
-//        Log.i(LOG, "###### mGcmNetworkManager task for PHOTO upload scheduled: " );
-//    }
-//    private void startYouTubeTask() {
-//        PeriodicTask task = new PeriodicTask.Builder()
-//                .setService(YouTubeTaskService.class)
-//                .setPeriod(HALF_HOUR_IN_SECONDS)
-//                .setPersisted(true)
-//                .setTag(YOUTUBE_TAG)
-//                .setRequiredNetwork(PeriodicTask.NETWORK_STATE_UNMETERED)
-//                .build();
-//
-//        mGcmNetworkManager.schedule(task);
-//        Log.i(LOG, "###### mGcmNetworkManager task for YouTUBE scheduled: " );
-//    }
-//    private void startLocationTask() {
-//        PeriodicTask task = new PeriodicTask.Builder()
-//                .setService(TrackerService.class)
-//                .setPeriod(HALF_HOUR_IN_SECONDS)
-//                .setPersisted(true)
-//                .setTag(LOCATION_TAG)
-//                .setRequiredNetwork(PeriodicTask.NETWORK_STATE_CONNECTED)
-//                .build();
-//
-//        mGcmNetworkManager.schedule(task);
-//        Log.i(LOG, "###### mGcmNetworkManager task for LOCATION scheduled: " );
-//    }
-//    private void startDataTask() {
-//        PeriodicTask task = new PeriodicTask.Builder()
-//                .setService(DataTaskService.class)
-//                .setPeriod(TWO_HOURS_IN_SECONDS)
-//                .setPersisted(true)
-//                .setTag(DATA_TAG)
-//                .setRequiredNetwork(PeriodicTask.NETWORK_STATE_UNMETERED)
-//                .build();
-//
-//        mGcmNetworkManager.schedule(task);
-//        Log.i(LOG, "###### mGcmNetworkManager task for DATA scheduled: " );
-//    }
+    private void startPracticeSessionTask() {
+        PeriodicTask task = new PeriodicTask.Builder()
+                .setService(PracticeSessionGcmService.class)
+                .setPeriod(FIFTEEN_MINUTES_IN_SECONDS)
+                .setPersisted(true)
+                .setTag(PRACTICE_SESSION_TAG)
+                .setRequiredNetwork(PeriodicTask.NETWORK_STATE_CONNECTED)
+                .build();
+
+        mGcmNetworkManager.schedule(task);
+        Log.i(LOG, "###### mGcmNetworkManager task for PRACTICE SESSION upload scheduled: ");
+    }
 
     static final int
             ONE_MINUTE = 60 * 1000,
@@ -267,7 +215,6 @@ public class MonApp extends Application implements Application.ActivityLifecycle
             THREE_HOURS = HOUR * 3;
 
 
-
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
@@ -275,8 +222,8 @@ public class MonApp extends Application implements Application.ActivityLifecycle
 
     @Override
     public void onActivityStarted(Activity activity) {
-            Log.d(LOG, "$$$$ onActivityStarted: " + activity.getPackageName()
-             + " " + activity.getComponentName());
+        Log.d(LOG, "$$$$ onActivityStarted: " + activity.getPackageName()
+                + " " + activity.getComponentName());
 
     }
 
@@ -304,7 +251,6 @@ public class MonApp extends Application implements Application.ActivityLifecycle
     public void onActivityDestroyed(Activity activity) {
 
     }
-
 
 
     public final static int THEME_BLUE = 20;
