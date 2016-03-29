@@ -54,6 +54,7 @@ public class SessionListFragment extends Fragment implements PageFragment {
             ResponseDTO w = (ResponseDTO) getArguments().getSerializable("response");
             practiceSessionList = w.getPracticeSessionList();
         }
+        app = (MonApp) getActivity().getApplication();
     }
 
     @Override
@@ -70,6 +71,7 @@ public class SessionListFragment extends Fragment implements PageFragment {
         MonLog.d(getActivity(), LOG, "+++++++++++++ onResume ++++");
         setList();
     }
+
 
     private void setList() {
 
@@ -109,18 +111,21 @@ public class SessionListFragment extends Fragment implements PageFragment {
     }
 
     public void setPracticeSessionList(List<PracticeSessionDTO> practiceSessionList) {
-        this.practiceSessionList = practiceSessionList;
         MonLog.d(getActivity(), LOG, "+++++++++++++ setPracticeSessionList ++++");
+        this.practiceSessionList = practiceSessionList;
+
         if (mRecyclerView != null) {
             setList();
         }
+
     }
 
     public void addPracticeSession(PracticeSessionDTO s) {
         if (practiceSessionList != null) {
             practiceSessionList.add(0, s);
-            if (adapter != null)
-                adapter.notifyDataSetChanged();
+            if (mRecyclerView != null) {
+                setList();
+            }
         }
     }
 
@@ -144,7 +149,7 @@ public class SessionListFragment extends Fragment implements PageFragment {
 
                         @Override
                         public void onError(String message) {
-                            Util.showErrorToast(getActivity(),message);
+                            Util.showErrorToast(getActivity(), message);
                         }
                     });
                 }
@@ -158,6 +163,7 @@ public class SessionListFragment extends Fragment implements PageFragment {
             e.printStackTrace();
         }
     }
+
     SessionListListener mListener;
     String pageTitle = "Practice Sessions";
 
@@ -182,6 +188,7 @@ public class SessionListFragment extends Fragment implements PageFragment {
         super.onDetach();
         mListener = null;
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -189,6 +196,7 @@ public class SessionListFragment extends Fragment implements PageFragment {
 //        RefWatcher refWatcher = app.getRefWatcher();
 //        refWatcher.watch(this);
     }
+
     public interface SessionListListener {
         void onSessionClicked(PracticeSessionDTO session);
 

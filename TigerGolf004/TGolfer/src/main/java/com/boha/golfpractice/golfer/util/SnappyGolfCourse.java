@@ -6,10 +6,12 @@ import android.util.Log;
 import com.boha.golfpractice.golfer.activities.MonApp;
 import com.boha.golfpractice.golfer.dto.GolfCourseDTO;
 import com.boha.golfpractice.golfer.dto.ResponseDTO;
+import com.google.gson.Gson;
 import com.snappydb.DB;
 import com.snappydb.SnappydbException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -89,7 +91,8 @@ public class SnappyGolfCourse {
                 case ADD_COURSES:
                     for (GolfCourseDTO gc : golfCourseList) {
                         try {
-                            snappydb.put(GOLF_COURSE + gc.getGolfCourseID(), gc);
+                            String json = gson.toJson(gc);
+                            snappydb.put(GOLF_COURSE + gc.getGolfCourseID(), json);
                         } catch (SnappydbException e) {
                             Log.e(LOG, "Failed golf course write", e);
                             isError = true;
@@ -99,9 +102,22 @@ public class SnappyGolfCourse {
                     MonLog.d(app.getApplicationContext(),LOG,"GolfCourses added to cache: " + golfCourseList.size());
                     break;
                 case ADD_FAVOURITE_COURSES:
+                    try {
+                        String[] keys = snappydb.findKeys(FAVOURITE_GOLF_COURSE);
+                        for (String key: keys) {
+                            snappydb.del(key);
+                        }
+                        snappydb.close();
+                        getDatabase(app);
+                        MonLog.d(app.getApplicationContext(),LOG,"last FAVOURITE_GOLF_COURSE removed from cache: " + keys.length);
+                    } catch (SnappydbException e) {
+                        e.printStackTrace();
+                    }
+
                     for (GolfCourseDTO gc : golfCourseList) {
                         try {
-                            snappydb.put(FAVOURITE_GOLF_COURSE + gc.getGolfCourseID(), gc);
+                            String json = gson.toJson(gc);
+                            snappydb.put(FAVOURITE_GOLF_COURSE + gc.getGolfCourseID(), json);
                         } catch (SnappydbException e) {
                             Log.e(LOG, "Failed golf course write", e);
                             isError = true;
@@ -113,10 +129,10 @@ public class SnappyGolfCourse {
                 case GET_COURSE_LIST:
                     try {
                         golfCourseList = new ArrayList<>();
-                        String[] keys = snappydb.findKeys(GOLF_COURSE);
-                        for (String key : keys) {
-                            GolfCourseDTO gc = snappydb.getObject(key, GolfCourseDTO.class);
-                            golfCourseList.add(gc);
+                        String[] keys2 = snappydb.findKeys(GOLF_COURSE);
+                        for (String key : keys2) {
+                            String json = snappydb.get(key);
+                            golfCourseList.add(gson.fromJson(json,GolfCourseDTO.class));
                         }
                     } catch (SnappydbException e) {
                         Log.e(LOG, "Failed to get golf course list", e);
@@ -128,10 +144,10 @@ public class SnappyGolfCourse {
                 case GET_FAVOURITE_COURSES:
                     try {
                         golfCourseList = new ArrayList<>();
-                        String[] keys = snappydb.findKeys(FAVOURITE_GOLF_COURSE);
-                        for (String key : keys) {
-                            GolfCourseDTO gc = snappydb.getObject(key, GolfCourseDTO.class);
-                            golfCourseList.add(gc);
+                        String[] keys3 = snappydb.findKeys(FAVOURITE_GOLF_COURSE);
+                        for (String key : keys3) {
+                            String json = snappydb.get(key);
+                            golfCourseList.add(gson.fromJson(json,GolfCourseDTO.class));
                         }
                     } catch (SnappydbException e) {
                         Log.e(LOG, "Failed to get golf course list", e);
@@ -149,9 +165,6 @@ public class SnappyGolfCourse {
 
         @Override
         protected void onPostExecute(List<GolfCourseDTO> list) {
-//            if (list != null) {
-//                Collections.sort(list);
-//            }
             switch (type) {
                 case ADD_COURSES:
                     if (dbWriteListener != null) {
@@ -191,6 +204,7 @@ public class SnappyGolfCourse {
                         } else {
                             ResponseDTO w = new ResponseDTO();
                             w.setGolfCourseList(list);
+                            Collections.sort(w.getGolfCourseList());
                             dbReadListener.onDataRead(w);
                         }
 
@@ -226,4 +240,5 @@ public class SnappyGolfCourse {
             e.printStackTrace();
         }
     }
+    static Gson gson = new Gson();
 }

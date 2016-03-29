@@ -92,7 +92,6 @@ public class SessionSummaryFragment extends Fragment implements PageFragment {
 
     public void setApp(MonApp app) {
         this.app = app;
-        MonLog.d(getActivity(), LOG, "########### setApp");
 
     }
 
@@ -224,7 +223,7 @@ public class SessionSummaryFragment extends Fragment implements PageFragment {
     }
 
     private void getRemoteData() {
-        MonLog.d(getContext(),LOG,"getRemoteData ........................");
+        MonLog.d(getContext(),LOG,"....................getRemoteData .....GET_SESSIONS_IN_PERIOD...................");
         RequestDTO w = new RequestDTO(RequestDTO.GET_SESSIONS_IN_PERIOD);
         w.setPlayerID(player.getPlayerID());
         w.setDays(seekBar.getProgress());

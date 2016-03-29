@@ -133,6 +133,17 @@ public class GolfCourseDTO implements Serializable, Comparable<GolfCourseDTO> {
 
     @Override
     public int compareTo(GolfCourseDTO another) {
-        return this.getGolfCourseName().compareTo(another.golfCourseName);
+        if (distance == null) {
+            return this.getGolfCourseName().compareTo(another.golfCourseName);
+        }
+        if (distance < another.distance) {
+            return -1;
+        }
+        if (distance > another.distance) {
+            return 1;
+        }
+
+
+        return 0;
     }
 }

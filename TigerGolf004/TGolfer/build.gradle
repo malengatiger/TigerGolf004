@@ -67,5 +67,5 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.0'
     compile 'commons-io:commons-io:2.4'
     compile 'com.snappydb:snappydb-lib:0.4.0'
-    compile 'com.esotericsoftware.kryo:kryo:2.24.0'
+//    compile 'com.esotericsoftware.kryo:kryo:2.24.0'
 }

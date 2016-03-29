@@ -262,8 +262,10 @@ public class CoachMainActivity extends AppCompatActivity
         MonLog.d(getApplicationContext(), LOG, "####### onGolfCourseClicked");
     }
 
+    int radius = Util.GOLFCOURSE_SEARCH_RADIUS;
     @Override
-    public void onCourseSearchRequired() {
+    public void onCourseSearchRequired(int radius) {
+        this.radius = radius;
         startLocationUpdates();
     }
 
@@ -461,7 +463,7 @@ public class CoachMainActivity extends AppCompatActivity
         RequestDTO w = new RequestDTO(RequestDTO.GET_GOLF_COURSES_BY_LOCATION);
         w.setLatitude(mCurrentLocation.getLatitude());
         w.setLongitude(mCurrentLocation.getLongitude());
-        w.setRadius(50);
+        w.setRadius(radius);
         w.setZipResponse(true);
         setRefreshActionButtonState(true);
         snackbar.show();

@@ -346,15 +346,13 @@ public class OKUtil {
             OutputStream os = new FileOutputStream(file);
             IOUtils.copy(is, os);
             String json = ZipUtil.unpack(file, uFile);
-            Log.i(LOG, "### Data received size: " + getLength(file.length())
+            Log.d(LOG, "### packed Data received, size: " + getLength(file.length())
                     + " ==> unpacked: " + getLength(uFile.length()));
             serverResponse = gson.fromJson(json, ResponseDTO.class);
             try {
                 boolean OK1 = file.delete();
                 boolean OK2 = uFile.delete();
-                if (OK1 && OK2) {
-                    Log.e(LOG, "Temporary unpacking files deleted OK");
-                }
+
             } catch (Exception e) {
                 Log.e(LOG, "Temporary unpacking files NOT deleted. " + e.getMessage());
             }
@@ -386,5 +384,7 @@ public class OKUtil {
 
         return a.doubleValue() + " KB";
     }
+
+
 
 }

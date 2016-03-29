@@ -6,10 +6,12 @@ import android.util.Log;
 import com.boha.golfpractice.golfer.activities.MonApp;
 import com.boha.golfpractice.golfer.dto.PracticeSessionDTO;
 import com.boha.golfpractice.golfer.dto.ResponseDTO;
+import com.google.gson.Gson;
 import com.snappydb.DB;
 import com.snappydb.SnappydbException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -125,9 +127,10 @@ public class SnappyPractice {
 
             switch (type) {
                 case ADD_PRACTICES:
-                    for (PracticeSessionDTO gc : practiceSessionList) {
+                    for (PracticeSessionDTO ps : practiceSessionList) {
                         try {
-                            snappydb.put(GOLF_PRACTICE + gc.getPracticeSessionID(), gc);
+                            String json = gson.toJson(ps);
+                            snappydb.put(GOLF_PRACTICE + ps.getPracticeSessionID(), json);
                         } catch (SnappydbException e) {
                             Log.e(LOG, "Failed practiceSession write", e);
                             isError = true;
@@ -138,19 +141,21 @@ public class SnappyPractice {
                     break;
                 case ADD_CURRENT_PRACTICE:
                     try {
-                        snappydb.put(CURRENT_PRACTICE, practiceSession);
+                        String json = gson.toJson(practiceSession);
+                        snappydb.put(CURRENT_PRACTICE, json);
                     } catch (SnappydbException e) {
                         Log.e(LOG, "Failed practiceSession write", e);
                         isError = true;
                         break;
                     }
 
-                    MonLog.e(app.getApplicationContext(), LOG, "current practiceSession added to cache: " + practiceSession);
+                    MonLog.d(app.getApplicationContext(), LOG, "current practiceSession added to cache: " + practiceSession);
                     break;
                 case ADD_FAVOURITE_PRACTICES:
-                    for (PracticeSessionDTO gc : practiceSessionList) {
+                    for (PracticeSessionDTO ps : practiceSessionList) {
                         try {
-                            snappydb.put(FAVOURITE_GOLF_PRACTICE + gc.getPracticeSessionID(), gc);
+                            String json = gson.toJson(ps);
+                            snappydb.put(FAVOURITE_GOLF_PRACTICE + ps.getPracticeSessionID(), json);
                         } catch (SnappydbException e) {
                             Log.e(LOG, "Failed practiceSession write", e);
                             isError = true;
@@ -173,11 +178,11 @@ public class SnappyPractice {
                 case GET_CURRENT_PRACTICE:
                     try {
                         practiceSessionList = new ArrayList<>();
-                        PracticeSessionDTO x = snappydb.getObject(CURRENT_PRACTICE, PracticeSessionDTO.class);
-                        practiceSessionList.add(x);
+                        String json  = snappydb.get(CURRENT_PRACTICE);
+                        practiceSessionList.add(gson.fromJson(json,PracticeSessionDTO.class));
 
                     } catch (SnappydbException e) {
-                        Log.e(LOG, "Failed to get practiceSession list", e);
+                        Log.e(LOG, "Failed to get practiceSession: GET_CURRENT_PRACTICE", e);
                         isError = true;
                         break;
                     }
@@ -188,8 +193,8 @@ public class SnappyPractice {
                         practiceSessionList = new ArrayList<>();
                         String[] keys = snappydb.findKeys(GOLF_PRACTICE);
                         for (String key : keys) {
-                            PracticeSessionDTO gc = snappydb.getObject(key, PracticeSessionDTO.class);
-                            practiceSessionList.add(gc);
+                            String json = snappydb.get(key);
+                            practiceSessionList.add(gson.fromJson(json,PracticeSessionDTO.class));
                         }
                     } catch (SnappydbException e) {
                         Log.e(LOG, "Failed to get practiceSession list", e);
@@ -203,8 +208,8 @@ public class SnappyPractice {
                         practiceSessionList = new ArrayList<>();
                         String[] keys = snappydb.findKeys(FAVOURITE_GOLF_PRACTICE);
                         for (String key : keys) {
-                            PracticeSessionDTO gc = snappydb.getObject(key, PracticeSessionDTO.class);
-                            practiceSessionList.add(gc);
+                            String json = snappydb.get(key);
+                            practiceSessionList.add(gson.fromJson(json,PracticeSessionDTO.class));
                         }
                     } catch (SnappydbException e) {
                         Log.e(LOG, "Failed to get fav practiceSession list", e);
@@ -268,10 +273,11 @@ public class SnappyPractice {
                 case GET_PRACTICE_LIST:
                     if (dbReadListener != null) {
                         if (isError) {
-                            dbReadListener.onError("Failed to get practiceSessions from cache");
+                            dbReadListener.onError("Failed to get practiceSession list from cache");
                         } else {
                             ResponseDTO w = new ResponseDTO();
                             w.setPracticeSessionList(list);
+                            Collections.sort(w.getPracticeSessionList());
                             dbReadListener.onDataRead(w);
                         }
 
@@ -279,7 +285,7 @@ public class SnappyPractice {
                 case GET_FAVOURITE_PRACTICES:
                     if (dbReadListener != null) {
                         if (isError) {
-                            dbReadListener.onError("Failed to get practiceSessions from cache");
+                            dbReadListener.onError("Failed to get practiceSession list from cache");
                         } else {
                             ResponseDTO w = new ResponseDTO();
                             w.setPracticeSessionList(list);
@@ -318,4 +324,5 @@ public class SnappyPractice {
             e.printStackTrace();
         }
     }
+    static Gson gson = new Gson();
 }

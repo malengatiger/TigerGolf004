@@ -304,6 +304,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/FMP_radioGroup"
+                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/mon_wider"
                         android:layout_marginTop="@dimen/mon_margin"
                         android:orientation="horizontal">

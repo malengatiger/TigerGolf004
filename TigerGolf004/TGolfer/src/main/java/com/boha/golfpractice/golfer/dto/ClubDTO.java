@@ -17,12 +17,20 @@ import java.util.List;
 public class ClubDTO implements Serializable, Comparable<ClubDTO> {
 
     private static final long serialVersionUID = 1L;
-    private Integer clubID;
+    private Integer clubID, sequence;
     private String clubName;
     private List<ClubUsedDTO> clubUsedList;
     private boolean selected;
 
     public ClubDTO() {
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public boolean isSelected() {
@@ -84,6 +92,12 @@ public class ClubDTO implements Serializable, Comparable<ClubDTO> {
 
     @Override
     public int compareTo(ClubDTO another) {
-        return this.clubName.compareTo(another.clubName);
+        if (this.sequence < another.sequence) {
+            return -1;
+        }
+        if (this.sequence > another.sequence) {
+            return 1;
+        }
+        return 0;
     }
 }

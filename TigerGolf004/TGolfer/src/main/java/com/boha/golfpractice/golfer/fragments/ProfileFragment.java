@@ -217,6 +217,11 @@ public class ProfileFragment extends Fragment {
 
     private void sendData() {
         hideKeyboard();
+
+        if (!radioFemale.isChecked() && !radioMale.isChecked()) {
+            Util.showToast(getContext(),"Please select gender");
+            return;
+        }
         if (editFirstName.getText().toString().isEmpty()) {
             Util.showToast(getContext(),"Please enter First Name");
             return;
@@ -244,6 +249,12 @@ public class ProfileFragment extends Fragment {
             p.setLastName(editLastName.getText().toString());
             p.setCellphone(editCellphone.getText().toString());
             p.setEmail(editEmail.getText().toString());
+            if (radioFemale.isChecked()) {
+                p.setGender((short) 2);
+            }
+            if (radioMale.isChecked()) {
+                p.setGender((short) 1);
+            }
 
             w.setPlayer(p);
             CoachDTO c = SharedUtil.getCoach(getContext());

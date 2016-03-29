@@ -1,11 +1,12 @@
 package com.boha.golfpractice.golfer.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by aubreymalabie on 3/27/16.
  */
-public class BagDTO {
+public class BagDTO implements Serializable{
     private List<PracticeSessionDTO> practiceSessionList;
     private String description;
 

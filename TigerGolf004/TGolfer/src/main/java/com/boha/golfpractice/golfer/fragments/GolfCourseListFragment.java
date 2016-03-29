@@ -9,15 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.boha.golfpractice.golfer.R;
+import com.boha.golfpractice.golfer.activities.MonApp;
 import com.boha.golfpractice.golfer.adapters.GolfCourseListAdapter;
 import com.boha.golfpractice.golfer.dto.GolfCourseDTO;
 import com.boha.golfpractice.golfer.dto.ResponseDTO;
 import com.boha.golfpractice.golfer.util.MonLog;
+import com.boha.golfpractice.golfer.util.SnappyGolfCourse;
+import com.boha.golfpractice.golfer.util.Util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -35,7 +40,8 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
 
     List<GolfCourseDTO> golfCourseList = new ArrayList<>();
     RecyclerView mRecyclerView;
-    TextView txtCount;
+    TextView txtCount, radiusLabel;
+    SeekBar seekBar;
     View view;
     GolfCourseListAdapter adapter;
     FloatingActionButton fab;
@@ -62,7 +68,18 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
     public void onResume() {
         super.onResume();
         MonLog.d(getActivity(), LOG, "+++++++++++++ onResume ++++");
-        setList();
+        SnappyGolfCourse.getFavouriteGolfCourses((MonApp) getActivity().getApplication(), new SnappyGolfCourse.DBReadListener() {
+            @Override
+            public void onDataRead(ResponseDTO response) {
+                golfCourseList = response.getGolfCourseList();
+                setList();
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
     }
 
     private void setList() {
@@ -71,6 +88,7 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
         }
         MonLog.d(getActivity(), LOG, "########## setList: " + golfCourseList.size());
         txtCount.setText("" + golfCourseList.size());
+        Collections.sort(golfCourseList);
         adapter = new GolfCourseListAdapter(golfCourseList, getActivity(),
                 new GolfCourseListAdapter.GolfCourseListener() {
                     @Override
@@ -103,15 +121,36 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
     private void setFields() {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         txtCount = (TextView) view.findViewById(R.id.count);
+        radiusLabel = (TextView) view.findViewById(R.id.radius);
+        seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(llm);
         mRecyclerView.setHasFixedSize(true);
+        radiusLabel.setText("" + Util.GOLFCOURSE_SEARCH_RADIUS);
+        seekBar.setProgress(Util.GOLFCOURSE_SEARCH_RADIUS);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onCourseSearchRequired();
+                mListener.setBusy(true);
+                mListener.onCourseSearchRequired(seekBar.getProgress());
+            }
+        });
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                radiusLabel.setText("" + progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
@@ -120,9 +159,11 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
 
     public void setGolfCourseList(List<GolfCourseDTO> golfCourseList) {
         this.golfCourseList = golfCourseList;
-        if (mRecyclerView != null) {
-            setList();
-        }
+
+            if (mRecyclerView != null) {
+                setList();
+            }
+
     }
 
     GolfCourseListListener mListener;
@@ -164,12 +205,14 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
     public interface GolfCourseListListener {
         void onGolfCourseClicked(GolfCourseDTO course);
 
-        void onCourseSearchRequired();
+        void onCourseSearchRequired(int radius);
 
         void onStartSession(GolfCourseDTO course);
 
         void onGetSessions(GolfCourseDTO course);
 
         void onGetDirections(GolfCourseDTO course);
+
+        void setBusy(boolean busy);
     }
 }

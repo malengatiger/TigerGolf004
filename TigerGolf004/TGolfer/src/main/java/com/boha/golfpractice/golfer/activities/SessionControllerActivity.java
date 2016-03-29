@@ -13,7 +13,6 @@ import com.boha.golfpractice.golfer.dto.ClubDTO;
 import com.boha.golfpractice.golfer.dto.PracticeSessionDTO;
 import com.boha.golfpractice.golfer.dto.ShotShapeDTO;
 import com.boha.golfpractice.golfer.fragments.HoleStatFragment;
-import com.boha.golfpractice.golfer.util.MonLog;
 import com.boha.golfpractice.golfer.util.SnappyPractice;
 import com.boha.golfpractice.golfer.util.Util;
 
@@ -61,7 +60,6 @@ public class SessionControllerActivity extends AppCompatActivity implements Hole
         SnappyPractice.addCurrentPracticeSession((MonApp) getApplication(), session, new SnappyPractice.DBWriteListener() {
             @Override
             public void onDataWritten() {
-                MonLog.i(getApplicationContext(), LOG, "current session updated in cache");
             }
 
             @Override

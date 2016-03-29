@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author aubreymalabie
  */
-public class PracticeSessionDTO implements Serializable {
+public class PracticeSessionDTO implements Serializable, Comparable<PracticeSessionDTO> {
 
     private static final long serialVersionUID = 1L;
     private Integer practiceSessionID;
@@ -209,9 +208,6 @@ public class PracticeSessionDTO implements Serializable {
         this.videoUploadList = videoUploadList;
     }
 
-   
-
-   
 
     @Override
     public int hashCode() {
@@ -237,5 +233,15 @@ public class PracticeSessionDTO implements Serializable {
     public String toString() {
         return "com.boha.golfpractice.data.PracticeSession[ practiceSessionID=" + practiceSessionID + " ]";
     }
-    
+
+    @Override
+    public int compareTo(PracticeSessionDTO another) {
+        if (this.sessionDate > another.sessionDate) {
+            return -1;
+        }
+        if (this.sessionDate < another.sessionDate) {
+            return 1;
+        }
+        return 0;
+    }
 }

@@ -8,6 +8,7 @@ import com.boha.golfpractice.golfer.dto.ClubDTO;
 import com.boha.golfpractice.golfer.dto.PlayerDTO;
 import com.boha.golfpractice.golfer.dto.ResponseDTO;
 import com.boha.golfpractice.golfer.dto.ShotShapeDTO;
+import com.google.gson.Gson;
 import com.snappydb.DB;
 import com.snappydb.SnappydbException;
 
@@ -66,6 +67,7 @@ public class SnappyGeneral {
         task.execute();
     }
 
+    static Gson gson = new Gson();
     private static class GeneralTask extends AsyncTask<Void, Void, ResponseDTO> {
         List<ClubDTO> clubList;
         List<ShotShapeDTO> shotShapeList;
@@ -101,7 +103,8 @@ public class SnappyGeneral {
                 case ADD_PLAYERS:
                     for (PlayerDTO gc : playerList) {
                         try {
-                            snappydb.put(PLAYER + gc.getPlayerID(), gc);
+                            String json = gson.toJson(gc);
+                            snappydb.put(PLAYER + gc.getPlayerID(), json);
                         } catch (SnappydbException e) {
                             Log.e(LOG, "Failed player write", e);
                             isError = true;
@@ -113,7 +116,8 @@ public class SnappyGeneral {
                 case ADD_CLUBS:
                     for (ClubDTO gc : clubList) {
                         try {
-                            snappydb.put(CLUB + gc.getClubID(), gc);
+                            String json = gson.toJson(gc);
+                            snappydb.put(CLUB + gc.getClubID(), json);
                         } catch (SnappydbException e) {
                             Log.e(LOG, "Failed club write", e);
                             isError = true;
@@ -125,7 +129,8 @@ public class SnappyGeneral {
                 case ADD_SHOT_SHAPES:
                     for (ShotShapeDTO gc : shotShapeList) {
                         try {
-                            snappydb.put(SHOT_SHAPE + gc.getShotShapeID(), gc);
+                            String json = gson.toJson(gc);
+                            snappydb.put(SHOT_SHAPE + gc.getShotShapeID(), json);
                         } catch (SnappydbException e) {
                             Log.e(LOG, "Failed shotShape write", e);
                             isError = true;
@@ -140,18 +145,18 @@ public class SnappyGeneral {
 
                         String[] keys = snappydb.findKeys(CLUB);
                         for (String key : keys) {
-                            ClubDTO gc = snappydb.getObject(key, ClubDTO.class);
-                            resp.getClubList().add(gc);
+                            String json = snappydb.get(key);
+                            resp.getClubList().add(gson.fromJson(json,ClubDTO.class));
                         }
                         keys = snappydb.findKeys(SHOT_SHAPE);
                         for (String key : keys) {
-                            ShotShapeDTO gc = snappydb.getObject(key, ShotShapeDTO.class);
-                            resp.getShotShapeList().add(gc);
+                            String json = snappydb.get(key);
+                            resp.getShotShapeList().add(gson.fromJson(json,ShotShapeDTO.class));
                         }
                         keys = snappydb.findKeys(PLAYER);
                         for (String key : keys) {
-                            PlayerDTO gc = snappydb.getObject(key, PlayerDTO.class);
-                            resp.getPlayerList().add(gc);
+                            String json = snappydb.get(key);
+                            resp.getPlayerList().add(gson.fromJson(json,PlayerDTO.class));
                         }
                     } catch (SnappydbException e) {
                         Log.e(LOG, "Failed to get lookups list", e);

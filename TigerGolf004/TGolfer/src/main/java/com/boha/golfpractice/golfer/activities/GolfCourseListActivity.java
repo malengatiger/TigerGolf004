@@ -91,6 +91,8 @@ public class GolfCourseListActivity extends AppCompatActivity
                 ContextCompat.getDrawable(ctx, R.drawable.golfball48));
 
         getCachedCourses();
+        golfCourseList = new ArrayList<>();
+        addFragment();
 
         boolean isFirstTime = SharedUtil.getFirstTime(ctx);
         if (isFirstTime) {
@@ -141,7 +143,7 @@ public class GolfCourseListActivity extends AppCompatActivity
         RequestDTO w = new RequestDTO(RequestDTO.GET_GOLF_COURSES_BY_LOCATION);
         w.setLatitude(mCurrentLocation.getLatitude());
         w.setLongitude(mCurrentLocation.getLongitude());
-        w.setRadius(50);
+        w.setRadius(radius);
         w.setZipResponse(true);
 
         OKUtil okUtil = new OKUtil();
@@ -327,8 +329,10 @@ public class GolfCourseListActivity extends AppCompatActivity
                 .show();
     }
 
+    int radius;
     @Override
-    public void onCourseSearchRequired() {
+    public void onCourseSearchRequired(int radius) {
+        this.radius = radius;
         startLocationUpdates();
     }
 
@@ -352,6 +356,11 @@ public class GolfCourseListActivity extends AppCompatActivity
         snackbar = Snackbar.make(fab, "Confirming device location before starting directions", Snackbar.LENGTH_INDEFINITE);
         snackbar.show();
         startLocationUpdates();
+    }
+
+    @Override
+    public void setBusy(boolean busy) {
+        setRefreshActionButtonState(busy);
     }
 
     private void addSessionRequest(GolfCourseDTO c) {

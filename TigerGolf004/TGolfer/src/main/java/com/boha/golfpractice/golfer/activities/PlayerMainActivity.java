@@ -212,12 +212,13 @@ public class PlayerMainActivity extends AppCompatActivity
         }
     }
 
+    int radius = Util.GOLFCOURSE_SEARCH_RADIUS;
     private void getCourses() {
         MonLog.w(getApplicationContext(), LOG, "============== getCourses .............");
         RequestDTO w = new RequestDTO(RequestDTO.GET_GOLF_COURSES_BY_LOCATION);
         w.setLatitude(mCurrentLocation.getLatitude());
         w.setLongitude(mCurrentLocation.getLongitude());
-        w.setRadius(50);
+        w.setRadius(radius);
         w.setZipResponse(true);
         setRefreshActionButtonState(true);
         snackbar.show();
@@ -230,7 +231,12 @@ public class PlayerMainActivity extends AppCompatActivity
                     snackbar.dismiss();
                     MonLog.i(getApplicationContext(), LOG, "Golf Courses found: " + response.getGolfCourseList().size());
                     golfCourseList = response.getGolfCourseList();
-                    buildPages();
+                    if (golfCourseListFragment == null) {
+                        buildPages();
+                    } else {
+                        golfCourseListFragment.setGolfCourseList(golfCourseList);
+                    }
+
                     SnappyGolfCourse.addFavoriteGolfCourses((MonApp) getApplication(), golfCourseList, null);
                 }
 
@@ -294,7 +300,9 @@ public class PlayerMainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCourseSearchRequired() {
+    public void onCourseSearchRequired(int radius) {
+        this.radius = radius;
+        setBusy(true);
         startLocationUpdates();
     }
 
@@ -365,6 +373,10 @@ public class PlayerMainActivity extends AppCompatActivity
         Intent m = new Intent(getApplicationContext(), SessionControllerActivity.class);
         m.putExtra("session", practiceSession);
         startActivityForResult(m, EDIT_HOLE_STATS_REQUIRED);
+        if (sessionListFragment != null) {
+            sessionListFragment.addPracticeSession(practiceSession);
+            mPager.setCurrentItem(0,true);
+        }
     }
 
     private void cacheSession(PracticeSessionDTO practiceSession) {
@@ -398,6 +410,11 @@ public class PlayerMainActivity extends AppCompatActivity
         snackbar = Snackbar.make(mPager, "Confirming device location before starting directions", Snackbar.LENGTH_INDEFINITE);
         snackbar.show();
         startLocationUpdates();
+    }
+
+    @Override
+    public void setBusy(boolean busy) {
+        setRefreshActionButtonState(true);
     }
 
     private static class StaffPagerAdapter extends FragmentStatePagerAdapter {
@@ -479,7 +496,7 @@ public class PlayerMainActivity extends AppCompatActivity
 
 
     private void getCachedCourses() {
-        SnappyGolfCourse.getGolfCourses((MonApp) getApplication(), new SnappyGolfCourse.DBReadListener() {
+        SnappyGolfCourse.getFavouriteGolfCourses((MonApp) getApplication(), new SnappyGolfCourse.DBReadListener() {
             @Override
             public void onDataRead(ResponseDTO response) {
                 golfCourseList = response.getGolfCourseList();
@@ -505,10 +522,12 @@ public class PlayerMainActivity extends AppCompatActivity
                     setRefreshActionButtonState(false);
                     snackbar.dismiss();
                     practiceSessionList = response.getPracticeSessionList();
-                    if (response.getPracticeSessionList().isEmpty()) {
-                        return;
+                    if (sessionListFragment == null) {
+                        buildPages();
+                    } else {
+                        sessionListFragment.setPracticeSessionList(practiceSessionList);
                     }
-                    buildPages();
+
                     SnappyPractice.addPracticeSessions((MonApp) getApplication(), response.getPracticeSessionList(), new SnappyPractice.DBWriteListener() {
                         @Override
                         public void onDataWritten() {
