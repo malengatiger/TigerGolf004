@@ -105,15 +105,18 @@ public class CoachMainActivity extends AppCompatActivity
 
     @Override
     public void onActivityResult(int reqCode, int rescode, Intent data) {
+        MonLog.w(getApplicationContext(), LOG, "====> onActivityResult, rescode:  "
+                + rescode + " data: " + data);
         switch (reqCode) {
             case ADD_PLAYER:
                 if (rescode == RESULT_OK) {
-                    playerListFragment.refreshList();
+                    MonLog.e(getApplicationContext(), LOG, "refreshing coach data ...");
+                    getRemoteCoachData();
                 }
                 break;
             case UPDATE_PROFILE:
                 if (rescode == RESULT_OK) {
-
+                    getRemoteCoachData();
                 }
                 break;
         }
@@ -159,7 +162,7 @@ public class CoachMainActivity extends AppCompatActivity
             }
         });
 
-
+        startLocationUpdates();
     }
 
     private void getCachedPlayers() {
@@ -198,13 +201,16 @@ public class CoachMainActivity extends AppCompatActivity
                             setRefreshActionButtonState(false);
                             snackbar.dismiss();
                             playerList = r.getPlayerList();
-                            buildPages();
-                            startLocationUpdates();
+
                             SnappyGeneral.addPlayers((MonApp) getApplication(),
                                     playerList, new SnappyGeneral.DBWriteListener() {
                                         @Override
                                         public void onDataWritten() {
-
+                                            if (playerListFragment == null) {
+                                                buildPages();
+                                            } else {
+                                                playerListFragment.refreshList();
+                                            }
                                         }
 
                                         @Override
@@ -263,6 +269,7 @@ public class CoachMainActivity extends AppCompatActivity
     }
 
     int radius = Util.GOLFCOURSE_SEARCH_RADIUS;
+
     @Override
     public void onCourseSearchRequired(int radius) {
         this.radius = radius;
@@ -476,7 +483,12 @@ public class CoachMainActivity extends AppCompatActivity
                     snackbar.dismiss();
                     MonLog.i(getApplicationContext(), LOG, "Golf Courses found: " + response.getGolfCourseList().size());
                     golfCourseList = response.getGolfCourseList();
-                    buildPages();
+                    if (golfCourseListFragment == null) {
+                        buildPages();
+                    } else {
+                        golfCourseListFragment.setGolfCourseList(golfCourseList);
+                    }
+
                     SnappyGolfCourse.addFavoriteGolfCourses((MonApp) getApplication(), golfCourseList, null);
                 }
 

@@ -71,7 +71,7 @@ public class OKUtil {
         boolean isDebuggable = 0 != (ctx.getApplicationInfo().flags
                 &= ApplicationInfo.FLAG_DEBUGGABLE);
         if (isDebuggable) {
-            return DEV_URL;
+            return PROD_URL;
         } else {
             return PROD_URL;
         }

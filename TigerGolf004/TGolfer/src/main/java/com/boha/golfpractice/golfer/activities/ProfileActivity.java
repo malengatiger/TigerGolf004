@@ -71,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileFragmen
 
     @Override
     public void onPictureRequested(PlayerDTO player) {
+        playerAdded = true;
         Intent m = new Intent(getApplicationContext(), PictureActivity.class);
         m.putExtra("player", player);
         startActivityForResult(m, PLAYER_PICTURE);
@@ -81,18 +82,20 @@ public class ProfileActivity extends AppCompatActivity implements ProfileFragmen
 
     @Override
     public void onPlayerAddedToServer(PlayerDTO player) {
+        MonLog.e(getApplicationContext(),LOG,"-------> +++++ onPlayerAddedToServer");
         this.player = player;
         playerAdded = true;
     }
 
     @Override
     public void onBackPressed() {
-
+        MonLog.w(getApplicationContext(),LOG,"-------> onBackPressed, playerAdded: " + playerAdded);
         if (playerAdded) {
             Intent m = new Intent();
             m.putExtra("playerAdded",playerAdded);
             setResult(RESULT_OK,m);
         }
+
         finish();
     }
 

@@ -18,6 +18,7 @@ import com.boha.golfpractice.golfer.activities.SessionSummaryActivity;
 import com.boha.golfpractice.golfer.adapters.PlayerListAdapter;
 import com.boha.golfpractice.golfer.dto.PlayerDTO;
 import com.boha.golfpractice.golfer.dto.ResponseDTO;
+import com.boha.golfpractice.golfer.util.MonLog;
 import com.boha.golfpractice.golfer.util.SnappyGeneral;
 import com.boha.golfpractice.golfer.util.Util;
 
@@ -77,6 +78,7 @@ public class PlayerListFragment extends Fragment implements PageFragment {
     }
 
     public void refreshList() {
+        MonLog.e(getContext(),LOG,"******** refreshList PLAYERS from cache");
         SnappyGeneral.getLookups((MonApp) getActivity().getApplication(),
                 new SnappyGeneral.DBReadListener() {
             @Override
@@ -94,6 +96,7 @@ public class PlayerListFragment extends Fragment implements PageFragment {
         });
     }
     private void setList() {
+        MonLog.e(getContext(),LOG,"******** setList PLAYERS: " + playerList.size());
         txtCount.setText("" + playerList.size());
         Collections.sort(playerList);
         adapter = new PlayerListAdapter(playerList, getContext(), new PlayerListAdapter.PlayerAdapterListener() {

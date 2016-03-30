@@ -174,6 +174,15 @@ public class SnappyGeneral {
         @Override
         protected void onPostExecute(ResponseDTO resp) {
             switch (type) {
+                case ADD_PLAYERS:
+                    if (dbWriteListener != null) {
+                        if (isError) {
+                            dbWriteListener.onError("Failed to add players to cache");
+                        } else {
+                            dbWriteListener.onDataWritten();
+                        }
+                    }
+                    break;
                 case ADD_CLUBS:
                     if (dbWriteListener != null) {
                         if (isError) {

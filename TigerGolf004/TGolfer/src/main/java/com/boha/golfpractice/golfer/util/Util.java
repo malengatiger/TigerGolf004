@@ -39,7 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by aubreymalabie on 3/17/16.
  */
 public class Util {
-    public static final int GOLFCOURSE_SEARCH_RADIUS = 20;
+    public static final int GOLFCOURSE_SEARCH_RADIUS = 75, GOLFCOURSE_MAX_RADIUS = 250;
     public interface UtilAnimationListener {
         public void onAnimationEnded();
     }

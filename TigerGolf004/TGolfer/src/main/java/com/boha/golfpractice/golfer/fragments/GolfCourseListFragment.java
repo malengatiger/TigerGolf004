@@ -123,11 +123,13 @@ public class GolfCourseListFragment extends Fragment implements PageFragment {
         txtCount = (TextView) view.findViewById(R.id.count);
         radiusLabel = (TextView) view.findViewById(R.id.radius);
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
+
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(llm);
         mRecyclerView.setHasFixedSize(true);
         radiusLabel.setText("" + Util.GOLFCOURSE_SEARCH_RADIUS);
+        seekBar.setMax(Util.GOLFCOURSE_MAX_RADIUS);
         seekBar.setProgress(Util.GOLFCOURSE_SEARCH_RADIUS);
 
         fab.setOnClickListener(new View.OnClickListener() {
