@@ -73,6 +73,20 @@ public class SessionListFragment extends Fragment implements PageFragment {
     }
 
 
+    public void refresh() {
+        SnappyPractice.getPracticeSessions((MonApp) getActivity().getApplication(), new SnappyPractice.DBReadListener() {
+            @Override
+            public void onDataRead(ResponseDTO response) {
+                practiceSessionList = response.getPracticeSessionList();
+                setList();
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+    }
     private void setList() {
 
         MonLog.d(getActivity(), LOG, "########## setList: " + practiceSessionList.size());

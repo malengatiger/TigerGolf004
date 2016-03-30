@@ -147,6 +147,9 @@ public class PlayerMainActivity extends AppCompatActivity
                 currentPageIndex = position;
                 //pageFragmentList.get(position).animateHeroHeight();
                 PageFragment pf = pageFragmentList.get(position);
+                if (pf instanceof SessionListFragment) {
+                    //sessionListFragment.refresh();
+                }
 
 
             }
