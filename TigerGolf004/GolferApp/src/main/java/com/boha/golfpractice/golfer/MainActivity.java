@@ -1,4 +1,4 @@
-package com.boha.golfpractice.golfer;
+package com.boha.golfpractice.player;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

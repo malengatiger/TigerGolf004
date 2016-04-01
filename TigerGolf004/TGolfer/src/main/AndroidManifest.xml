@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.boha.golfpractice.golfer">
+    package="com.boha.golfpractice.player">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- DEBUG KEY: AIzaSyDfG9K7XcN97tl3uQpm1194Xn1eaZT_MLc -->
-    <!-- PROD KEY: AIzaSyCgYFuzzP2Pz2ycziCpgO5mz6YMCy58BoU -->
+    <!-- DEBUG KEY: AIzaSyAI0k2UlK5N6FHbdrG-0tUd-ZHKv7MA7po -->
+    <!-- PROD KEY: AIzaSyDykyOy8M9Eig89h3B9OJOx-kkIynDFFtg -->
     <application
         android:name=".activities.MonApp"
         android:allowBackup="true"
@@ -18,7 +18,7 @@
         android:theme="@style/TealTheme">
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDfG9K7XcN97tl3uQpm1194Xn1eaZT_MLc" />
+            android:value="AIzaSyAI0k2UlK5N6FHbdrG-0tUd-ZHKv7MA7po" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -71,8 +71,16 @@
         <activity
             android:name=".activities.PictureActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.SessionSummaryActivity" />
+        <activity
+            android:name=".activities.SessionSummaryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ThemeSelectorActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.VideoCaptureActivity" />
+        <activity android:name=".activities.LocalVideoPlayerActivity" />
 
+        <service android:name=".services.YouTubeService" />
         <service
             android:name=".services.PracticeSessionGcmService"
             android:enabled="true"
@@ -82,6 +90,9 @@
                 <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
             </intent-filter>
         </service>
+        <service
+            android:name=".services.CDNVideoService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

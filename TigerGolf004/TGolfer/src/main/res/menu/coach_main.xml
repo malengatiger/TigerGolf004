@@ -9,6 +9,12 @@
         android:icon="@drawable/ic_refresh_white_24dp"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_theme"
+        android:orderInCategory="100"
+        android:title="Change Theme"
+        android:icon="@drawable/ic_favorite_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_help"
         android:orderInCategory="100"
         android:title="Help"

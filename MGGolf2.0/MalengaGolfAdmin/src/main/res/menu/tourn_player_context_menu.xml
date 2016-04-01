@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+            android:id="@+id/menu_score_by_hole"
+            android:icon="@drawable/ic_action_edit"
+            android:showAsAction="ifRoom"
+            android:title="@string/enter_score_by_hole"/>
+
+    <item
+            android:id="@+id/menu_remove"
+            android:icon="@drawable/error32"
+            android:showAsAction="ifRoom"
+            android:title="@string/remove_player"/>
+
+</menu>

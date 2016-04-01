@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:id="@+id/FRAG_mainLayout"
+                android:layout_height="match_parent">
+
+    <RelativeLayout android:id="@+id/FRAG_layout"
+            android:layout_width="match_parent" android:background="@color/beige_pale"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+            <SearchView android:id="@+id/FRAG_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <Button android:id="@+id/FRAG_btnMap"
+                    android:layout_below="@id/FRAG_search"
+                    style="@style/ButtonSaveSmall"
+                    android:text="@string/search_map" android:textSize="14sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/FRAG_listView" android:layout_below="@id/FRAG_layout"
+            android:layout_alignParentLeft="true" android:layout_marginTop="10dp"
+            android:layout_alignParentStart="true"
+            android:dividerHeight="5dp"
+            android:background="@color/grey"/>
+</RelativeLayout>

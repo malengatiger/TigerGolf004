@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:background="@color/white"
+                android:layout_height="wrap_content">
+
+    <RelativeLayout
+            android:id="@+id/DD_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/DD_img"
+                android:src="@drawable/flag32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/DD_cityName"
+                android:layout_centerVertical="true"
+                android:text="City Name Here"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/DD_img"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"/>
+
+
+        <TextView
+                android:id="@+id/DD_number"
+                android:text="00"
+                android:layout_below="@id/DD_img"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_below="@id/DD_layout"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/DD_longitude"
+                android:text="-32.690896"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textSize="16sp"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/DD_latitude"
+                android:text="26.234675"
+                android:layout_width="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/DD_longitude"
+                android:textColor="@color/blue"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

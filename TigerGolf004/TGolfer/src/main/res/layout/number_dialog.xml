@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:text="Select Distance" />
 
-    <com.boha.golfpractice.golfer.util.NumberPickerGP
+    <com.boha.golfpractice.player.util.NumberPickerGP
         android:id="@+id/numberPicker"
         android:layout_below="@id/title"
         style="@style/Title1TextStyleGreen"

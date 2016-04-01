@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:padding="5dp"
+                android:background="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/KSE_topLayout"
+            android:background="@drawable/xwhite_rounded_corners"
+            android:layout_width="match_parent"
+            android:padding="0dp"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/KSE_image"
+                android:layout_width="wrap_content"
+                android:src="@drawable/clubs32"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/KSE_txtClubName"
+                android:text="@string/txt"
+                android:layout_toRightOf="@id/KSE_image"
+                style="@style/Title3TextStyleBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/KSE_txtExplain"
+                android:text="@string/live_explain"
+                android:layout_below="@id/KSE_txtClubName"
+                style="@style/Title3TextStyleBlue"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <ProgressBar
+                android:id="@+id/KSE_progress"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="10dp"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <Spinner
+                android:id="@+id/KSE_spinnerCourse"
+                android:layout_width="match_parent"
+                android:layout_below="@id/KSE_txtExplain"
+                android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+                android:id="@+id/KSE_totLayout"
+                android:layout_below="@id/KSE_spinnerCourse"
+                android:layout_alignLeft="@id/KSE_spinnerCourse"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content">
+
+
+            <RadioGroup
+                    android:id="@+id/KSE_radioGrp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+
+                <RadioButton
+                        android:id="@+id/KSE_radio9"
+                        android:text="@string/nine_holes"
+                        style="@style/TextStyleGrey"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="wrap_content"/>
+
+                <RadioButton
+                        android:id="@+id/KSE_radio18"
+                        android:text="@string/eighteen_holes"
+                        style="@style/TextStyleGrey"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="wrap_content"/>
+            </RadioGroup>
+
+            <TextView
+                    android:id="@+id/KSE_txtPar"
+                    android:text="00"
+                    style="@style/Title2TextStyleBlack"
+                    android:layout_alignParentRight="true"
+                    android:textStyle="bold"
+                    android:textColor="@color/opaque_red"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/KSE_txtParLabel"
+                    android:text="Par"
+                    style="@style/TextStyleGrey"
+                    android:layout_toLeftOf="@id/KSE_txtPar"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <ScrollView
+            android:id="@+id/KSE_scroll"
+            android:layout_width="match_parent"
+            android:background="@color/grey"
+            android:layout_below="@id/KSE_topLayout"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:id="@+id/KSE_frontNine"
+                    android:background="@drawable/xwhite_rounded_corners"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole1"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel1"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole1"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore1"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp1"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore1"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown1"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp1"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole1"
+                        android:layout_alignLeft="@id/KSE_layoutHole1"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel2"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole2"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore2"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp2"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore2"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown2"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp2"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole3"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole2"
+                        android:layout_alignLeft="@id/KSE_layoutHole2"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel3"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole3"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore3"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp3"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore3"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown3"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp3"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole4"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole3"
+                        android:layout_alignLeft="@id/KSE_layoutHole3"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel4"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole4"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore4"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp4"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore4"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown4"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp4"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole5"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole4"
+                        android:layout_alignLeft="@id/KSE_layoutHole4"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel5"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole5"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore5"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp5"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore5"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown5"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp5"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole6"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole5"
+                        android:layout_alignLeft="@id/KSE_layoutHole5"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel6"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole6"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore6"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp6"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore6"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown6"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp6"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole7"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole6"
+                        android:layout_alignLeft="@id/KSE_layoutHole6"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel7"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole7"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore7"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp7"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore7"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown7"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp7"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole8"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole7"
+                        android:layout_alignLeft="@id/KSE_layoutHole7"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel8"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole8"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore8"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp8"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore8"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown8"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp8"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole9"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole8"
+                        android:layout_alignLeft="@id/KSE_layoutHole8"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel9"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole9"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore9"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp9"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore9"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown9"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp9"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <View
+                    android:id="@+id/KSE_space"
+                    android:layout_below="@id/KSE_frontNine"
+                    android:layout_alignLeft="@id/KSE_frontNine"
+                    android:layout_width="match_parent"
+                    android:background="@color/green"
+                    android:layout_height="10dp"/>
+
+            <RelativeLayout
+                    android:id="@+id/KSE_backNine"
+                    android:background="@drawable/xwhite_rounded_corners"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/KSE_space"
+                    android:layout_height="wrap_content">
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole10"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel10"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole10"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore10"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp10"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore10"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown10"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp10"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole11"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole10"
+                        android:layout_alignLeft="@id/KSE_layoutHole10"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel11"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole11"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore11"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp11"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore11"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown11"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp11"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole12"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole11"
+                        android:layout_alignLeft="@id/KSE_layoutHole11"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel12"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole12"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore12"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp12"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore12"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown12"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp12"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole13"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole12"
+                        android:layout_alignLeft="@id/KSE_layoutHole12"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel13"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole13"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore13"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp13"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore13"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown13"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp13"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole14"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole13"
+                        android:layout_alignLeft="@id/KSE_layoutHole13"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel14"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole14"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore14"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp14"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore14"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown14"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp14"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole15"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole14"
+                        android:layout_alignLeft="@id/KSE_layoutHole14"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel15"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole15"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore15"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp15"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore15"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown15"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp15"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole16"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole15"
+                        android:layout_alignLeft="@id/KSE_layoutHole15"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel16"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole16"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore16"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp16"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore16"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown16"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp16"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole17"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole16"
+                        android:layout_alignLeft="@id/KSE_layoutHole16"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/beige_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel17"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole17"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore17"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel17"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp17"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore17"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown17"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp17"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/KSE_layoutHole18"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@id/KSE_layoutHole17"
+                        android:layout_alignLeft="@id/KSE_layoutHole17"
+                        android:layout_width="match_parent"
+                        android:padding="5dp"
+                        android:background="@color/blue_pale"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/KSE_txtLabel18"
+                            style="@style/TextStyleGrey"
+                            android:text="@string/hole18"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_txtScore18"
+                            style="@style/Title2TextStyleBlue"
+                            android:text="@string/zero"
+                            android:layout_marginLeft="20dp"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/KSE_txtLabel18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnUp18"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="65dp"
+                            android:layout_toRightOf="@id/KSE_txtScore18"
+                            android:drawableLeft="@drawable/arrow_circle_up32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/KSE_btnDown18"
+                            style="@style/ButtonCancelSmall"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@id/KSE_btnUp18"
+                            android:drawableLeft="@drawable/arrow_circle_down32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <Button
+                    android:id="@+id/KSE_btnSave"
+                    style="@style/ButtonSaveSmall"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:layout_below="@id/KSE_backNine"
+                    android:text="@string/save_scorecard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
+
+
+

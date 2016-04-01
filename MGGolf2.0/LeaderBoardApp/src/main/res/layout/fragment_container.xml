@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/grey"
+              android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.v4.view.PagerTitleStrip
+                android:id="@+id/pager_title_strip"
+                style="@style/PagerSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@color/blue_900"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textColor="#fff"/>
+    </android.support.v4.view.ViewPager>
+
+    <ImageView
+            android:id="@+id/splash"
+            android:scaleType="centerCrop"
+            android:src="@drawable/golf_pic22"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+</LinearLayout>

@@ -1,0 +1,1 @@
+include ':MalengaGolfLibrary', ':MalengaGolfAdmin', ':PlayerApp', ':ScraperApp', ':LeaderBoardApp', ':ScorerApp', ':EventReporter'

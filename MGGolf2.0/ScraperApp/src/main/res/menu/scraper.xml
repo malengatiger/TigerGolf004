@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_add_country_states"
+          android:title="Add States"
+          android:icon="@android:drawable/ic_menu_add"
+          android:showAsAction="always" />
+    <item android:id="@+id/menu_get_cities"
+          android:title="Get Cities"
+          android:icon="@android:drawable/ic_menu_edit"
+          android:showAsAction="always" />
+    <item android:id="@+id/menu_get_courses"
+          android:title="Get Courses"
+          android:icon="@android:drawable/ic_menu_slideshow"
+          android:showAsAction="always" />
+</menu>

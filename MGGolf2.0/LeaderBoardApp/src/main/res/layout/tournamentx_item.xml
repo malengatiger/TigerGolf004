@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:background="@color/white" android:padding="10dp"
+                android:layout_height="wrap_content">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TOURNAMT_image"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/flag32"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero"
+            android:id="@+id/TOURNAMT_txtNumber"
+            style="@style/TextStyleGrey"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+
+            android:layout_below="@+id/TOURNAMT_image"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt"
+            android:id="@+id/TOURNAMT_txtName"
+            style="@style/Title3TextStyleBlack"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/TOURNAMT_image"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt"
+            android:id="@+id/TOURNAMT_txtStatus"
+            style="@style/TextStyle"
+            android:textSize="12sp"
+            android:textColor="@color/translucent_red"
+            android:layout_alignLeft="@+id/TOURNAMT_txtName"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/TOURNAMT_txtName"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt"
+            android:id="@+id/TOURNAMT_txtClubName"
+            style="@style/Title3TextStyleBlue"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_alignLeft="@id/TOURNAMT_txtName"
+            android:layout_below="@id/TOURNAMT_txtStatus"/>
+
+    <RelativeLayout
+            android:id="@+id/TOURNAMT_layoutStartDate"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/TOURNAMT_txtClubName"
+            android:layout_alignLeft="@id/TOURNAMT_txtName"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Date"
+                android:layout_marginTop="5dp"
+                android:id="@+id/TOURNAMT_txtStartDateLabel"
+                android:layout_alignParentLeft="true"
+                style="@style/Title3TextStyleGrey"
+                android:textStyle="normal"
+                android:layout_marginLeft="5dp"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="28 December 2015"
+                android:layout_marginTop="5dp"
+                android:id="@+id/TOURNAMT_txtStartDate"
+                android:layout_alignParentRight="true"
+                style="@style/TextStyleBold"
+                android:textStyle="normal"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/TOURNAMT_layoutEndDate"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/TOURNAMT_layoutStartDate"
+            android:layout_alignLeft="@id/TOURNAMT_layoutStartDate"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End Date"
+                android:layout_marginTop="5dp"
+                android:id="@+id/TOURNAMT_txtEndDateLabel"
+                android:layout_alignParentLeft="true"
+                style="@style/Title3TextStyleGrey"
+                android:textStyle="normal"
+                android:layout_marginLeft="5dp"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30 December 2015"
+                android:layout_marginTop="5dp"
+                android:id="@+id/TOURNAMT_txtEndDate"
+                android:layout_alignParentRight="true"
+                style="@style/TextStyleBold"
+                android:textColor="@color/blue"
+                android:textStyle="normal"
+                android:layout_marginRight="5dp"
+                />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+            android:id="@+id/TOURNAMT_layoutCount"
+            android:layout_below="@+id/TOURNAMT_layoutEndDate"
+            android:layout_alignLeft="@id/TOURNAMT_layoutEndDate"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/TOURNAMT_txtCounterLabel"
+                android:text="@string/number_rounds"
+                style="@style/TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/TOURNAMT_txtCounter"
+                android:text="@string/zero"
+                style="@style/RedCountBoxSmall"
+                android:textSize="16sp"
+                android:layout_alignBaseline="@id/TOURNAMT_txtCounterLabel"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/TOURNAMT_layoutPlayerCount"
+            android:layout_below="@+id/TOURNAMT_layoutCount"
+            android:layout_alignLeft="@id/TOURNAMT_layoutCount"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/TOURNAMT_txtPlayerLabel"
+                android:text="@string/number_players"
+                style="@style/TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/TOURNAMT_txtPlayerCounter"
+                android:text="@string/zero"
+                style="@style/GreenCountBoxSmall"
+                android:textSize="16sp"
+                android:layout_alignBaseline="@id/TOURNAMT_txtPlayerLabel"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</RelativeLayout>

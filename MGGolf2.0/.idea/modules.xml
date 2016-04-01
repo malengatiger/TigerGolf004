@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/EventReporter/EventReporter.iml" filepath="$PROJECT_DIR$/EventReporter/EventReporter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeaderBoardApp/LeaderBoardApp.iml" filepath="$PROJECT_DIR$/LeaderBoardApp/LeaderBoardApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MGGolf2.0.iml" filepath="$PROJECT_DIR$/MGGolf2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MalengaGolfAdmin/MalengaGolfAdmin.iml" filepath="$PROJECT_DIR$/MalengaGolfAdmin/MalengaGolfAdmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MalengaGolfLibrary/MalengaGolfLibrary.iml" filepath="$PROJECT_DIR$/MalengaGolfLibrary/MalengaGolfLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayerApp/PlayerApp.iml" filepath="$PROJECT_DIR$/PlayerApp/PlayerApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScorerApp/ScorerApp.iml" filepath="$PROJECT_DIR$/ScorerApp/ScorerApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScraperApp/ScraperApp.iml" filepath="$PROJECT_DIR$/ScraperApp/ScraperApp.iml" />
+    </modules>
+  </component>
+</project>

@@ -14,6 +14,24 @@
         android:icon="@drawable/ic_add_white_24dp"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_video"
+        android:orderInCategory="100"
+        android:title="Make Video"
+        android:icon="@drawable/ic_videocam_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_watch_video"
+        android:orderInCategory="100"
+        android:title="Watch Video on Device"
+        android:icon="@drawable/ic_videocam_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_theme"
+        android:orderInCategory="100"
+        android:title="Change Theme"
+        android:icon="@drawable/ic_favorite_black_24dp"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_help"
         android:orderInCategory="100"
         android:title="Help"

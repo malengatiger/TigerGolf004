@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/xwhite_rounded_corners"
+    android:gravity="right"
+    android:orientation="horizontal"
+    android:padding="5dp" >
+
+    <SeekBar
+        android:id="@+id/SRCH_seekBar"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:max="50"
+        android:paddingRight="5dp"
+        android:progress="5" />
+
+    <TextView
+        android:id="@+id/SRCH_radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="left"
+        android:paddingRight="5dp"
+        android:text="5"
+        android:textColor="@color/blue"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/SRCH_btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/ButtonCancelSmall"
+        android:padding="10dp"
+        android:paddingRight="5dp"
+        android:text="Find"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="5dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/SRCH_btnReq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/ButtonSaveSmall"
+        android:padding="10dp"
+        android:text="Go"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>

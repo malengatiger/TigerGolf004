@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:padding="10dp"
+                android:background="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/SC_topLayout"
+            android:padding="10dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/xwhite_rounded_corners"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/SC_image"
+                android:layout_width="120dp"
+                android:src="@drawable/golfer2"
+                android:layout_height="120dp"/>
+
+        <TextView
+                android:id="@+id/SC_txtName"
+                android:text="@string/txt"
+                android:layout_toRightOf="@id/SC_image"
+                android:layout_marginTop="10dp"
+                style="@style/Title3TextStyleBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <ProgressBar
+                android:id="@+id/SC_progress"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignTop="@id/SC_txtName"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+
+
+        <TextView
+                android:id="@+id/SC_txtTournament"
+                android:text="@string/txt"
+                android:layout_below="@id/SC_txtName"
+                android:layout_alignLeft="@id/SC_txtName"
+                android:layout_marginTop="10dp"
+                style="@style/Title3TextStyleBlue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <ScrollView android:id="@+id/SC_scroll"
+            android:layout_width="match_parent"
+            android:layout_below="@id/SC_topLayout"
+            android:background="@color/grey"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RelativeLayout
+                    android:id="@+id/SC_layoutRound1"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/beige_pale"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/SC_txtLabel1"
+                        style="@style/TextStyleGrey"
+                        android:text="@string/round1"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_txtScore1"
+                        style="@style/Title1TextStyleBlue"
+                        android:text="@string/zero"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/SC_txtLabel1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnUp1"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="65dp"
+                        android:layout_toRightOf="@id/SC_txtScore1"
+                        android:drawableLeft="@drawable/arrow_circle_up32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnDown1"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/SC_btnUp1"
+                        android:drawableLeft="@drawable/arrow_circle_down32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/SC_layoutRound2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/SC_layoutRound1"
+                    android:layout_alignLeft="@id/SC_layoutRound1"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@color/blue_pale"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/SC_txtLabel2"
+                        style="@style/TextStyleGrey"
+                        android:text="@string/round2"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_txtScore2"
+                        style="@style/Title1TextStyleBlue"
+                        android:text="@string/zero"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/SC_txtLabel2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnUp2"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="65dp"
+                        android:layout_toRightOf="@id/SC_txtScore2"
+                        android:drawableLeft="@drawable/arrow_circle_up32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnDown2"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/SC_btnUp2"
+                        android:drawableLeft="@drawable/arrow_circle_down32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/SC_layoutRound3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/SC_layoutRound2"
+                    android:layout_alignLeft="@id/SC_layoutRound2"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@color/beige_pale"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/SC_txtLabel3"
+                        style="@style/TextStyleGrey"
+                        android:text="@string/round3"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_txtScore3"
+                        style="@style/Title1TextStyleBlue"
+                        android:text="@string/zero"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/SC_txtLabel3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnUp3"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="65dp"
+                        android:layout_toRightOf="@id/SC_txtScore3"
+                        android:drawableLeft="@drawable/arrow_circle_up32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnDown3"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/SC_btnUp3"
+                        android:drawableLeft="@drawable/arrow_circle_down32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/SC_layoutRound4"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/SC_layoutRound3"
+                    android:layout_alignLeft="@id/SC_layoutRound3"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@color/blue_pale"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/SC_txtLabel4"
+                        style="@style/TextStyleGrey"
+                        android:text="@string/round4"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_txtScore4"
+                        style="@style/Title1TextStyleBlue"
+                        android:text="@string/zero"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/SC_txtLabel4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnUp4"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="65dp"
+                        android:layout_toRightOf="@id/SC_txtScore4"
+                        android:drawableLeft="@drawable/arrow_circle_up32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnDown4"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/SC_btnUp4"
+                        android:drawableLeft="@drawable/arrow_circle_down32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/SC_layoutRound5"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/SC_layoutRound4"
+                    android:layout_alignLeft="@id/SC_layoutRound4"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@color/beige_pale"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/SC_txtLabel5"
+                        style="@style/TextStyleGrey"
+                        android:text="@string/round5"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_txtScore5"
+                        style="@style/Title1TextStyleBlue"
+                        android:text="@string/zero"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/SC_txtLabel5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnUp5"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="65dp"
+                        android:layout_toRightOf="@id/SC_txtScore5"
+                        android:drawableLeft="@drawable/arrow_circle_up32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnDown5"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/SC_btnUp5"
+                        android:drawableLeft="@drawable/arrow_circle_down32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    android:id="@+id/SC_layoutRound6"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/SC_layoutRound5"
+                    android:layout_alignLeft="@id/SC_layoutRound5"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:background="@color/blue_pale"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/SC_txtLabel6"
+                        style="@style/TextStyleGrey"
+                        android:text="@string/round6"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_txtScore6"
+                        style="@style/Title1TextStyleBlue"
+                        android:text="@string/zero"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/SC_txtLabel6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnUp6"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="65dp"
+                        android:layout_toRightOf="@id/SC_txtScore6"
+                        android:drawableLeft="@drawable/arrow_circle_up32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/SC_btnDown6"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/SC_btnUp6"
+                        android:drawableLeft="@drawable/arrow_circle_down32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+            android:id="@+id/SC_btnSave"
+            style="@style/ButtonSaveSmall"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/save_scores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</RelativeLayout>

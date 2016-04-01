@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.boha.malengagolf.admin" >
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <application
+        android:name="com.boha.malengagolf.library.MGApp"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/BlueThemeTwo" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.apps.drive.APP_ID"
+            android:value="id=166210361031" />
+
+        <!-- new credentials on the aubrey.malabie account -->
+        <!--
+             //88:04:df:2b:68:40:60:a3:31:81:2f:71:1f:2d:71:fb:f7:71:f9:57  - dev - AIzaSyD9dJPJAkqHd-0qERdP3350yx7Z6DTw6A8
+            //4f:72:a0:21:0f:ad:8d:6b:ec:b5:83:49:13:cb:64:75:74:62:1a:a7  - prod - AIzaSyAfcu75gi3xoUCLHyQln2Cy9RaUfqzw13M
+        -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyD9dJPJAkqHd-0qERdP3350yx7Z6DTw6A8" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="1413591595584751" />
+
+        <receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.boha.malengagolf.admin" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".GcmIntentService" />
+
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainPagerActivity"
+            android:label="Golf Group Administrator"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".GolfMapActivity"
+            android:label="Golf Group Administrator"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name=".TourneyActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name=".com.boha.malengagolf.packs.TourneyPlayerActivity"
+            android:label="Tournament Players"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name=".com.boha.malengagolf.packs.ScoringActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.ScoringByHoleActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.ScoreCardActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.PlayerHistoryActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.LeaderBoardPager"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.TeeTimeActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.TimeSheetActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.PictureActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.MGGalleryActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.GolfCourseMapActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.AppInvitationActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name=".ImportActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity
+            android:name="com.boha.malengagolf.library.MessageActivity"
+            android:parentActivityName=".MainPagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <activity android:name=".ClubScorecardActivity" />
+        <!-- Declare these objects, this is part of Fortumo SDK, and should not be called directly -->
+        <!--<receiver android:name="mp.MpSMSReceiver" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <!--<service android:name="mp.MpService" />-->
+        <!--<service android:name="mp.StatusUpdateService" />-->
+
+        <!--<activity-->
+            <!--android:name="mp.MpActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <activity
+            android:name=".MgPaymentActivity"
+            android:parentActivityName=".MainPagerActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPagerActivity" />
+        </activity>
+        <!--
+        Implement you own BroadcastReceiver
+        to track payment status, should be protected by "signature" permission
+        -->
+        <receiver
+            android:name=".PaymentStatusReceiver"
+            android:permission="com.your.domain.PAYMENT_BROADCAST_PERMISSION" >
+            <intent-filter>
+                <action android:name="mp.info.PAYMENT_STATUS_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="org.acra.CrashReportDialog"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".DrawerMainPagerActivity"
+            android:label="@string/title_activity_drawer_main_pager" >
+        </activity>
+    </application>
+
+    <permission
+        android:name="com.boha.malengagolf.admin.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.boha.malengagolf.admin.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <permission
+        android:name="com.boha.malengagolf.admin.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.boha.malengagolf.admin.gcm.permission.C2D_MESSAGE" />
+    <!-- Define your own permission to protect payment broadcast -->
+    <permission
+        android:name="com.boha.malengagolf.admin.PAYMENT_BROADCAST_PERMISSION"
+        android:label="Read payment status"
+        android:protectionLevel="signature" />
+    <!-- "signature" permission granted automatically by system, without notifying user. -->
+    <uses-permission android:name="com.boha.malengagolf.admin.PAYMENT_BROADCAST_PERMISSION" />
+
+</manifest>
