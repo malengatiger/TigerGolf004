@@ -14,9 +14,9 @@ import android.view.MenuItem;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.boha.malengagolf.library.GolfCourseMapActivity;
-import com.boha.malengagolf.library.MGApp;
-import com.boha.malengagolf.library.PictureActivity;
+import com.boha.malengagolf.library.activities.GolfCourseMapActivity;
+import com.boha.malengagolf.library.activities.MGApp;
+import com.boha.malengagolf.library.activities.PictureActivity;
 import com.boha.malengagolf.library.util.WebSocketUtil;
 import com.boha.malengagolf.library.volley.toolbox.BaseVolley;
 import com.boha.malengagolf.library.data.GolfGroupDTO;

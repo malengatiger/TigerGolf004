@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.boha.malengagolf.library.LeaderBoardPager;
+import com.boha.malengagolf.library.activities.LeaderBoardPager;
 import com.boha.malengagolf.library.data.LeaderBoardDTO;
 import com.boha.malengagolf.library.util.GCMUtil;
 import com.google.android.gcm.GCMBaseIntentService;

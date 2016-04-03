@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/clubs32"
+        app:showAsAction="ifRoom"
+        android:title="@string/find_club" />
+    <item
+        android:id="@+id/menu_add"
+        android:icon="@drawable/ic_action_new"
+        app:showAsAction="ifRoom"
+        android:title="@string/add_new_tourn" />
+    <item
+        android:id="@+id/menu_subscribe"
+        android:icon="@drawable/clipboard32"
+        app:showAsAction="never"
+        android:enabled="true"
+        android:title="@string/subs" />
+    <item
+        android:id="@+id/menu_invite_leaderboard_viewer"
+        android:icon="@drawable/ic_action_edit"
+        app:showAsAction="never"
+        android:title="@string/subject" />
+
+    <item
+        android:id="@+id/menu_import"
+        android:icon="@drawable/ic_action_person"
+        app:showAsAction="never"
+        android:title="@string/import_players" />
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_action_refresh"
+        app:showAsAction="never"
+        android:title="@string/refresh" />
+    <item
+        android:id="@+id/menu_theme"
+        android:icon="@drawable/ic_action_new"
+        app:showAsAction="never"
+        android:title="Change Colour Theme" />
+
+
+</menu>

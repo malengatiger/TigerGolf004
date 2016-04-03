@@ -41,7 +41,10 @@ public class Util {
             return x;
         }
     }
-
+    public static double getElapsed(long start, long end) {
+        BigDecimal m = new BigDecimal(end - start).divide(new BigDecimal(1000));
+        return m.doubleValue();
+    }
     public static Intent getMailIntent(Context ctx, String email, String message, String subject,
                                        File file) {
 

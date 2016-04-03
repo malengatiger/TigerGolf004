@@ -4,11 +4,7 @@
  */
 package com.boha.malengagolf.library.data;
 
-import android.content.Context;
-
 import com.boha.malengagolf.library.util.PersonInterface;
-import com.boha.malengagolf.library.util.SharedUtil;
-import com.boha.malengagolf.library.util.Statics;
 
 import java.io.Serializable;
 import java.util.List;
@@ -36,22 +32,27 @@ public class PlayerDTO implements Serializable, PersonInterface, Comparable<Play
     private List<LeaderBoardDTO> scores;
     private GcmDeviceDTO gcmDevice;
     private boolean forceImageRefresh;
+    private List<PhotoUploadDTO> photoUploads;
 
-    public String getImageURL(Context ctx) {
-        if (imageURL == null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(Statics.IMAGE_URL).append("golfgroup")
-                    .append(SharedUtil.getGolfGroup(ctx).getGolfGroupID()).append("/player/");
-            sb.append("t");
-            sb.append(playerID).append(".jpg");
-            imageURL = sb.toString();
+    public String getImageURL() {
+
+        if (photoUploads == null) {
+            if (!photoUploads.isEmpty()) {
+                imageURL = photoUploads.get(0).getUrl();
+            }
         }
         return imageURL;
+
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public List<PhotoUploadDTO> getPhotoUploads() {
+        return photoUploads;
     }
+
+    public void setPhotoUploads(List<PhotoUploadDTO> photoUploads) {
+        this.photoUploads = photoUploads;
+    }
+
 
     public boolean isForceImageRefresh() {
         return forceImageRefresh;

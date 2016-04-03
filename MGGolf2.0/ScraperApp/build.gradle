@@ -3,6 +3,16 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
     dexOptions {
         incremental true
         javaMaxHeapSize "4g"
@@ -13,6 +23,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName '1.0'
+        multiDexEnabled true
     }
     buildTypes {
         release {

@@ -125,11 +125,12 @@ public class PlayerAdapter extends ArrayAdapter<PlayerDTO> {
         } else {
             item.txtBirthdate.setVisibility(View.GONE);
         }
-        Picasso.with(ctx)
-                .load(p.getImageURL(ctx))
-                .placeholder(ContextCompat.getDrawable(ctx,R.drawable.boy))
-                .into(item.imagex);
-
+        if (p.getImageURL() != null) {
+            Picasso.with(ctx)
+                    .load(p.getImageURL())
+                    .placeholder(ContextCompat.getDrawable(ctx, R.drawable.boy))
+                    .into(item.imagex);
+        }
         item.imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

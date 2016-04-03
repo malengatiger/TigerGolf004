@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/mon_padding"
+    tools:cardCornerRadius="@dimen/mon_divider"
+    tools:cardElevation="@dimen/mon_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/mon_margin">
+
+        <ImageView
+            android:id="@+id/TRN_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/flag32" />
+
+        <TextView
+            android:id="@+id/TRN_txtNumber"
+            style="@style/TextStyleGrey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TRN_image"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/zero"
+            android:textSize="20sp"
+
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/TRN_exampleDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/error16" />
+
+        <TextView
+            android:id="@+id/TRN_txtName"
+            style="@style/Title3TextStyleBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/TRN_image"
+            android:text="@string/txt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/TRN_txtStatus"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TRN_txtName"
+            android:layout_below="@+id/TRN_txtName"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/txt"
+            android:textColor="@color/absa_red"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/TRN_txtClubName"
+            style="@style/Title3TextStyleBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/TRN_txtName"
+            android:layout_below="@id/TRN_txtStatus"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/txt" />
+
+        <RelativeLayout
+            android:id="@+id/TRN_layoutStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/TRN_txtName"
+            android:layout_below="@+id/TRN_txtClubName"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/TRN_txtStartDateLabel"
+                style="@style/Title3TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Start Date"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/TRN_txtStartDate"
+                style="@style/TextStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="28 December 2015"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/TRN_layoutEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/TRN_layoutStartDate"
+            android:layout_below="@+id/TRN_layoutStartDate">
+
+            <TextView
+                android:id="@+id/TRN_txtEndDateLabel"
+                style="@style/Title3TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="End Date"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/TRN_txtEndDate"
+                style="@style/TextStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="30 December 2015"
+                android:textColor="@color/blue"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/TRN_layoutCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/TRN_layoutEndDate"
+            android:layout_below="@+id/TRN_layoutEndDate"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/TRN_txtCounterLabel"
+                style="@style/TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/number_rounds" />
+
+            <TextView
+                android:id="@+id/TRN_txtCounter"
+                style="@style/RedCircleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/mon_widest"
+                android:text="@string/zero"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/TRN_layoutPlayerCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/TRN_layoutCount"
+            android:layout_below="@+id/TRN_layoutCount"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/TRN_txtPlayerLabel"
+                style="@style/TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/number_players" />
+
+            <TextView
+                android:id="@+id/TRN_txtPlayerCounter"
+                style="@style/GreenCircleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/mon_widest"
+                android:text="@string/zero"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/TRN_layoutExample"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/TRN_layoutPlayerCount"
+            android:layout_below="@+id/TRN_layoutPlayerCount"
+            android:layout_marginTop="25dp">
+
+            <TextView
+                android:id="@+id/TRN_txtTournamentTypeLabel"
+                style="@style/TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/tourn_type"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/TRN_txtTournamentType"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/strokeplay_indiv"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/tournament_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TRN_layoutExample"
+            android:layout_marginBottom="@dimen/mon_margin"
+
+            android:layout_marginTop="@dimen/mon_margin" />
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

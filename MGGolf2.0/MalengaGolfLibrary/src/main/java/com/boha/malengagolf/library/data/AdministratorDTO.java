@@ -5,10 +5,10 @@
 package com.boha.malengagolf.library.data;
 
 import com.boha.malengagolf.library.util.PersonInterface;
-import com.boha.malengagolf.library.util.Statics;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Aubrey Malabie
@@ -26,24 +26,19 @@ public class AdministratorDTO implements Serializable, PersonInterface {
     private int golfGroupID;
     private GcmDeviceDTO gcmDevice;
     private boolean forceImageRefresh;
+    private List<PhotoUploadDTO> photoUploads;
 
     public String getImageURL() {
 
-        if (imageURL == null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(Statics.IMAGE_URL).append("golfgroup")
-                    .append(golfGroupID).append("/admin/");
-            sb.append("t");
-            sb.append(administratorID).append(".jpg");
-            imageURL = sb.toString();
+        if (photoUploads == null) {
+            if (!photoUploads.isEmpty()) {
+                imageURL = photoUploads.get(0).getUrl();
+            }
         }
         return imageURL;
 
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
 
     public boolean isForceImageRefresh() {
         return forceImageRefresh;

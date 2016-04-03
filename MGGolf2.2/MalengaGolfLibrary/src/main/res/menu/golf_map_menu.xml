@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/menu_list"
+        android:icon="@drawable/ic_action_view_as_list"
+        android:title="@string/list"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_search_by_state"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/search_by_state"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_add"
+        android:icon="@drawable/ic_action_new"
+        android:title="@string/add_new_club"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_map"
+        android:icon="@drawable/ic_action_map"
+        android:title="@string/map"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_help"
+        android:enabled="true"
+        android:title="@string/help_me"
+        app:showAsAction="never" />
+</menu>

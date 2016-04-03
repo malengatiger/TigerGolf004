@@ -12,10 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.boha.malengagolf.library.GolfCourseMapActivity;
-import com.boha.malengagolf.library.MGApp;
-import com.boha.malengagolf.library.MGGalleryActivity;
-import com.boha.malengagolf.library.PictureActivity;
+import com.boha.malengagolf.library.activities.GolfCourseMapActivity;
+import com.boha.malengagolf.library.activities.MGApp;
+import com.boha.malengagolf.library.activities.MGGalleryActivity;
+import com.boha.malengagolf.library.activities.PictureActivity;
 import com.boha.malengagolf.library.data.GolfGroupDTO;
 import com.boha.malengagolf.library.data.RequestDTO;
 import com.boha.malengagolf.library.data.ResponseDTO;

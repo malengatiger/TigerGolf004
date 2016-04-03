@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.boha.malengagolf.library.data.AdministratorDTO;
 import com.boha.malengagolf.library.data.CountryDTO;
@@ -405,7 +404,6 @@ public class RegistrationActivity extends AppCompatActivity implements
         mainEPLayout = findViewById(R.id.REG_ediLayout);
         mainRegLayout = findViewById(R.id.REG_mainLayout);
         mainEPLayout.setVisibility(View.GONE);
-        final TextView txtHdr = (TextView) findViewById(R.id.EP_header);
         btnStartSignIn = (Button) findViewById(R.id.REG_btnExisting);
         btnStartNewGroup = (Button) findViewById(R.id.REG_btnNewGroup);
         btnStartNewGroup.setOnClickListener(new View.OnClickListener() {
@@ -416,7 +414,6 @@ public class RegistrationActivity extends AppCompatActivity implements
                 isRegistration = true;
                 eCell.setVisibility(View.VISIBLE);
                 btnSave.setText(ctx.getResources().getString(R.string.register));
-                txtHdr.setText(ctx.getResources().getString(R.string.group_reg));
             }
         });
         btnStartSignIn.setOnClickListener(new View.OnClickListener() {
@@ -431,7 +428,6 @@ public class RegistrationActivity extends AppCompatActivity implements
                 spinnerCountry.setVisibility(View.GONE);
                 isRegistration = false;
                 btnSave.setText(ctx.getResources().getString(R.string.sign_in));
-                txtHdr.setText(ctx.getResources().getString(R.string.group_signin));
             }
         });
 

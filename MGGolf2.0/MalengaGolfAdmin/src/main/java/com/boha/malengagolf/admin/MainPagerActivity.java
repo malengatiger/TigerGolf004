@@ -34,10 +34,10 @@ import com.boha.malengagolf.admin.com.boha.malengagolf.packs.fragments.Tournamen
 import com.boha.malengagolf.admin.com.boha.malengagolf.packs.fragments.TournamentListFragment;
 import com.boha.malengagolf.admin.com.boha.malengagolf.packs.listeners.BusyListener;
 import com.boha.malengagolf.admin.com.boha.malengagolf.packs.util.PersonEditDialog;
-import com.boha.malengagolf.library.AppInvitationActivity;
-import com.boha.malengagolf.library.GolfCourseMapActivity;
-import com.boha.malengagolf.library.MGApp;
-import com.boha.malengagolf.library.PictureActivity;
+import com.boha.malengagolf.library.activities.AppInvitationActivity;
+import com.boha.malengagolf.library.activities.GolfCourseMapActivity;
+import com.boha.malengagolf.library.activities.MGApp;
+import com.boha.malengagolf.library.activities.PictureActivity;
 import com.boha.malengagolf.library.data.AdministratorDTO;
 import com.boha.malengagolf.library.data.ClubDTO;
 import com.boha.malengagolf.library.data.GolfGroupDTO;

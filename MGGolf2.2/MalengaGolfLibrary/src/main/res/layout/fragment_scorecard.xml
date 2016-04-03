@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:padding="10dp"
+    android:background="@color/grey"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/PSC_layoutTop"
+        android:background="@color/white"
+        android:padding="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/PSC_playerName"
+            android:text="@string/txt"
+            style="@style/Title1TextStyleBlack"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/PSC_tourneyName"
+            android:text="@string/txt"
+            style="@style/TextStyle"
+            android:textColor="@color/blue"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/PSC_playerName"
+            android:layout_alignLeft="@id/PSC_playerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/PSC_image"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/PSC_tourneyName"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="160dp" />
+
+        <RelativeLayout
+            android:id="@+id/PSC_layoutCount"
+            android:layout_width="wrap_content"
+            android:layout_alignTop="@id/PSC_image"
+            android:layout_toRightOf="@id/PSC_image"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/PSC_count"
+                android:text="@string/zero"
+                style="@style/Title3TextStyleBlue"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/PSC_countLabel"
+                android:text="@string/number_rounds"
+                style="@style/TextStyleGrey"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_toLeftOf="@id/PSC_count"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/PSC_layoutCount2"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/PSC_layoutCount"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/PSC_averageStrokes"
+                android:text="@string/zero"
+                style="@style/Title3TextStyleGreen"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/PSC_averageLabel"
+                android:text="@string/avg_per_round"
+                style="@style/TextStyleGrey"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_toLeftOf="@id/PSC_averageStrokes"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/PSC_list"
+        android:layout_below="@id/PSC_layoutTop"
+        android:layout_marginTop="10dp"
+        android:dividerHeight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

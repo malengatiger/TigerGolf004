@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/menu_manage_players"
+            android:icon="@drawable/ic_action_refresh"
+            android:showAsAction="ifRoom"
+            android:title="@string/manage_tourn_players"/>
+
+    <item
+            android:id="@+id/menu_manage_tourn"
+            android:icon="@drawable/flag32"
+            android:showAsAction="ifRoom"
+            android:title="@string/update_tourn"/>
+    <item
+            android:id="@+id/menu_leaderboard"
+            android:icon="@drawable/flag32"
+            android:showAsAction="ifRoom"
+            android:title="@string/leaderboard"/>
+    <item
+            android:id="@+id/menu_pictures"
+            android:icon="@drawable/flag32"
+            android:showAsAction="ifRoom"
+            android:title="@string/tourn_gallery"/>
+    <item
+            android:id="@+id/menu_teetime"
+            android:icon="@drawable/cal1_32"
+            android:showAsAction="ifRoom"
+            android:title="@string/manage_teetime"/>
+    <item
+            android:id="@+id/menu_invite_lb_viewer"
+            android:icon="@drawable/ic_action_edit"
+            android:showAsAction="ifRoom"
+            android:title="@string/subject"/>
+    <item
+            android:id="@+id/menu_upload"
+            android:icon="@drawable/video32"
+            android:showAsAction="ifRoom"
+            android:title="@string/upload_video"/>
+    <item
+            android:id="@+id/menu_message"
+            android:icon="@drawable/cal1_32"
+            android:showAsAction="ifRoom"
+            android:title="@string/reminder_mail"/>
+
+    <item
+            android:id="@+id/menu_delete"
+            android:icon="@drawable/error32"
+            android:showAsAction="ifRoom"
+            android:title="@string/delete_tournament"/>
+
+</menu>

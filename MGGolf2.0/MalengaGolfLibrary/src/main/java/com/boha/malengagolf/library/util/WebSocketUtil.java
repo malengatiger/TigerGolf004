@@ -3,12 +3,13 @@ package com.boha.malengagolf.library.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.VolleyError;
 import com.boha.malengagolf.library.data.RequestDTO;
 import com.boha.malengagolf.library.data.ResponseDTO;
+import com.boha.malengagolf.library.volley.toolbox.BaseVolley;
 import com.google.gson.Gson;
 
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.math.BigDecimal;
@@ -40,44 +41,44 @@ public class WebSocketUtil {
         }
     }
 
-    public static void sendRequest(Context c, final String suffix, RequestDTO req, WebSocketListener listener) {
-        Log.e(LOG,"&&&&&&&&& about to start communications with websocket endpoint: " + suffix);
-        start = System.currentTimeMillis();
-        webSocketListener = listener;
-        request = req;
-        ctx = c;
-        TimerUtil.startTimer(new TimerUtil.TimerListener() {
-            @Override
-            public void onSessionDisconnected() {
-                try {
-                    connectWebSocket(suffix, request);
-                    return;
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        try {
-            if (mWebSocketClient == null) {
-                connectWebSocket(suffix);
-            } else {
-                String json = gson.toJson(req);
-                mWebSocketClient.send(json);
-                Log.d(LOG, "########### web socket message sent\n" + json);
-            }
-        } catch (WebsocketNotConnectedException e) {
-            try {
-                Log.e(LOG, "WebsocketNotConnectedException. Problems with web socket", e);
-                connectWebSocket(suffix, req);
-            } catch (URISyntaxException e1) {
-                Log.e(LOG, "Problems with web socket", e);
-                webSocketListener.onError("Problem starting server socket communications\n" + e1.getMessage());
-            }
-        } catch (URISyntaxException e) {
-            Log.e(LOG, "Problems with web socket", e);
-            webSocketListener.onError("Problem starting server socket communications");
-        }
-    }
+//    public static void sendRequest(Context c, final String suffix, RequestDTO req, WebSocketListener listener) {
+//        Log.e(LOG,"&&&&&&&&& about to start communications with websocket endpoint: " + suffix);
+//        start = System.currentTimeMillis();
+//        webSocketListener = listener;
+//        request = req;
+//        ctx = c;
+//        TimerUtil.startTimer(new TimerUtil.TimerListener() {
+//            @Override
+//            public void onSessionDisconnected() {
+//                try {
+//                    connectWebSocket(suffix, request);
+//                    return;
+//                } catch (URISyntaxException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        try {
+//            if (mWebSocketClient == null) {
+//                connectWebSocket(suffix);
+//            } else {
+//                String json = gson.toJson(req);
+//                mWebSocketClient.send(json);
+//                Log.d(LOG, "########### web socket message sent\n" + json);
+//            }
+//        } catch (WebsocketNotConnectedException e) {
+//            try {
+//                Log.e(LOG, "WebsocketNotConnectedException. Problems with web socket", e);
+//                connectWebSocket(suffix, req);
+//            } catch (URISyntaxException e1) {
+//                Log.e(LOG, "Problems with web socket", e);
+//                webSocketListener.onError("Problem starting server socket communications\n" + e1.getMessage());
+//            }
+//        } catch (URISyntaxException e) {
+//            Log.e(LOG, "Problems with web socket", e);
+//            webSocketListener.onError("Problem starting server socket communications");
+//        }
+//    }
 
     private static void connectWebSocket(String socketSuffix, final RequestDTO request) throws URISyntaxException {
         URI uri = new URI(Statics.WEBSOCKET_URL + socketSuffix);
@@ -230,5 +231,29 @@ public class WebSocketUtil {
         BigDecimal m = new BigDecimal(end - start).divide(new BigDecimal(1000));
 
         return "" + m.doubleValue() + " seconds";
+    }
+
+    public static void sendRequest(Context c, final String suffix, RequestDTO req, final WebSocketListener listener) {
+        Log.e(LOG,"&&&&&&&&& about to start communications with http endpoint: " + suffix);
+        start = System.currentTimeMillis();
+        webSocketListener = listener;
+        request = req;
+        ctx = c;
+
+        BaseVolley.getRemoteData(suffix, req, c, new BaseVolley.BohaVolleyListener() {
+            @Override
+            public void onResponseReceived(ResponseDTO response) {
+                if (response.getStatusCode() == 0) {
+                    listener.onMessage(response);
+                } else {
+                    listener.onError(response.getMessage());
+                }
+            }
+
+            @Override
+            public void onVolleyError(VolleyError error) {
+                listener.onError(error.getMessage());
+            }
+        });
     }
 }

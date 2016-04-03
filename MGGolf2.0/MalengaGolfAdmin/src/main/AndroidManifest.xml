@@ -10,7 +10,7 @@
         android:required="false" />
 
     <application
-        android:name="com.boha.malengagolf.library.MGApp"
+        android:name="com.boha.malengagolf.library.activities.MGApp"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/BlueThemeTwo" >
@@ -100,7 +100,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.ScoringByHoleActivity"
+            android:name="com.boha.malengagolf.library.activities.ScoringByHoleActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -109,7 +109,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.ScoreCardActivity"
+            android:name="com.boha.malengagolf.library.activities.ScoreCardActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -118,7 +118,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.PlayerHistoryActivity"
+            android:name="com.boha.malengagolf.library.activities.PlayerHistoryActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -127,7 +127,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.LeaderBoardPager"
+            android:name="com.boha.malengagolf.library.activities.LeaderBoardPager"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -136,7 +136,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.TeeTimeActivity"
+            android:name="com.boha.malengagolf.library.activities.TeeTimeActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -145,7 +145,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.TimeSheetActivity"
+            android:name="com.boha.malengagolf.library.activities.TimeSheetActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -154,7 +154,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.PictureActivity"
+            android:name="com.boha.malengagolf.library.activities.PictureActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -163,7 +163,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.MGGalleryActivity"
+            android:name="com.boha.malengagolf.library.activities.MGGalleryActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -172,7 +172,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.GolfCourseMapActivity"
+            android:name="com.boha.malengagolf.library.activities.GolfCourseMapActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -181,7 +181,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.AppInvitationActivity"
+            android:name="com.boha.malengagolf.library.activities.AppInvitationActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
@@ -199,7 +199,7 @@
                 android:value=".MainPagerActivity" />
         </activity>
         <activity
-            android:name="com.boha.malengagolf.library.MessageActivity"
+            android:name="com.boha.malengagolf.library.activities.MessageActivity"
             android:parentActivityName=".MainPagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ET_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:padding="10dp"
+    android:visibility="visible">
+
+    <RelativeLayout
+        android:id="@+id/ET_layout0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:padding="0dp"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/ET_mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/xwhite_rounded_corners">
+
+            <TextView
+                android:id="@+id/ET_groupName"
+                style="@style/Title3TextStyleGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="5dp"
+                android:inputType="textCapWords"
+                android:text="@string/group_name"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/ET_space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_groupName"
+                android:layout_marginTop="5dp"
+                android:background="@color/beige_pale"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="gone">
+
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/ET_eTournName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_space"
+                android:layout_marginTop="5dp"
+                android:hint="@string/tourney_name"
+                android:inputType="textCapWords" />
+
+            <RelativeLayout
+                android:id="@+id/ET_layoutRoundCover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_eTournName">
+
+                <RelativeLayout
+                    android:id="@+id/ET_layoutRounds"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/blue_pale"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/ET_btnRoundsUp"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:drawableRight="@drawable/ic_file_upload_black_24dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/ET_btnRoundsDown"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/mon_margin"
+                        android:layout_toRightOf="@id/ET_btnRoundsUp"
+                        android:drawableRight="@drawable/ic_file_download_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/ET_txtNumberRounds"
+                        style="@style/GreenCountBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/zero"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/ET_txtRoundsLabel"
+                        style="@style/TextStyleGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_toLeftOf="@id/ET_txtNumberRounds"
+                        android:text="@string/rounds"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/ET_txtTournStatus"
+                style="@style/Title3TextStyleRed"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/mon_margin"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_layoutRoundCover"
+                android:text="@string/tourn_closed" />
+
+            <Button
+                android:id="@+id/ET_btnStartDate"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_txtTournStatus"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textAllCaps="true"
+                android:hint="@string/start_date"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/ET_btnEndDate"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_btnStartDate"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/end_date"
+                android:textAllCaps="true"
+                android:textColor="@color/blue_500"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/ET_layoutPar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_btnEndDate"
+                android:padding="10dp"
+                android:visibility="visible">
+
+                <RadioGroup
+                    android:id="@+id/ET_radios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/ET_radio18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="18 Holes"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/ET_radio9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="9 Holes"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+
+                <RadioGroup
+                    android:id="@+id/ET_radios2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_radios"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/ET_radioStrokePlayIndiv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/strokeplay_indiv"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/ET_radioStablefordIndiv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/stableford_indiv"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+
+                <RelativeLayout
+                    android:id="@+id/ET_layoutSetPar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_radios2"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/blue_pale"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/ET_btnParUp"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:drawableRight="@drawable/ic_file_upload_black_24dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/ET_btnParDown"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/mon_margin"
+                        android:layout_toRightOf="@id/ET_btnParUp"
+                        android:drawableRight="@drawable/ic_file_download_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/ET_txtPar"
+                        style="@style/BlueCountBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/zero"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ET_layoutDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_layoutPar"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <CheckBox
+                    android:id="@+id/ET_ckMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/male"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/ET_ckFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/female"
+                    android:textColor="@color/black" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/ET_layoutClubs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_layoutPar"
+                android:padding="10dp">
+
+                <Button
+                    android:id="@+id/ET_btnFindClubs"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:textAllCaps="true"
+                    android:text="@string/find_club"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/ET_btnCheckScorecard"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_btnFindClubs"
+                    android:layout_marginTop="5dp"
+                    android:textAllCaps="true"
+                    android:text="@string/check_club_sc"
+                    android:textColor="@color/purple_500"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/ET_spinnerClub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_btnCheckScorecard"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/ET_layoutCourse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_spinnerClub">
+
+
+                    <TextView
+
+                        android:id="@+id/ET_btnRemove"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+
+                        android:layout_marginRight="@dimen/mon_padding"
+                        android:drawableLeft="@drawable/ic_clear_black_24dp"
+                        android:padding="8dp" />
+
+                    <TextView
+
+                        android:id="@+id/ET_btnAdd"
+                        style="@style/ButtonCancelSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/ET_btnRemove"
+                        android:drawableLeft="@drawable/ic_add_black_24dp"
+                        android:padding="8dp"
+                        android:textAlignment="center" />
+                    <Spinner
+                        android:id="@+id/ET_spinnerCourse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/ET_btnAdd"
+                        android:layout_marginTop="5dp" />
+
+
+                    <TextView
+                        android:id="@+id/ET_txtAddedCourse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ET_spinnerCourse"
+                        android:text="Added Courses listed in here"
+                        android:textAlignment="center"
+                        android:textColor="@color/green" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/ET_closeTournLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_layoutClubs"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/ET_ageGroupLabel"
+                    style="@style/TextStyleGrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_age_groups"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/ET_radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ET_ageGroupLabel"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/ET_radioYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/yes" />
+
+                    <RadioButton
+                        android:id="@+id/ET_radioNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red_500"
+                        android:layout_marginLeft="50dp"
+                        android:text="@string/no" />
+                </RadioGroup>
+
+                <CheckBox
+                    android:id="@+id/ET_checkBoxCloseTourn"
+                    style="@style/TextStyleGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/ET_radioGroup"
+                    android:layout_below="@id/ET_radioGroup"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/close_tourn"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ET_closeTournLayout"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/ET_btnSave"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAllCaps="true"
+                    android:text="@string/save"
+                    android:textColor="@color/green_500" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

@@ -21,7 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.boha.malengagolf.admin.R;
-import com.boha.malengagolf.library.AppInvitationActivity;
+import com.boha.malengagolf.library.activities.AppInvitationActivity;
 import com.boha.malengagolf.library.data.AdministratorDTO;
 import com.boha.malengagolf.library.data.ParentDTO;
 import com.boha.malengagolf.library.data.PlayerDTO;

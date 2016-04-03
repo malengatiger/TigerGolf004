@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    android:padding="@dimen/mon_divider">
+
+    <RelativeLayout
+        android:id="@+id/MAP_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="0dp">
+
+        <RelativeLayout
+            android:id="@+id/MAP_layout0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Spinner
+                android:id="@+id/MAP_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="@dimen/mon_margin"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/MAP_seekLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/MAP_layout0"
+            android:layout_margin="@dimen/mon_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/MAP_seekBarValue"
+                style="@style/Title2TextStyleBlue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textStyle="normal" />
+
+            <SeekBar
+                android:id="@+id/MAP_seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/MAP_seekBarValue"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/mon_margin"
+                android:layout_weight="3"
+                android:max="200"
+                android:progress="20" />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/MAP_resultsLayout"
+            android:layout_width="match_parent"
+            android:background="@color/amber_100"
+            android:paddingTop="@dimen/mon_margin"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/MAP_seekLayout">
+
+            <TextView
+                android:id="@+id/MAP_results"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/mon_padding"
+                android:text="Clubs listed: 34"
+                android:textSize="14sp" />
+
+
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mapLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/MAP_layout">
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/mon_divider"
+            android:layout_weight="1" />
+
+
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/MAP_layout"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/mon_wide"
+        android:layout_marginRight="@dimen/mon_wide"
+        android:elevation="@dimen/mon_margin"
+        android:src="@drawable/ic_autorenew_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:fabSize="mini"
+        android:layout_marginBottom="@dimen/mon_wide"
+        android:layout_marginRight="@dimen/mon_wide"
+        android:elevation="@dimen/mon_padding"
+        android:src="@drawable/ic_action_overflow" />
+
+    <Switch
+        android:id="@+id/MAP_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/mon_padding"
+        android:layout_marginBottom="@dimen/mon_wider"
+        android:layout_marginLeft="@dimen/mon_margin"
+        android:background="@color/transparent_black"
+        android:textOff="@string/off"
+        android:textOn="@string/on"
+        tools:ignore="NewApi" />
+
+
+</RelativeLayout>

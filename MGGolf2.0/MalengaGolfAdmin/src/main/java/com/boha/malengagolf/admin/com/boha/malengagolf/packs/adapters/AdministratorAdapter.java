@@ -1,6 +1,7 @@
 package com.boha.malengagolf.admin.com.boha.malengagolf.packs.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,10 +109,12 @@ public class AdministratorAdapter extends ArrayAdapter<AdministratorDTO> {
         v.txtCountBlack.setVisibility(View.VISIBLE);
         v.txtCountGreen.setVisibility(View.GONE);
 
-        Picasso.with(ctx)
-                .load(p.getImageURL())
-                .error(R.drawable.boy)
-                .into(v.imagex);
+        if (p.getImageURL() != null) {
+            Picasso.with(ctx)
+                    .load(p.getImageURL())
+                    .placeholder(ContextCompat.getDrawable(ctx, R.drawable.boy))
+                    .into(v.imagex);
+        }
         //
         v.imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override

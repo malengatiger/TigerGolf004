@@ -22,12 +22,12 @@ import android.widget.TextView;
 
 import com.boha.malengagolf.admin.MainPagerActivity;
 import com.boha.malengagolf.admin.R;
-import com.boha.malengagolf.library.AppInvitationActivity;
-import com.boha.malengagolf.library.LeaderBoardPager;
-import com.boha.malengagolf.library.MGGalleryActivity;
-import com.boha.malengagolf.library.MessageActivity;
-import com.boha.malengagolf.library.PictureActivity;
-import com.boha.malengagolf.library.TeeTimeActivity;
+import com.boha.malengagolf.library.activities.AppInvitationActivity;
+import com.boha.malengagolf.library.activities.LeaderBoardPager;
+import com.boha.malengagolf.library.activities.MGGalleryActivity;
+import com.boha.malengagolf.library.activities.MessageActivity;
+import com.boha.malengagolf.library.activities.PictureActivity;
+import com.boha.malengagolf.library.activities.TeeTimeActivity;
 import com.boha.malengagolf.library.adapters.TournamentAdapter;
 import com.boha.malengagolf.library.data.AdministratorDTO;
 import com.boha.malengagolf.library.data.GolfGroupDTO;

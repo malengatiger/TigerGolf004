@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@color/grey"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:background="@color/white"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.boha.malengagolf.library.base.BannerBlue
+                android:id="@+id/PAY_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/PAY_instructionTitle"
+                style="@style/Title2TextStyleBlue"
+                android:layout_margin="10dp" android:layout_marginTop="40dp"
+                android:text="@string/subs"
+                android:layout_below="@id/PAY_banner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <RadioGroup
+                android:id="@+id/PAY_radioGroup"
+                android:layout_below="@id/PAY_instructionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <RadioButton
+                    android:id="@+id/PAY_radio50"
+                    android:text="Subscription for 50 players"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <RadioButton
+                    android:id="@+id/PAY_radio100"
+                    android:text="Subscription for 100 players"
+                    android:layout_width="wrap_content" android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"/>
+            <RadioButton
+                    android:id="@+id/PAY_radio200"
+                    android:layout_marginTop="10dp"
+                    android:text="Subscription for more than 100 players"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                </RadioGroup>
+        <TextView
+                android:id="@+id/PAY_instruction"
+                style="@style/TextStyle"
+                android:layout_marginTop="20dp"
+                android:text="@string/subs_text"
+                android:layout_below="@id/PAY_radioGroup"
+                android:layout_width="match_parent"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:id="@+id/PAY_btnCredit"
+                style="@style/ButtonNavyBlue"
+                android:text="@string/pay_credit"
+                android:layout_below="@id/PAY_instruction" android:background="@color/green"
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:id="@+id/PAY_btnMobile"
+                style="@style/ButtonNavyBlue"
+                android:layout_below="@id/PAY_btnCredit"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:background="@color/blue"
+                android:text="@string/pay_mobile"
+                android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+</RelativeLayout>

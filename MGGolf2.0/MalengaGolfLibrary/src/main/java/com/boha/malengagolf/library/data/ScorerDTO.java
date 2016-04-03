@@ -1,9 +1,9 @@
 package com.boha.malengagolf.library.data;
 
 import com.boha.malengagolf.library.util.PersonInterface;
-import com.boha.malengagolf.library.util.Statics;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by aubreyM on 2014/04/09.
@@ -19,21 +19,25 @@ public class ScorerDTO implements Serializable, PersonInterface {
     private int golfGroupID;
     private GcmDeviceDTO gcmDevice;
     private boolean forceImageRefresh;
+    private List<PhotoUploadDTO> photoUploads;
 
     public String getImageURL() {
-        if (imageURL == null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(Statics.IMAGE_URL).append("golfgroup")
-                    .append(golfGroupID).append("/scorer/");
-            sb.append("t");
-            sb.append(scorerID).append(".jpg");
-            imageURL = sb.toString();
+
+        if (photoUploads == null) {
+            if (!photoUploads.isEmpty()) {
+                imageURL = photoUploads.get(0).getUrl();
+            }
         }
         return imageURL;
+
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public List<PhotoUploadDTO> getPhotoUploads() {
+        return photoUploads;
+    }
+
+    public void setPhotoUploads(List<PhotoUploadDTO> photoUploads) {
+        this.photoUploads = photoUploads;
     }
 
     public boolean isForceImageRefresh() {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_invite"
+            android:icon="@drawable/ic_action_add_person"
+            android:title="Invite Tournament Viewer" />
+
+        <item
+            android:id="@+id/nav_find_courses"
+            android:icon="@drawable/ic_action_search"
+            android:title="Find Golf Courses" />
+
+        <item
+            android:id="@+id/nav_add_tournament"
+            android:icon="@drawable/ic_action_picture"
+            android:title="Add Tournament" />
+
+    </group>
+    <item android:title="Golf Group Data"
+        android:icon="@drawable/ic_action_picture">
+        <menu>
+            <item
+                android:id="@+id/nav_add_player"
+                android:icon="@drawable/ic_action_add_person"
+                android:title="Register Player" />
+            <item
+                android:id="@+id/nav_add_scorer"
+                android:icon="@drawable/ic_action_add_person"
+                android:title="Register Scorer" />
+            <item
+                android:id="@+id/nav_add_admin"
+                android:icon="@drawable/ic_action_add_person"
+                android:title="Register Administrator" />
+            <item
+                android:id="@+id/nav_import_players"
+                android:icon="@drawable/ic_action_map"
+                android:title="@string/import_players" />
+        </menu>
+    </item>
+    <item android:title="Miscellaneous"
+        android:icon="@drawable/ic_action_view_as_list">
+        <menu>
+            <item
+                android:id="@+id/nav_refresh"
+                android:icon="@drawable/ic_action_refresh"
+                android:title="@string/refresh" />
+            <item
+                android:id="@+id/nav_close"
+                android:icon="@drawable/ic_action_back"
+                android:title="Close" />
+        </menu>
+    </item>
+
+</menu>

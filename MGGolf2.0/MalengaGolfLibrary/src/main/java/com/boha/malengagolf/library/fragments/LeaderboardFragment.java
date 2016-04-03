@@ -24,9 +24,9 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.boha.malengagolf.library.LeaderboardAdapter;
+import com.boha.malengagolf.library.activities.LeaderboardAdapter;
 import com.boha.malengagolf.library.R;
-import com.boha.malengagolf.library.ScoreCardActivity;
+import com.boha.malengagolf.library.activities.ScoreCardActivity;
 import com.boha.malengagolf.library.adapters.LeaderboardOneRoundAdapter;
 import com.boha.malengagolf.library.data.ClubCourseDTO;
 import com.boha.malengagolf.library.data.LeaderBoardCarrierDTO;

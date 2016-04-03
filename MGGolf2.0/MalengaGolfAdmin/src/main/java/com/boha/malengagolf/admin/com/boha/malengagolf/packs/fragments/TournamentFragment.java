@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.boha.malengagolf.admin.ClubScorecardActivity;
 import com.boha.malengagolf.admin.R;
-import com.boha.malengagolf.library.GolfCourseMapActivity;
+import com.boha.malengagolf.library.activities.GolfCourseMapActivity;
 import com.boha.malengagolf.library.data.AdministratorDTO;
 import com.boha.malengagolf.library.data.ClubCourseDTO;
 import com.boha.malengagolf.library.data.ClubDTO;

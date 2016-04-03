@@ -40,7 +40,6 @@ public class ScrapeStateForCitiesUtil {
     static String u;
     public static void scrapeCities(Context context, ProvinceDTO s, String countryName, StateScraperListener listener) throws IOException {
         u = baseUrl + countryName + "/" + s.getWebKey();
-        Log.e(LOG,"Url: " + u);
         ctx = context;
         state = s;
         scraperListener = listener;

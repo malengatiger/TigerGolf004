@@ -21,8 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.boha.malengagolf.library.MGApp;
 import com.boha.malengagolf.library.R;
 import com.boha.malengagolf.library.data.AdministratorDTO;
 import com.boha.malengagolf.library.data.GolfGroupDTO;

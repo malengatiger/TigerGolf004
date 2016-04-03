@@ -19,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.boha.malengagolf.library.R;
-import com.boha.malengagolf.library.TimeSheetActivity;
+import com.boha.malengagolf.library.activities.TimeSheetActivity;
 import com.boha.malengagolf.library.adapters.TeeTimeAdapter;
 import com.boha.malengagolf.library.data.LeaderBoardDTO;
 import com.boha.malengagolf.library.data.RequestDTO;
