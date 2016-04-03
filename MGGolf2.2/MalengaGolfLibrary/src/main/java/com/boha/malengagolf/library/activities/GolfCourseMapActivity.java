@@ -1142,6 +1142,10 @@ public class GolfCourseMapActivity extends AppCompatActivity
                             return;
                         }
                         Log.e(LOG, "Have found " + r.getClubs().size() + " clubs in province");
+                        if (r.getClubs().isEmpty()) {
+                            ToastUtil.toast(getApplicationContext(),"No clubs have been found in the State/Province");
+                            return;
+                        }
                         clubList = r.getClubs();
                         putClubMarkersOnMap();
                         setList();
@@ -1169,35 +1173,6 @@ public class GolfCourseMapActivity extends AppCompatActivity
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
-//            @Override
-//            public void onResponseReceived(ResponseDTO r) {
-//                setRefreshActionButtonState(false);
-//                if (!ErrorUtil.checkServerError(ctx, r)) {
-//                    return;
-//                }
-//                Log.e(LOG, "Have found " + r.getClubs().size() + " clubs in province");
-//                clubList = r.getClubs();
-//                putClubMarkersOnMap();
-//                setList();
-//                totalPages = r.getTotalPages();
-//                txtPages.setText("" + currentPage + "/" + r.getTotalPages());
-//                txtResults.setText(ctx.getResources().getString(R.string.clubs_on_map)
-//                        + " " + clubList.size() + "/" + r.getTotalClubs());
-//                if (r.getTotalPages() > 1) {
-//                    enableButtons();
-//                } else {
-//                    disableButtons();
-//                }
-//                searchType = FROM_PROVINCE;
-//            }
-//
-//            @Override
-//            public void onVolleyError(VolleyError error) {
-//                setRefreshActionButtonState(false);
-//                ErrorUtil.showServerCommsError(ctx);
-//            }
-//        });
     }
 
     private void startDirectionsMap(double lat, double lng) {
