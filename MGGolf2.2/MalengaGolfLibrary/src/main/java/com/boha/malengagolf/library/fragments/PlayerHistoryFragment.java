@@ -110,7 +110,7 @@ public class PlayerHistoryFragment extends Fragment implements MGPageFragment {
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN,z,ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN,z,ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                if (!ErrorUtil.checkServerError(ctx, response)) {

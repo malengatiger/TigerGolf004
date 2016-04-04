@@ -1,8 +1,10 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
-public class TeeTimeDTO implements Serializable {
+public class TeeTimeDTO  extends SugarRecord implements Serializable {
 	private int teeTimeID;
 	private int golfRound;
 	private long teeTime;

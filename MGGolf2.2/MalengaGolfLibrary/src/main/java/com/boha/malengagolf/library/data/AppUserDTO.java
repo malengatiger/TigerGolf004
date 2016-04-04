@@ -1,12 +1,14 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
   * Created by aubreyM on 2014/05/25.
   */
- public class AppUserDTO implements Serializable {
+ public class AppUserDTO  extends SugarRecord implements Serializable {
     private int appUserID;
     private String email;
     private long dateRegistered;

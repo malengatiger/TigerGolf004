@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/mon_padding"
+    tools:cardCornerRadius="@dimen/mon_divider"
+    tools:cardElevation="@dimen/mon_divider_small">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:id="@+id/tableRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/mon_padding">
+
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/mon_margin"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/SBH_txtLabel1"
+                            style="@style/TextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/mon_margin"
+                            android:layout_weight="2"
+                            android:text="Hole" />
+
+                        <TextView
+                            android:id="@+id/SBH_txtHole"
+                            style="@style/Title1TextStyleBlack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/mon_margin"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/SBH_txtLabel1"
+                            android:layout_weight="2"
+                            android:text="1" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/SBH_txtScore1"
+                        style="@style/Title1TextStyleRed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/mon_margin"
+                        android:text="8"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/mon_margin"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/SBH_btnUp1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:elevation="@dimen/mon_padding"
+                        android:src="@drawable/ic_arrow_upward_white_24dp" />
+
+                    <ImageButton
+                        android:id="@+id/SBH_btnDown1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="@dimen/mon_margin"
+                        android:layout_toRightOf="@id/SBH_btnUp1"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:elevation="@dimen/mon_padding"
+                        android:src="@drawable/ic_arrow_downward_white_24dp" />
+                </RelativeLayout>
+            </TableRow>
+        </TableLayout>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -333,7 +333,7 @@
     <style name="ButtonCancelSmall" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:background">@drawable/xgrey_rounded_corners</item>
+        <item name="android:background">@drawable/xgrey_box</item>
     </style>
 
     <style name="ThinGreyBox" parent="@android:style/TextAppearance.Medium">

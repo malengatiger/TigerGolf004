@@ -240,7 +240,7 @@ public class NetUtil {
         request = req;
         ctx = c;
 
-        BaseVolley.getRemoteData(suffix, req, c, new BaseVolley.BohaVolleyListener() {
+        BaseVolley.sendRequest(suffix, req, c, new BaseVolley.BohaVolleyListener() {
             @Override
             public void onResponseReceived(ResponseDTO response) {
                 if (response.getStatusCode() == 0) {

@@ -1,11 +1,13 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  * Created by aubreyM on 2014/05/17.
  */
-public class ErrorStoreAndroidDTO implements Serializable {
+public class ErrorStoreAndroidDTO  extends SugarRecord implements Serializable {
     private int errorStoreAndroidID, golfGroupID;
     private String golfGroupName, logCat, stackTrace, androidVersion,
             brand, appVersionCode, appVersionName, packageName, phoneModel;

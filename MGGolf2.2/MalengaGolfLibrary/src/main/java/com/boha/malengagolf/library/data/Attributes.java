@@ -1,11 +1,13 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  * Created by aubreyM on 2014/06/12.
  */
-public class Attributes implements Serializable {
+public class Attributes  extends SugarRecord implements Serializable {
     private String email, pin, gcmRegistrationID;
     private int golfGroupID;
     private int winnerFlag, leaderBoardID, appUserID;

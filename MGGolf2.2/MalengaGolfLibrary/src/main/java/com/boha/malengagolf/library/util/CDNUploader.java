@@ -16,6 +16,7 @@ import org.acra.ACRA;
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +27,7 @@ import java.util.Map;
  */
 public class CDNUploader {
     public interface CDNUploaderListener {
-        void onFileUploaded(PhotoUploadDTO photo);
+        void onFileUploaded(List<PhotoUploadDTO> photos);
 
         void onError(String message);
     }
@@ -76,14 +77,14 @@ public class CDNUploader {
                 map = cloudinary.uploader().upload(file, config);
                 long end = System.currentTimeMillis();
                 Log.i(LOG, "----> photo uploaded: " + map.get("url") + " elapsed: "
-                        + Util.getElapsed(start, end) + " seconds");
+                        + Util.getElapsed(start, end) + " seconds, url: " + map.get("secure_url"));
 
                 dto.setUrl((String) map.get("secure_url"));
                 dto.setDateUploaded(new Date().getTime());
 
             } catch (Exception e) {
                 Log.e(LOG, "CDN uploadToYouTube Failed", e);
-                try {
+                 try {
                     ACRA.getErrorReporter().handleException(e, false);
                 } catch (Exception ex) {//ignore}
                 }
@@ -102,12 +103,17 @@ public class CDNUploader {
             RequestDTO w = new RequestDTO(RequestDTO.ADD_PHOTO);
             w.setPhoto(dto);
 
-            BaseVolley.getRemoteData(Statics.ADMIN_ENDPOINT, w, ctx, new BaseVolley.BohaVolleyListener() {
+            BaseVolley.sendRequest(Statics.ADMIN_ENDPOINT, w, ctx, new BaseVolley.BohaVolleyListener() {
                 @Override
                 public void onResponseReceived(ResponseDTO response) {
+
                     if (response.getStatusCode() == 0) {
                         Log.e(LOG,"******  photo metadata uploaded OK");
-                        mListener.onFileUploaded(response.getPhotoUploads().get(0));
+                        for (PhotoUploadDTO p: response.getPhotoUploads()) {
+                            p.save();
+                            Log.w(LOG,"******  photo metadata saved on disk - sqlite via Sugar ORM: " + p.getUrl());
+                        }
+                        mListener.onFileUploaded(response.getPhotoUploads());
                     } else {
                         mListener.onError(response.getMessage());
                     }

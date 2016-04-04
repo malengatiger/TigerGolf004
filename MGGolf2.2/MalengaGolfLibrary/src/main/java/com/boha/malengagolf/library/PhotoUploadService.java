@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.boha.malengagolf.library.data.PhotoUploadDTO;
+import com.boha.malengagolf.library.data.ResponseDTO;
 import com.boha.malengagolf.library.util.CDNUploader;
+
+import java.util.List;
 
 public class PhotoUploadService extends IntentService {
 
@@ -27,11 +30,16 @@ public class PhotoUploadService extends IntentService {
 
         CDNUploader.uploadFile(getApplicationContext(), p, new CDNUploader.CDNUploaderListener() {
             @Override
-            public void onFileUploaded(PhotoUploadDTO photo) {
+            public void onFileUploaded(List<PhotoUploadDTO> photos) {
 
                 Intent m = new Intent(BROADCAST_PHOTO_UPLOADED);
-                m.putExtra("photo",photo);
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(m);
+                ResponseDTO w = new ResponseDTO();
+                w.setPhotoUploads(photos);
+                m.putExtra("photos",w);
+
+                LocalBroadcastManager
+                        .getInstance(getApplicationContext())
+                        .sendBroadcast(m);
             }
 
             @Override
@@ -42,5 +50,5 @@ public class PhotoUploadService extends IntentService {
     }
 
 
-    static final String LOG = PhotoUploadService.class.getSimpleName(), BROADCAST_PHOTO_UPLOADED = "com.boha.PHOTO_UPLOADED";
+    public static final String LOG = PhotoUploadService.class.getSimpleName(), BROADCAST_PHOTO_UPLOADED = "com.boha.PHOTO_UPLOADED";
 }

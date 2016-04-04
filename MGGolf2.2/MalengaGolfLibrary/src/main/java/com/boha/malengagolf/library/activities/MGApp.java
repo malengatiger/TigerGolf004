@@ -1,6 +1,5 @@
 package com.boha.malengagolf.library.activities;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.util.Log;
@@ -13,6 +12,7 @@ import com.boha.malengagolf.library.data.PlayerDTO;
 import com.boha.malengagolf.library.util.SharedUtil;
 import com.boha.malengagolf.library.util.Statics;
 import com.boha.malengagolf.library.volley.toolbox.OkHttpStack;
+import com.orm.SugarApp;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +38,7 @@ import java.io.File;
         ReportField.PACKAGE_NAME,
         ReportField.CUSTOM_DATA,
         ReportField.LOGCAT}, socketTimeout = 3000)
-public class MGApp extends Application {
+public class MGApp extends SugarApp {
 
     public static Picasso picasso;
     static final long MAX_CACHE_SIZE = 1024 * 1024 * 1024;

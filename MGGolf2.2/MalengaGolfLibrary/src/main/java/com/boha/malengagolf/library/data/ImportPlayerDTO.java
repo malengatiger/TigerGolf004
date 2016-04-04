@@ -4,13 +4,15 @@
  */
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  *
  * @author Aubrey Malabie
  */
-public class ImportPlayerDTO implements Serializable {
+public class ImportPlayerDTO  extends SugarRecord implements Serializable {
 
     private String cellphone;
     private long dateOfBirth;

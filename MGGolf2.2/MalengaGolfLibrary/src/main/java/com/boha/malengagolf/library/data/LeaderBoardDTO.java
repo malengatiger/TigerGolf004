@@ -9,6 +9,7 @@ import android.content.Context;
 
 import com.boha.malengagolf.library.util.SharedUtil;
 import com.boha.malengagolf.library.util.Statics;
+import com.orm.SugarRecord;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author Aubrey Malabie
  */
-public class LeaderBoardDTO implements Comparable<LeaderBoardDTO>, Serializable {
+public class LeaderBoardDTO  extends SugarRecord implements Comparable<LeaderBoardDTO>, Serializable {
     private int leaderBoardID, position, parStatus, tournamentID;
     private PlayerDTO player;
     private boolean tied, scoringComplete;

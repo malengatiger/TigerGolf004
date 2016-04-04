@@ -1,8 +1,11 @@
 package com.boha.malengagolf.library.activities;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -19,10 +22,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.boha.malengagolf.library.PhotoUploadService;
@@ -32,6 +38,7 @@ import com.boha.malengagolf.library.data.GolfGroupDTO;
 import com.boha.malengagolf.library.data.ParentDTO;
 import com.boha.malengagolf.library.data.PhotoUploadDTO;
 import com.boha.malengagolf.library.data.PlayerDTO;
+import com.boha.malengagolf.library.data.ResponseDTO;
 import com.boha.malengagolf.library.data.ScorerDTO;
 import com.boha.malengagolf.library.data.TournamentDTO;
 import com.boha.malengagolf.library.data.VideoClipContainer;
@@ -69,9 +76,7 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
         parent = (ParentDTO) getIntent().getSerializableExtra("parent");
         scorer = (ScorerDTO) getIntent().getSerializableExtra("scorer");
         admin = (AdministratorDTO) getIntent().getSerializableExtra("administrator");
-        if (golfGroup != null) {
-            // type = GOLF_GROUP_PICTURE;
-        }
+
         if (tournament != null) {
             type = TOURNAMENT_PICTURE;
         }
@@ -102,12 +107,20 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
 
 
     private void setFields() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         image = (ImageView) findViewById(R.id.CAM_image);
         mEffectView = (GLSurfaceView) findViewById(R.id.effectsview);
         mEffectView.setEGLContextClientVersion(2);
         mEffectView.setRenderer(this);
         mEffectView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         mCurrentEffect = R.id.none;
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
     }
 
     @Override
@@ -130,45 +143,44 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
         }
     }
 
+    private PhotoUploadDTO currentPhoto;
     private void sendThumbnail(String uri) {
         Log.e(LOG, "..........sendThumbnail ........: " + uri);
         File imageFile = new File(Uri.parse(uri).getPath());
         Log.i("pic", "Uri for upload: " + uri);
-        Log.w(LOG, "File to be uploaded - length: " + imageFile.length() + " - " + imageFile.getAbsolutePath());
-        PhotoUploadDTO p = new PhotoUploadDTO();
-        p.setDateTaken(new Date().getTime());
-        p.setFilePath(imageFile.getAbsolutePath());
-        p.setGolfGroupID(SharedUtil.getGolfGroup(ctx).getGolfGroupID());
 
+        currentPhoto = new PhotoUploadDTO();
+        currentPhoto.setDateTaken(new Date().getTime());
+        currentPhoto.setFilePath(imageFile.getAbsolutePath());
+        currentPhoto.setGolfGroupID(SharedUtil.getGolfGroup(ctx).getGolfGroupID());
 
         switch (type) {
-            case GOLF_GROUP_PICTURE:
 
-                break;
             case TOURNAMENT_PICTURE:
-                p.setTournamentID(tournament.getTournamentID());
+                currentPhoto.setTournamentID(tournament.getTournamentID());
                 break;
             case PLAYER_PICTURE:
-                p.setPlayerID(player.getPlayerID());
+                currentPhoto.setPlayerID(player.getPlayerID());
                 break;
-            case PARENT_PICTURE:
 
-                break;
             case SCORER_PICTURE:
-                p.setScorerID(scorer.getScorerID());
+                currentPhoto.setScorerID(scorer.getScorerID());
                 break;
             case ADMIN_PICTURE:
-                p.setAdministratorID(admin.getAdministratorID());
-
+                currentPhoto.setAdministratorID(admin.getAdministratorID());
                 break;
         }
-        Intent m = new Intent(ctx, PhotoUploadService.class);
-        m.putExtra("photo",p);
-        startService(m);
+
 
     }
 
+    private void uploadPhoto() {
+        Log.w(LOG, "File to be uploaded - length: " + " - " + currentPhoto.getFilePath());
+        Intent m = new Intent(ctx, PhotoUploadService.class);
+        m.putExtra("photo", currentPhoto);
+        startService(m);
 
+    }
     class FileTask extends AsyncTask<Uri, Void, Integer> {
 
         @Override
@@ -245,9 +257,21 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
         }
     }
 
+    static final int REQUEST_WRITE_PERMISSION = 121;
 
     private File createImageFile() throws IOException {
         // Create an image file name
+
+        Log.e(LOG, "########### onConnected .... check LOCATION permission");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_PERMISSION);
+            return null;
+        }
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir;
@@ -272,6 +296,21 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == REQUEST_WRITE_PERMISSION) {
+            if (grantResults.length == 1
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.e(LOG, "Permission has been granted for WRITE_EXTERNAL_STORAGE");
+                dispatchTakePictureIntent();
+            } else {
+                finish();
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.camera, menu);
         mMenu = menu;
@@ -281,6 +320,12 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (item.getItemId() == R.id.menu_upload) {
+            if (currentPhoto != null) {
+                uploadPhoto();
+            }
+            return true;
+        }
         if (item.getItemId() == R.id.menu_video) {
             dispatchTakeVideoIntent();
             return true;
@@ -301,6 +346,18 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
         return false;
     }
 
+    public void setRefreshActionButtonState(final boolean refreshing) {
+        if (mMenu != null) {
+            final MenuItem refreshItem = mMenu.findItem(R.id.menu_upload);
+            if (refreshItem != null) {
+                if (refreshing) {
+                    refreshItem.setActionView(R.layout.action_bar_progess);
+                } else {
+                    refreshItem.setActionView(null);
+                }
+            }
+        }
+    }
     @Override
     public void onPause() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -311,13 +368,14 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
     public void onBackPressed() {
         if (isUploaded) {
             Log.d(LOG, "onBackPressed ... picture uploaded");
-           setResult(RESULT_OK);
+            setResult(RESULT_OK);
         } else {
             Log.d(LOG, "onBackPressed ... cancelled");
             setResult(RESULT_CANCELED);
         }
         finish();
     }
+
     Menu mMenu;
     int type;
 
@@ -429,6 +487,7 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
     File currentThumbFile, currentFullFile;
     Uri thumbUri, fullUri;
     static final String LOG = "PictureActivity";
+
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
 
@@ -457,6 +516,7 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
         }
         renderResult();
     }
+
     private void initEffect() {
         EffectFactory effectFactory = mEffectContext.getFactory();
         if (mEffect != null) {
@@ -587,12 +647,12 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
         if (mCurrentEffect != R.id.none) {
             // if no effect is chosen, just render the original bitmap
             mTexRenderer.renderTexture(mTextures[1]);
-        }
-        else {
+        } else {
             // render the result of applyEffect()
             mTexRenderer.renderTexture(mTextures[0]);
         }
     }
+
     private void loadTextures() {
         // Generate textures
         GLES20.glGenTextures(2, mTextures, 0);
@@ -607,6 +667,16 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
         // Set texture parameters
         GLToolbox.initTexParams();
     }
+
+    class UploadBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e(LOG,"$$$$$$$$$$$$$$ UploadBroadcastReceiver onReceive ...");
+            ResponseDTO p = (ResponseDTO) intent.getSerializableExtra("photos");
+
+        }
+    }
     private GLSurfaceView mEffectView;
     private int[] mTextures = new int[2];
     private EffectContext mEffectContext;
@@ -615,5 +685,6 @@ public class PictureActivity extends AppCompatActivity implements GLSurfaceView.
     private int mImageWidth;
     private int mImageHeight;
     private boolean mInitialized = false;
+    private FloatingActionButton fab;
     int mCurrentEffect;
 }

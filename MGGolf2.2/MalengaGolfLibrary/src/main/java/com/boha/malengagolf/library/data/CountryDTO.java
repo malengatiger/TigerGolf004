@@ -4,6 +4,8 @@
  */
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  *
  * @author Aubrey Malabie
  */
-public class CountryDTO implements Serializable {
+public class CountryDTO  extends SugarRecord implements Serializable {
 
     private int countryID;
     private String countryName, countryCode;

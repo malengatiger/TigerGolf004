@@ -3,11 +3,24 @@
     package="com.boha.malengagolf.library">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <application android:label="@string/app_name">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+
+    <application android:label="@string/app_name" android:name=".activities.MGApp">
+        <meta-data android:name="DATABASE" android:value="com.boha.mggolf.db" />
+        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.boha.malengagolf.library" />
+
+
         <service
             android:name=".PhotoUploadService"
-            android:exported="false"></service>
-        <activity android:name=".activities.ThemeSelectorActivity" android:screenOrientation="portrait"/>
+            android:exported="false"/>
+
+        <activity android:name=".activities.ThemeSelectorActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

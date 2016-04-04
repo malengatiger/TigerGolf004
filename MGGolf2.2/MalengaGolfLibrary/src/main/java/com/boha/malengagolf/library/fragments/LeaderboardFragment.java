@@ -255,7 +255,7 @@ public class LeaderboardFragment extends Fragment implements LeaderBoardPage {
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                leaderboardListener.setNotBusy();
@@ -342,7 +342,7 @@ public class LeaderboardFragment extends Fragment implements LeaderBoardPage {
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                leaderboardListener.setNotBusy();
@@ -762,7 +762,7 @@ public class LeaderboardFragment extends Fragment implements LeaderBoardPage {
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                leaderboardListener.setNotBusy();

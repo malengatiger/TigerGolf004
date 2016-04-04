@@ -44,6 +44,7 @@ import com.boha.malengagolf.library.util.CompleteRounds;
 import com.boha.malengagolf.library.util.ErrorUtil;
 import com.boha.malengagolf.library.util.SharedUtil;
 import com.boha.malengagolf.library.util.Statics;
+import com.boha.malengagolf.library.util.SugarUtil;
 import com.boha.malengagolf.library.util.ToastUtil;
 import com.boha.malengagolf.library.util.NetUtil;
 import com.boha.malengagolf.library.volley.toolbox.BaseVolley;
@@ -140,6 +141,22 @@ public class TourneyPlayerActivity extends AppCompatActivity {
             }
         });
 
+        SugarUtil.getLeaderBoards(tournament.getTournamentID(), new SugarUtil.SugarListener() {
+            @Override
+            public void onDataWritten(int statusCode) {
+
+            }
+
+            @Override
+            public void onDataRead(ResponseDTO response) {
+
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
     }
 
     private void sendData(RequestDTO w) {
@@ -201,7 +218,7 @@ public class TourneyPlayerActivity extends AppCompatActivity {
 
 
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                setRefreshActionButtonState(false);
@@ -296,7 +313,7 @@ public class TourneyPlayerActivity extends AppCompatActivity {
 
 
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO r) {
 //                setRefreshActionButtonState(false);
@@ -794,7 +811,7 @@ public class TourneyPlayerActivity extends AppCompatActivity {
             }
 
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                if (!ErrorUtil.checkServerError(ctx, response)) {
@@ -862,7 +879,7 @@ public class TourneyPlayerActivity extends AppCompatActivity {
 
         });
 
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                if (!ErrorUtil.checkServerError(ctx, response)) {

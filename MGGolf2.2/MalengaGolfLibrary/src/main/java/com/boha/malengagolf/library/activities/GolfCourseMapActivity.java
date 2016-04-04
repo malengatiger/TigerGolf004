@@ -48,6 +48,7 @@ import com.boha.malengagolf.library.util.ErrorUtil;
 import com.boha.malengagolf.library.util.NetUtil;
 import com.boha.malengagolf.library.util.SharedUtil;
 import com.boha.malengagolf.library.util.Statics;
+import com.boha.malengagolf.library.util.SugarUtil;
 import com.boha.malengagolf.library.util.ThemeChooser;
 import com.boha.malengagolf.library.util.ToastUtil;
 import com.boha.malengagolf.library.volley.toolbox.BaseVolley;
@@ -114,12 +115,12 @@ public class GolfCourseMapActivity extends AppCompatActivity
                     mapLayout.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.GONE);
                     aSwitch.setVisibility(View.VISIBLE);
-                    fab2.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_action_overflow));
+                    fab2.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_action_overflow));
                 } else {
                     mapLayout.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
                     aSwitch.setVisibility(View.GONE);
-                    fab2.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_action_map));
+                    fab2.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_action_map));
                 }
             }
         });
@@ -141,14 +142,9 @@ public class GolfCourseMapActivity extends AppCompatActivity
     private LatLng selectedLatLng;
 
     private void setMap() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         googleMap.setMyLocationEnabled(true);
@@ -377,7 +373,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
         }
         firstHundred = new ArrayList<>();
         int count = 0;
-        for (ClubDTO c: clubList) {
+        for (ClubDTO c : clubList) {
             firstHundred.add(c);
             count++;
             if (count == 100) {
@@ -466,7 +462,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
                 setLocationRequest();
             }
         } else {
-          setLocationRequest();
+            setLocationRequest();
         }
     }
 
@@ -478,6 +474,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
         mLocationRequest.setFastestInterval(1000);
         startLocationUpdates();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions,
@@ -486,21 +483,13 @@ public class GolfCourseMapActivity extends AppCompatActivity
             if (grantResults.length == 1
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.e(LOG, "Permission has been granted for LOCATION");
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    return;
-                }
-                location = LocationServices.FusedLocationApi.getLastLocation(
-                        mGoogleApiClient);
                 setLocationRequest();
             } else {
                 finish();
             }
         }
     }
+
     protected void startLocationUpdates() {
         if (mGoogleApiClient.isConnected()) {
             mRequestingLocationUpdates = true;
@@ -510,7 +499,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     mGoogleApiClient, mLocationRequest, this);
             setRefreshActionButtonState(true);
-            Log.w(LOG,".......startLocationUpdates");
+            Log.w(LOG, ".......startLocationUpdates");
         }
     }
 
@@ -519,7 +508,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
             LocationServices.FusedLocationApi.removeLocationUpdates(
                     mGoogleApiClient, this);
             setRefreshActionButtonState(false);
-            Log.w(LOG,".......stopLocationUpdates removeLocationUpdates fired");
+            Log.w(LOG, ".......stopLocationUpdates removeLocationUpdates fired");
         }
     }
 
@@ -734,8 +723,8 @@ public class GolfCourseMapActivity extends AppCompatActivity
         provinceSpinner.setVisibility(View.GONE);
         seekBar = (SeekBar) findViewById(R.id.MAP_seekBar);
         txtSeekBar = (TextView) findViewById(R.id.MAP_seekBarValue);
-        fab2 = (FloatingActionButton)findViewById(R.id.fab2);
-        fab2.setBackgroundColor(ContextCompat.getColor(ctx,R.color.amber_500));
+        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab2.setBackgroundColor(ContextCompat.getColor(ctx, R.color.amber_500));
 
         txtResults = (TextView) findViewById(R.id.MAP_results);
         txtResults.setText("");
@@ -923,7 +912,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
                 });
             }
         });
-        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
             @Override
             public void onResponseReceived(ResponseDTO r) {
                 setRefreshActionButtonState(false);
@@ -1035,7 +1024,22 @@ public class GolfCourseMapActivity extends AppCompatActivity
 
                             @Override
                             public void onDataCached() {
+                                SugarUtil.edit(r, new SugarUtil.SugarListener() {
+                                    @Override
+                                    public void onDataWritten(int statusCode) {
 
+                                    }
+
+                                    @Override
+                                    public void onDataRead(ResponseDTO response) {
+
+                                    }
+
+                                    @Override
+                                    public void onError(String message) {
+
+                                    }
+                                });
                             }
                         });
 
@@ -1064,51 +1068,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
-//            @Override
-//            public void onResponseReceived(ResponseDTO r) {
-//                setRefreshActionButtonState(false);
-//                if (!ErrorUtil.checkServerError(ctx, r)) {
-//                    return;
-//                }
-//                if (isFirstTime) {
-//                    isFirstTime = false;
-//                    getProvinceList();
-//                }
-//                clubList = r.getClubs();
-//                putClubMarkersOnMap();
-//                setList();
-//
-//                CacheUtil.cacheData(getApplicationContext(), r, CacheUtil.CACHE_NEAREST_CLUBS, new CacheUtil.CacheUtilListener() {
-//                    @Override
-//                    public void onFileDataDeserialized(ResponseDTO response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onDataCached() {
-//
-//                    }
-//                });
-//
-//                totalPages = r.getTotalPages();
-//                txtPages.setText("" + currentPage + "/" + r.getTotalPages());
-//                txtResults.setText(ctx.getResources().getString(R.string.clubs_on_map)
-//                        + " " + clubList.size() + "/" + r.getTotalClubs());
-//                if (r.getTotalPages() > 1) {
-//                    enableButtons();
-//                } else {
-//                    disableButtons();
-//                }
-//                searchType = FROM_NEARBY;
-//            }
-//
-//            @Override
-//            public void onVolleyError(VolleyError error) {
-//                setRefreshActionButtonState(false);
-//                ErrorUtil.showServerCommsError(ctx);
-//            }
-//        });
+
     }
 
 
@@ -1143,7 +1103,7 @@ public class GolfCourseMapActivity extends AppCompatActivity
                         }
                         Log.e(LOG, "Have found " + r.getClubs().size() + " clubs in province");
                         if (r.getClubs().isEmpty()) {
-                            ToastUtil.toast(getApplicationContext(),"No clubs have been found in the State/Province");
+                            ToastUtil.toast(getApplicationContext(), "No clubs have been found in the State/Province");
                             return;
                         }
                         clubList = r.getClubs();

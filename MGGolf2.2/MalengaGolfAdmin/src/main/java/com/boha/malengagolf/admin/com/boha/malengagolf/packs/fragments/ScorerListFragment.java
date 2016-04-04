@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,12 +42,14 @@ public class ScorerListFragment extends Fragment implements PageFragment {
 
 
     public interface ScorerListener {
-        public void onScorerPictureRequested(ScorerDTO scorer, int position);
+        void onScorerPictureRequested(ScorerDTO scorer, int position);
 
+        void onRefreshRequested();
     }
 
     ScorerListener listener;
     LayoutInflater inflater;
+    FloatingActionButton fab;
 
     @Override
     public void onAttach(Activity a) {
@@ -82,51 +85,58 @@ public class ScorerListFragment extends Fragment implements PageFragment {
             }
         }
         scorerList = response.getScorers();
-        setList(false,0);
+        setList(false, 0);
         return view;
     }
 
     @Override
     public void setFields() {
         recyclerView = (RecyclerView) view.findViewById(R.id.FRAG_listView);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onRefreshRequested();
+            }
+        });
     }
 
     int selectedIndex;
 
     public void setList(boolean forceImageRefresh, int index) {
 
-        adapter = new ScorerListAdapter( scorerList, ctx,
-                 new ScorerListAdapter.ScorerAdapterListener() {
-            @Override
-            public void onCameraRequested(ScorerDTO p, int index) {
-                scorer = p;
-                selectedIndex = index;
-                listener.onScorerPictureRequested(p, index);
-            }
+        adapter = new ScorerListAdapter(scorerList, ctx,
+                new ScorerListAdapter.ScorerAdapterListener() {
+                    @Override
+                    public void onCameraRequested(ScorerDTO p, int index) {
+                        scorer = p;
+                        selectedIndex = index;
+                        listener.onScorerPictureRequested(p, index);
+                    }
 
-            @Override
-            public void onEditRequested(ScorerDTO p) {
-                scorer = p;
-                showPersonDialog(PersonEditDialog.ACTION_UPDATE);
-            }
+                    @Override
+                    public void onEditRequested(ScorerDTO p) {
+                        scorer = p;
+                        showPersonDialog(PersonEditDialog.ACTION_UPDATE);
+                    }
 
-            @Override
-            public void onMessageRequested(ScorerDTO p) {
-                under();
-            }
+                    @Override
+                    public void onMessageRequested(ScorerDTO p) {
+                        under();
+                    }
 
-            @Override
-            public void onInvitationRequested(ScorerDTO p) {
-                scorer = p;
-                Intent x = new Intent(ctx, AppInvitationActivity.class);
-                x.putExtra("email", p.getEmail());
-                x.putExtra("pin", p.getPin());
-                x.putExtra("member", p.getFullName());
-                x.putExtra("type", AppInvitationFragment.SCORER);
-                startActivity(x);
-            }
-        });
-        LinearLayoutManager lm = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+                    @Override
+                    public void onInvitationRequested(ScorerDTO p) {
+                        scorer = p;
+                        Intent x = new Intent(ctx, AppInvitationActivity.class);
+                        x.putExtra("email", p.getEmail());
+                        x.putExtra("pin", p.getPin());
+                        x.putExtra("member", p.getFullName());
+                        x.putExtra("type", AppInvitationFragment.SCORER);
+                        startActivity(x);
+                    }
+                });
+        LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
         recyclerView.scrollToPosition(selectedIndex);

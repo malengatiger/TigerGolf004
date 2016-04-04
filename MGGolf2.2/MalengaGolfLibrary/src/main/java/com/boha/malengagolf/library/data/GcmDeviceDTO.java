@@ -1,11 +1,13 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  * Created by aubreyM on 2014/05/15.
  */
-public class GcmDeviceDTO implements Serializable {
+public class GcmDeviceDTO  extends SugarRecord implements Serializable {
     private int gcmDeviceID;
     private String manufacturer, gcmRegistrationID, androidVersion;
     private String model;

@@ -1,11 +1,13 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  * Created by aubreyM on 2014/06/13.
  */
-public class TeamMemberDTO implements Serializable {
+public class TeamMemberDTO  extends SugarRecord implements Serializable {
 
     private int teamMemberID;
     private int teamID;

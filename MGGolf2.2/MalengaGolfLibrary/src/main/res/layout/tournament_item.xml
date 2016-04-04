@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:layout_marginTop="@dimen/mon_margin"
         android:padding="@dimen/mon_margin">
 
         <ImageView
@@ -28,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/TRN_image"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="@dimen/mon_divider"
+            android:layout_marginTop="@dimen/mon_divider"
             android:text="@string/zero"
             android:textSize="20sp"
 
@@ -49,8 +50,8 @@
             style="@style/Title3TextStyleBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="@dimen/mon_divider"
+            android:layout_marginTop="@dimen/mon_divider"
             android:layout_toRightOf="@+id/TRN_image"
             android:text="@string/txt"
             android:textStyle="bold" />
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/TRN_txtName"
             android:layout_below="@+id/TRN_txtName"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="@dimen/mon_divider"
             android:layout_marginTop="2dp"
             android:text="@string/txt"
             android:textColor="@color/absa_red"
@@ -75,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/TRN_txtName"
             android:layout_below="@id/TRN_txtStatus"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="@dimen/mon_divider"
             android:layout_marginTop="2dp"
             android:text="@string/txt" />
 
@@ -89,23 +90,23 @@
 
             <TextView
                 android:id="@+id/TRN_txtStartDateLabel"
-                style="@style/Title3TextStyleGrey"
+                style="@style/TextStyleGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="@dimen/mon_divider"
+                android:layout_marginTop="@dimen/mon_divider"
                 android:text="Start Date"
                 android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/TRN_txtStartDate"
-                style="@style/TextStyleBold"
+                style="@style/TextStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginRight="@dimen/mon_divider"
+                android:layout_marginTop="@dimen/mon_divider"
                 android:text="28 December 2015"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
@@ -121,23 +122,23 @@
 
             <TextView
                 android:id="@+id/TRN_txtEndDateLabel"
-                style="@style/Title3TextStyleGrey"
+                style="@style/TextStyleGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="@dimen/mon_divider"
+                android:layout_marginTop="@dimen/mon_divider"
                 android:text="End Date"
                 android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/TRN_txtEndDate"
-                style="@style/TextStyleBold"
+                style="@style/TextStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginRight="@dimen/mon_divider"
+                android:layout_marginTop="@dimen/mon_divider"
                 android:text="30 December 2015"
                 android:textColor="@color/blue"
                 android:textStyle="normal" />
@@ -155,7 +156,7 @@
 
             <TextView
                 android:id="@+id/TRN_txtCounterLabel"
-                style="@style/TextStyleGrey"
+                style="@style/TextStyleGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -179,11 +180,11 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/TRN_layoutCount"
             android:layout_below="@+id/TRN_layoutCount"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="@dimen/mon_divider">
 
             <TextView
                 android:id="@+id/TRN_txtPlayerLabel"
-                style="@style/TextStyleGrey"
+                style="@style/TextStyleGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -207,11 +208,11 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/TRN_layoutPlayerCount"
             android:layout_below="@+id/TRN_layoutPlayerCount"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="@dimen/mon_margin">
 
             <TextView
                 android:id="@+id/TRN_txtTournamentTypeLabel"
-                style="@style/TextStyleGrey"
+                style="@style/TextStyleGreySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -237,8 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/TRN_layoutExample"
             android:layout_marginBottom="@dimen/mon_margin"
-
-            android:layout_marginTop="@dimen/mon_margin" />
+            android:layout_marginTop="@dimen/mon_wider" />
 
 
     </RelativeLayout>

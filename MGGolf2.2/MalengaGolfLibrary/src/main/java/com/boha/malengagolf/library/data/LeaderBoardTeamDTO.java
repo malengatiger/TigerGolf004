@@ -1,12 +1,14 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by aubreyM on 2014/06/13.
  */
-public class LeaderBoardTeamDTO implements Serializable {
+public class LeaderBoardTeamDTO  extends SugarRecord implements Serializable {
     public static final int NO_PAR_STATUS = 9999,
             WINNER_BY_PLAYOFF = 2,
             WINNER_BY_COUNT_OUT = 1, SORT_BY_PAR_STATUS = 1, SORT_BY_TOTAL_POINTS = 2;

@@ -4,13 +4,15 @@
  */
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Aubrey Malabie
  */
-public class TournamentDTO implements Serializable, Comparable<TournamentDTO> {
+public class TournamentDTO  extends SugarRecord implements Serializable, Comparable<TournamentDTO> {
     private int tournamentID, tournamentType;
     private long closingDate;
     private long endDate;

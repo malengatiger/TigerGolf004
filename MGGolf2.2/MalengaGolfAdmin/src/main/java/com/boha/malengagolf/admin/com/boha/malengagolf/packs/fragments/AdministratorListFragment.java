@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,11 +41,15 @@ import java.util.TimerTask;
 public class AdministratorListFragment extends Fragment implements PageFragment {
 
     public interface AdministratorListener {
-        public void onAdministratorPictureRequested(AdministratorDTO administrator, int index);
+        void onAdministratorPictureRequested(AdministratorDTO administrator, int index);
+
+        void onRefreshRequested();
 
     }
+
     AdministratorListener listener;
     LayoutInflater inflater;
+    FloatingActionButton fab;
 
     @Override
     public void onAttach(Activity a) {
@@ -76,17 +81,26 @@ public class AdministratorListFragment extends Fragment implements PageFragment 
         } else {
             Bundle bundle = getArguments();
             if (bundle != null) {
-                response = (ResponseDTO)bundle.getSerializable("response");
+                response = (ResponseDTO) bundle.getSerializable("response");
             }
         }
         administratorList = response.getAdministrators();
-        setList(false,0);
+        setList(false, 0);
         return view;
     }
+
     @Override
     public void setFields() {
         recyclerView = (RecyclerView) view.findViewById(R.id.FRAG_listView);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onRefreshRequested();
+            }
+        });
     }
+
     int selectedIndex;
 
     public void setList(boolean forceImageRefresh, int index) {
@@ -126,17 +140,20 @@ public class AdministratorListFragment extends Fragment implements PageFragment 
                         startActivity(x);
                     }
                 });
-        LinearLayoutManager lm = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
         recyclerView.scrollToPosition(selectedIndex);
     }
+
     @Override
     public void onSaveInstanceState(Bundle b) {
         b.putSerializable("response", response);
         super.onSaveInstanceState(b);
     }
+
     AdministratorDTO administrator;
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
@@ -184,6 +201,7 @@ public class AdministratorListFragment extends Fragment implements PageFragment 
                 return super.onContextItemSelected(item);
         }
     }
+
     void under() {
         ToastUtil.toast(ctx, "Under construction. Check later!");
     }
@@ -236,6 +254,7 @@ public class AdministratorListFragment extends Fragment implements PageFragment 
             }
         }, 1000);
     }
+
     FragmentManager fragmentManager;
     RecyclerView recyclerView;
     GolfGroupDTO golfGroup;

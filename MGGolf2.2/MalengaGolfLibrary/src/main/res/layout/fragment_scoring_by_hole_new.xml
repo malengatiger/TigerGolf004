@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/golf_pic9"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:src="@drawable/boy"
+                    android:layout_margin="@dimen/mon_margin"
+                    android:elevation="@dimen/mon_padding"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/frontNine"
+                android:layout_below="@id/top"
+                android:layout_margin="@dimen/mon_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/hole1"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <include
+                    android:id="@+id/hole2"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole1"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole3"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole2"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole4"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole3"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole5"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole4"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole6"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole5"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole7"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole6"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole8"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole7"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole9"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole8"
+                    android:layout_marginTop="@dimen/mon_padding" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/labelx"
+                style="@style/Title3TextStyleBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/frontNine"
+                android:layout_centerHorizontal="true"
+                android:text="Back Nine" />
+
+            <RelativeLayout
+                android:layout_margin="@dimen/mon_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/labelx">
+
+                <include
+                    android:id="@+id/hole10"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole11"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole10"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole12"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole11"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole13"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole12"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole14"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole13"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole15"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole14"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole16"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole15"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole17"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole16"
+                    android:layout_marginTop="@dimen/mon_padding" />
+
+                <include
+                    android:id="@+id/hole18"
+                    layout="@layout/scoring_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/hole17"
+                    android:layout_marginTop="@dimen/mon_padding" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:src="@drawable/ic_file_upload_white_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/mon_margin"
+        android:background="@color/blue_600"
+        android:elevation="@dimen/mon_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -80,13 +80,13 @@ public class BaseVolley {
      * @param context  the Activity context
      * @param listener the listener implementor who wants to know abdout call status
      */
-    public static void getRemoteData(String suffix, RequestDTO request,
-                                     Context context, MGApp app, BohaVolleyListener listener) {
+    public static void sendRequest(String suffix, RequestDTO request,
+                                   Context context, MGApp app, BohaVolleyListener listener) {
 
         ctx = context;
         bohaVolleyListener = listener;
         if (requestQueue == null) {
-            Log.w(LOG, "------------- getRemoteData requestQueue is null - get from app");
+            Log.w(LOG, "------------- sendRequest requestQueue is null - get from app");
             requestQueue = app.getRequestQueue();
         }
         String json = null, jj = null;
@@ -114,16 +114,16 @@ public class BaseVolley {
      * @param context  the Activity context
      * @param listener the listener implementor who wants to know abdout call status
      */
-    public static void getRemoteData(String suffix, RequestDTO request,
-                                     Context context, BohaVolleyListener listener) {
+    public static void sendRequest(String suffix, RequestDTO request,
+                                   Context context, BohaVolleyListener listener) {
 
         ctx = context;
         bohaVolleyListener = listener;
         if (requestQueue == null) {
-            Log.w(LOG, "getRemoteData requestQueue is null, getting it ...: ");
+            Log.w(LOG, "sendRequest requestQueue is null, getting it ...: ");
             requestQueue = BohaVolley.getRequestQueue(ctx);
         } else {
-            Log.e(LOG, "********** getRemoteData requestQueue is NOT NULL - Kool");
+            Log.e(LOG, "********** sendRequest requestQueue is NOT NULL - Kool");
         }
         String json = null, jj = null;
 
@@ -165,16 +165,16 @@ public class BaseVolley {
                 0, 0));
         requestQueue.add(bohaRequest);
     }
-    public static void getRemoteData(String suffix, RequestDTO request,
-                                     Context context, int timeOutSeconds, BohaVolleyListener listener) {
+    public static void sendRequest(String suffix, RequestDTO request,
+                                   Context context, int timeOutSeconds, BohaVolleyListener listener) {
 
         ctx = context;
         bohaVolleyListener = listener;
         if (requestQueue == null) {
-            Log.w(LOG, "getRemoteData requestQueue is null, getting it ...: ");
+            Log.w(LOG, "sendRequest requestQueue is null, getting it ...: ");
             requestQueue = BohaVolley.getRequestQueue(ctx);
         } else {
-            Log.e(LOG, "********** getRemoteData requestQueue is NOT NULL - Kool");
+            Log.e(LOG, "********** sendRequest requestQueue is NOT NULL - Kool");
         }
         String json = null, jj = null;
 

@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <item
-            android:id="@+id/menu_camera"
-            android:icon="@drawable/ic_action_camera"
-            android:showAsAction="ifRoom"
-            android:title="@string/take_pic"/>
+        android:id="@+id/menu_upload"
+        android:icon="@drawable/ic_file_upload_black_24dp"
+        android:title="@string/take_pic"
+        app:showAsAction="ifRoom" />
     <item
-            android:id="@+id/menu_video"
-            android:icon="@drawable/video32"
-            android:showAsAction="ifRoom"
-            android:title="@string/take_vid"/>
+        android:id="@+id/menu_video"
+        android:icon="@drawable/ic_action_video"
+        android:title="@string/take_vid"
+        app:showAsAction="ifRoom" />
+
 
     <item
-            android:id="@+id/menu_gallery"
-            android:icon="@drawable/ic_action_picture"
-            android:title="@string/tourn_gallery"
-            android:showAsAction="ifRoom"/>
+        android:id="@+id/menu_gallery"
+        android:icon="@drawable/ic_action_picture"
+        android:title="@string/tourn_gallery"
+        app:showAsAction="never" />
 
 </menu>

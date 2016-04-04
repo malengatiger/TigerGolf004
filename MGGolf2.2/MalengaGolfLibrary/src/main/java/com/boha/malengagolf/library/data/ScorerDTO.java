@@ -1,6 +1,7 @@
 package com.boha.malengagolf.library.data;
 
 import com.boha.malengagolf.library.util.PersonInterface;
+import com.orm.SugarRecord;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by aubreyM on 2014/04/09.
  */
-public class ScorerDTO implements Serializable, PersonInterface {
+public class ScorerDTO  extends SugarRecord implements Serializable, PersonInterface {
     private Integer scorerID;
     private String firstName;
     private String lastName;

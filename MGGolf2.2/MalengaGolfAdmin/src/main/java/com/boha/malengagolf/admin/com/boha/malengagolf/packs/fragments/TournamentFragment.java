@@ -730,7 +730,7 @@ public class TournamentFragment extends Fragment {
 
         });
 
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, req, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, req, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO r) {
 //                tournamentListener.setNotBusy();
@@ -867,7 +867,7 @@ public class TournamentFragment extends Fragment {
             }
 
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO r) {
 //                tournamentListener.setNotBusy();

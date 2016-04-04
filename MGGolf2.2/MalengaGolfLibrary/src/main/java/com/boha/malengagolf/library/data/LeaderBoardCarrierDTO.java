@@ -1,12 +1,14 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by aubreyM on 2014/04/18.
  */
-public class LeaderBoardCarrierDTO implements Serializable, Comparable<LeaderBoardCarrierDTO>{
+public class LeaderBoardCarrierDTO  extends SugarRecord implements Serializable, Comparable<LeaderBoardCarrierDTO>{
     private AgeGroupDTO ageGroup;
     private List<LeaderBoardDTO> leaderBoardList;
     private List<LeaderBoardTeamDTO> leaderBoardTeamList;

@@ -17,6 +17,7 @@ import com.boha.malengagolf.library.data.LeaderBoardDTO;
 import com.boha.malengagolf.library.data.ResponseDTO;
 import com.boha.malengagolf.library.data.TournamentDTO;
 import com.boha.malengagolf.library.fragments.ScoringByHoleFragment;
+import com.boha.malengagolf.library.fragments.ScoringByHoleFragmentNew;
 import com.boha.malengagolf.library.util.SharedUtil;
 import com.boha.malengagolf.library.util.ThemeChooser;
 import com.boha.malengagolf.library.util.ToastUtil;
@@ -34,7 +35,7 @@ public class ScoringByHoleActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         ctx = getApplicationContext();
         setContentView(R.layout.activity_sbh);
-        scoringByHoleFragment = (ScoringByHoleFragment) getSupportFragmentManager()
+        scoringByHoleFragment = (ScoringByHoleFragmentNew) getSupportFragmentManager()
                 .findFragmentById(R.id.SBH_fragment);
         tournament = (TournamentDTO) getIntent().getSerializableExtra("tournament");
         leaderBoard = (LeaderBoardDTO) getIntent().getSerializableExtra("leaderBoard");
@@ -44,10 +45,10 @@ public class ScoringByHoleActivity extends AppCompatActivity
         golfGroup = SharedUtil.getGolfGroup(ctx);
         administrator = SharedUtil.getAdministrator(ctx);
 
-        scoringByHoleFragment.setGolfGroup(golfGroup);
-        scoringByHoleFragment.setAdministrator(administrator);
-        scoringByHoleFragment.setTournament(tournament);
-        scoringByHoleFragment.setTourneyPlayerScore(leaderBoard);
+//        scoringByHoleFragment.setGolfGroup(golfGroup);
+//        scoringByHoleFragment.setAdministrator(administrator);
+//        scoringByHoleFragment.setTournament(tournament);
+//        scoringByHoleFragment.setTourneyPlayerScore(leaderBoard);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -140,7 +141,7 @@ public class ScoringByHoleActivity extends AppCompatActivity
     GolfGroupDTO golfGroup;
     AdministratorDTO administrator;
 
-    ScoringByHoleFragment scoringByHoleFragment;
+    ScoringByHoleFragmentNew scoringByHoleFragment;
     Context ctx;
 
     @Override

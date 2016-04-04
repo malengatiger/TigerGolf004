@@ -4,6 +4,8 @@
  */
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * @author Aubrey Malabie
  */
 @SuppressWarnings(value = "unused")
-public class ClubDTO implements Serializable, Comparable<ClubDTO>{
+public class ClubDTO  extends SugarRecord implements Serializable, Comparable<ClubDTO>{
 
     private int clubID;
     private String address;

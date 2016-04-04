@@ -73,7 +73,7 @@ public class GCMUtil {
                         Log.e(LOG, "############ Device failed to register on server GCM regime\n" + message);
                     }
                 });
-//                BaseVolley.getRemoteData(Statics.SERVLET_ADMIN,w,ctx,new BaseVolley.BohaVolleyListener() {
+//                BaseVolley.sendRequest(Statics.SERVLET_ADMIN,w,ctx,new BaseVolley.BohaVolleyListener() {
 //                    @Override
 //                    public void onResponseReceived(ResponseDTO response) {
 //                        if (response.getStatusCode() == 0) {

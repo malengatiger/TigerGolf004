@@ -5,6 +5,8 @@
 package com.boha.malengagolf.library.data;
 
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
@@ -12,7 +14,7 @@ import java.io.Serializable;
  * @author aubreyM
  */
 @SuppressWarnings(value = "unused")
-public class ClubCourseDTO implements Serializable {
+public class ClubCourseDTO  extends SugarRecord implements Serializable {
     private int clubCourseID;
     private String courseName, clubName;
     private int holes;

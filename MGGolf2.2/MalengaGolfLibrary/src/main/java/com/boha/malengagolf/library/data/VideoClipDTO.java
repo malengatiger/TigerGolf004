@@ -1,11 +1,13 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  * Created by aubreyM on 2014/04/24.
  */
-public class VideoClipDTO implements Serializable, Comparable<VideoClipDTO> {
+public class VideoClipDTO  extends SugarRecord implements Serializable, Comparable<VideoClipDTO> {
 
     private long videoDate, length, dateUploaded;
     private String uriString,

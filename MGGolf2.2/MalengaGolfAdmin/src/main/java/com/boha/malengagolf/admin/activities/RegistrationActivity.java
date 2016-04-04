@@ -27,6 +27,7 @@ import com.boha.malengagolf.library.util.CacheUtil;
 import com.boha.malengagolf.library.util.GCMUtil;
 import com.boha.malengagolf.library.util.SharedUtil;
 import com.boha.malengagolf.library.util.Statics;
+import com.boha.malengagolf.library.util.SugarUtil;
 import com.boha.malengagolf.library.util.ThemeChooser;
 import com.boha.malengagolf.library.util.ToastUtil;
 import com.boha.malengagolf.library.util.NetUtil;
@@ -199,7 +200,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, r, ctx, 360, new BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, r, ctx, 360, new BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                setRefreshActionButtonState(false);
@@ -288,7 +289,7 @@ public class RegistrationActivity extends AppCompatActivity implements
             }
         });
 
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, r, ctx, new BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, r, ctx, new BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                setRefreshActionButtonState(false);
@@ -369,7 +370,7 @@ public class RegistrationActivity extends AppCompatActivity implements
                 });
             }
         });
-//        getRemoteData(Statics.SERVLET_ADMIN, request, ctx,
+//        sendRequest(Statics.SERVLET_ADMIN, request, ctx,
 //                new BohaVolleyListener() {
 //                    @Override
 //                    public void onResponseReceived(ResponseDTO response) {
@@ -490,6 +491,23 @@ public class RegistrationActivity extends AppCompatActivity implements
 
                     @Override
                     public void onDataCached() {
+
+                    }
+                });
+                w.getCountries().add(country);
+                SugarUtil.edit(w, new SugarUtil.SugarListener() {
+                    @Override
+                    public void onDataWritten(int statusCode) {
+
+                    }
+
+                    @Override
+                    public void onDataRead(ResponseDTO response) {
+
+                    }
+
+                    @Override
+                    public void onError(String message) {
 
                     }
                 });

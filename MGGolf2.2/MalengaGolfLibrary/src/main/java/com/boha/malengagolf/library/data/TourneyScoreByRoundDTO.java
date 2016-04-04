@@ -1,8 +1,10 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
-public class TourneyScoreByRoundDTO implements Serializable {
+public class TourneyScoreByRoundDTO  extends SugarRecord implements Serializable {
     private int tourneyScoreByRoundID;
     private ClubCourseDTO clubCourse;
     private int tee;

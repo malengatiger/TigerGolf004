@@ -5,6 +5,8 @@
 package com.boha.malengagolf.library.data;
 
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
@@ -12,7 +14,7 @@ import java.io.Serializable;
  * @author Aubrey Malabie
  */
 @SuppressWarnings(value = "unused")
-public class AgeGroupDTO implements Serializable {
+public class AgeGroupDTO  extends SugarRecord implements Serializable {
 
     private int ageGroupID, golfGroupID, ageFrom, ageTo;
     private int gender;

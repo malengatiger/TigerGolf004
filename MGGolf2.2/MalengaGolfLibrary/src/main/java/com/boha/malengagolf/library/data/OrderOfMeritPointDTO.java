@@ -9,13 +9,15 @@ package com.boha.malengagolf.library.data;
  * and open the template in the editor.
  */
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 
 /**
  *
  * @author aubreyM
  */
-public class OrderOfMeritPointDTO implements Serializable {
+public class OrderOfMeritPointDTO  extends SugarRecord implements Serializable {
     private int orderOfMeritPointID;
     private int win;
     private int top5, top3;

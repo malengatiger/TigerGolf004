@@ -2,8 +2,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:background="@color/grey"
-                android:padding="10dp"
                 android:layout_height="match_parent">
 
     <RelativeLayout
@@ -11,52 +9,17 @@
             android:background="@color/white"
             android:layout_height="match_parent">
 
-
-        <RelativeLayout
-                android:id="@+id/CAM_btnLayout"
-                android:padding="10dp"
-                android:visibility="gone"
-                android:background="@color/beige_pale"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <Button
-                    android:id="@+id/CAM_btnCancel"
-                    style="@style/ButtonCancelSmall"
-                    android:text="@string/cancel"
-                    android:layout_weight="1"
-                    android:layout_alignParentLeft="true"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_height="wrap_content"/>
-
-            <Button
-                    android:id="@+id/CAM_btnUpload"
-                    style="@style/ButtonSaveSmall"
-                    android:text="@string/upload_pic"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="1"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </RelativeLayout>
-
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_below="@id/CAM_btnLayout"
                 android:gravity="center"
                 android:layout_height="match_parent">
 
             <ImageView
                     android:id="@+id/CAM_image"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/golf_pic22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@drawable/golf_pic2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
             <android.opengl.GLSurfaceView
                     android:id="@+id/effectsview"
                     android:layout_width="fill_parent"
@@ -67,5 +30,15 @@
 
 
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:src="@drawable/ic_camera_alt_white_24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/mon_margin"
+        android:elevation="@dimen/mon_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

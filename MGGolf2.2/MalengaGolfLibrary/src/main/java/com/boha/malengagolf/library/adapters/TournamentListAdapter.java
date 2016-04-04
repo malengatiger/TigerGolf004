@@ -285,7 +285,7 @@ public class TournamentListAdapter extends RecyclerView.Adapter<TournamentListAd
 
     static final String LOG = TournamentListAdapter.class.getSimpleName();
     static final Locale x = Locale.getDefault();
-    static final SimpleDateFormat y = new SimpleDateFormat("dd MMMM yyyy", x);
+    static final SimpleDateFormat y = new SimpleDateFormat("EEEE, dd MMMM yyyy", x);
 
 
 }

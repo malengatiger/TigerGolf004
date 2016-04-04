@@ -1,12 +1,14 @@
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by aubreyM on 2014/04/16.
  */
-public class PersonalPlayerDTO implements Serializable {
+public class PersonalPlayerDTO  extends SugarRecord implements Serializable {
     private String firstName, lastName, email, cell, pin;
     private int personalPlayerID;
     private List<PersonalScoreDTO> personalScoreList;

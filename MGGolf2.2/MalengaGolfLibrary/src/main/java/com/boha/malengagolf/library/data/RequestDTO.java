@@ -4,6 +4,8 @@
  */
 package com.boha.malengagolf.library.data;
 
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * @author Aubrey Malabie
  */
 @SuppressWarnings(value = "unused")
-public class RequestDTO implements Serializable {
+public class RequestDTO  extends SugarRecord implements Serializable {
 
     public static final int ADMIN = 1, PLAYER = 2, SCORER = 3, PARENT = 4, VOLUNTEER = 5, APP_USER = 6;
 

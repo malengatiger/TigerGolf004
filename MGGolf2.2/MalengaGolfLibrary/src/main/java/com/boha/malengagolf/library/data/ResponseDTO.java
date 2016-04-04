@@ -4,13 +4,18 @@
  */
 package com.boha.malengagolf.library.data;
 
+import android.util.Log;
+
+import com.orm.SugarRecord;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Aubrey Malabie
  */
-public class ResponseDTO implements Serializable {
+public class ResponseDTO  extends SugarRecord implements Serializable {
     private Integer statusCode, totalPages, totalClubs;
     private String message, sessionID;
     private LeaderBoardDTO leaderBoard;
@@ -47,7 +52,30 @@ public class ResponseDTO implements Serializable {
     private UploadBlobDTO uploadBlob;
     private UploadUrlDTO uploadUrl;
 
+    public String printDetails() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("#########################################\n");
+        sb.append("*** ").append("ResponseDTO").append("\n");
+        sb.append("*** Tournaments: ").append(getTournaments().size()).append("\n");
+        sb.append("*** Admins: ").append(getAdministrators().size()).append("\n");
+        sb.append("*** Players: ").append(getPlayers().size()).append("\n");
+        sb.append("*** Scorers: ").append(getScorers().size()).append("\n");
+        sb.append("*** Clubs: ").append(getClubs().size()).append("\n");
+        sb.append("*** LeaderBoards: ").append(getLeaderBoardList().size()).append("\n");
+        sb.append("*** Provinces: ").append(getProvinces().size()).append("\n");
+        sb.append("*** Countries: ").append(getCountries().size()).append("\n");
+        sb.append("#########################################\n");
+        sb.append("*** Status Code: ").append(getStatusCode()).append("\n");
+        sb.append("*** Message: ").append(getMessage()).append("\n");
+        sb.append("#########################################\n");
+
+        Log.w("ResponseDTO",sb.toString());
+        return sb.toString();
+    }
     public List<PhotoUploadDTO> getPhotoUploads() {
+        if (photoUploads == null) {
+            photoUploads = new ArrayList<>();
+        }
         return photoUploads;
     }
 
@@ -80,6 +108,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<LeaderBoardCarrierDTO> getLeaderBoardCarriers() {
+        if (leaderBoardCarriers == null) {
+            leaderBoardCarriers = new ArrayList<>();
+        }
         return leaderBoardCarriers;
     }
 
@@ -96,6 +127,9 @@ public class ResponseDTO implements Serializable {
     private String log;
 
     public List<LeaderBoardTeamDTO> getLeaderBoardTeamList() {
+        if (leaderBoardTeamList == null) {
+            leaderBoardTeamList = new ArrayList<>();
+        }
         return leaderBoardTeamList;
     }
 
@@ -144,6 +178,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<ScorerDTO> getScorers() {
+        if (scorers == null) {
+            scorers = new ArrayList<>();
+        }
         return scorers;
     }
 
@@ -184,6 +221,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<LeaderBoardDTO> getTourneyPlayers() {
+        if (tourneyPlayers == null) {
+            tourneyPlayers = new ArrayList<>();
+        }
         return tourneyPlayers;
     }
 
@@ -208,6 +248,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<PersonalPlayerDTO> getPersonalPlayerList() {
+        if (personalPlayerList == null) {
+            personalPlayerList = new ArrayList<>();
+        }
         return personalPlayerList;
     }
 
@@ -216,6 +259,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<PersonalScoreDTO> getPersonalScoreList() {
+        if (personalScoreList == null) {
+            personalScoreList = new ArrayList<>();
+        }
         return personalScoreList;
     }
 
@@ -224,6 +270,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<LeaderBoardDTO> getLeaderBoardList() {
+        if (leaderBoardList == null) {
+            leaderBoardList = new ArrayList<>();
+        }
         return leaderBoardList;
     }
 
@@ -232,6 +281,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public String getMessage() {
+        if (message == null) {
+            message = "";
+        }
         return message;
     }
 
@@ -240,6 +292,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<GolfGroupDTO> getGolfGroups() {
+        if (golfGroups == null) {
+            golfGroups = new ArrayList<>();
+        }
         return golfGroups;
     }
 
@@ -248,6 +303,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<ParentDTO> getParents() {
+        if (parents == null) {
+            parents = new ArrayList<>();
+        }
         return parents;
     }
 
@@ -256,6 +314,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<PlayerDTO> getPlayers() {
+        if (players == null) {
+            players = new ArrayList<>();
+        }
         return players;
     }
 
@@ -265,6 +326,9 @@ public class ResponseDTO implements Serializable {
 
 
     public List<TourneyScoreByRoundDTO> getTourneyScoreByRoundList() {
+        if (tourneyScoreByRoundList == null) {
+            tourneyScoreByRoundList = new ArrayList<>();
+        }
         return tourneyScoreByRoundList;
     }
 
@@ -273,6 +337,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<TeeTimeDTO> getTeeTimeList() {
+        if (teeTimeList == null) {
+            teeTimeList = new ArrayList<>();
+        }
         return teeTimeList;
     }
 
@@ -281,6 +348,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<TournamentDTO> getTournaments() {
+        if (tournaments == null) {
+            tournaments = new ArrayList<>();
+        }
         return tournaments;
     }
 
@@ -290,6 +360,9 @@ public class ResponseDTO implements Serializable {
 
 
     public List<CountryDTO> getCountries() {
+        if (countries == null) {
+            countries = new ArrayList<>();
+        }
         return countries;
     }
 
@@ -298,6 +371,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<ProvinceDTO> getProvinces() {
+        if (provinces == null) {
+            provinces = new ArrayList<>();
+        }
         return provinces;
     }
 
@@ -306,6 +382,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<ClubDTO> getClubs() {
+        if (clubs == null) {
+            clubs = new ArrayList<>();
+        }
         return clubs;
     }
 
@@ -314,6 +393,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<AgeGroupDTO> getAgeGroups() {
+        if (ageGroups == null) {
+            ageGroups = new ArrayList<>();
+        }
         return ageGroups;
     }
 
@@ -322,6 +404,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<AdministratorDTO> getAdministrators() {
+        if (administrators == null) {
+            administrators = new ArrayList<>();
+        }
         return administrators;
     }
 
@@ -330,6 +415,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<GolfGroupPlayerDTO> getGolfGroupPlayers() {
+        if (golfGroupPlayers == null) {
+            golfGroupPlayers = new ArrayList<>();
+        }
         return golfGroupPlayers;
     }
 
@@ -366,6 +454,9 @@ public class ResponseDTO implements Serializable {
     }
 
     public List<VideoClipDTO> getVideoClips() {
+        if (videoClips == null) {
+            videoClips = new ArrayList<>();
+        }
         return videoClips;
     }
 

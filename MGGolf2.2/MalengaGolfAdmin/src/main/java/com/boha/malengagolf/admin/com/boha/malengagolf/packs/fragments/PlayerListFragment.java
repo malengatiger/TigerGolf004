@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,11 +45,15 @@ public class PlayerListFragment extends Fragment implements PageFragment {
 
 
     public interface PlayerListener {
-        public void onPlayerPictureRequested(PlayerDTO player, int index);
+        void onPlayerPictureRequested(PlayerDTO player, int index);
+        void onRefreshRequested();
 
     }
+
     PlayerListener listener;
     LayoutInflater inflater;
+    FloatingActionButton fab;
+
     @Override
     public void onAttach(Activity a) {
         if (a instanceof PlayerListener) {
@@ -86,24 +91,32 @@ public class PlayerListFragment extends Fragment implements PageFragment {
         } else {
             Bundle bundle = getArguments();
             if (bundle != null) {
-                response = (ResponseDTO)bundle.getSerializable("response");
+                response = (ResponseDTO) bundle.getSerializable("response");
             }
         }
         playerList = response.getPlayers();
-        setList(false,0);
+        setList(false, 0);
 
         return view;
     }
+
     @Override
     public void onSaveInstanceState(Bundle b) {
         Log.e(LOG, "7&&&&&&&& ------  --- onSaveInstanceState");
         b.putSerializable("response", response);
         super.onSaveInstanceState(b);
     }
+
     @Override
     public void setFields() {
         recyclerView = (RecyclerView) view.findViewById(R.id.FRAG_listView);
-
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onRefreshRequested();
+            }
+        });
     }
 
     PlayerListAdapter personAdapter;
@@ -165,7 +178,7 @@ public class PlayerListFragment extends Fragment implements PageFragment {
                     }
                 });
 
-        LinearLayoutManager lm = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(personAdapter);
         registerForContextMenu(recyclerView);
@@ -173,6 +186,7 @@ public class PlayerListFragment extends Fragment implements PageFragment {
     }
 
     PlayerDTO player;
+
     @Override
     public void showPersonDialog(int actionCode) {
 
@@ -253,7 +267,7 @@ public class PlayerListFragment extends Fragment implements PageFragment {
                 startActivity(intent);
                 return true;
             case R.id.menu_take_picture:
-                listener.onPlayerPictureRequested(player,selectedIndex);
+                listener.onPlayerPictureRequested(player, selectedIndex);
                 return true;
             case R.id.menu_send_mail:
                 under();

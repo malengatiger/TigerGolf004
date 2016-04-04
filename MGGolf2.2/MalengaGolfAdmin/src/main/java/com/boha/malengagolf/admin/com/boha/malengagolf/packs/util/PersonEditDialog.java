@@ -297,7 +297,7 @@ public class PersonEditDialog extends DialogFragment {
 
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, req, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, req, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                progressBar.setVisibility(View.GONE);
@@ -480,7 +480,7 @@ public class PersonEditDialog extends DialogFragment {
 
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, req, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, req, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                progressBar.setVisibility(View.GONE);

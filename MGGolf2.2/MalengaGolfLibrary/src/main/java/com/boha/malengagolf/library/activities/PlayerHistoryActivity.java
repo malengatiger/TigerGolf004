@@ -83,7 +83,7 @@ public class PlayerHistoryActivity extends AppCompatActivity {
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN,z,ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN,z,ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                setRefreshActionButtonState(false);

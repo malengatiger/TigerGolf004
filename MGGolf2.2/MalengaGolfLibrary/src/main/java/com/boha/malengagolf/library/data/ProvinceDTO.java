@@ -5,6 +5,7 @@
 package com.boha.malengagolf.library.data;
 
 import com.boha.malengagolf.library.base.CityDTO;
+import com.orm.SugarRecord;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Aubrey Malabie
  */
-public class ProvinceDTO implements Serializable {
+public class ProvinceDTO  extends SugarRecord implements Serializable {
 
     private int provinceID, countryID;
     private int latitude;

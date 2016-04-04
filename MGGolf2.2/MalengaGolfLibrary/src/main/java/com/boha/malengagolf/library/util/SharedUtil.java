@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class SharedUtil {
     public static final String SCROLL_INDEX = "scrollIndex", THEME = "THENE",
-        SCROLL_TIME = "sTime", SESSION_ID = "sesID";
+        SCROLL_TIME = "sTime", PAGE_INDEX = "pageIndex";
     public static void setThemeSelection(Context ctx, int theme) {
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(ctx);
@@ -29,7 +29,24 @@ public class SharedUtil {
         Log.w("SharedUtil", "#### theme saved: " + theme);
 
     }
+    public static void setPageIndex(Context ctx, int index) {
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(ctx);
 
+        Editor ed = sp.edit();
+        ed.putInt(PAGE_INDEX, index);
+        ed.commit();
+        Log.w("SharedUtil", "#### page index saved: " + index);
+
+    }
+
+    public static int getPageIndex(Context ctx) {
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(ctx);
+        int j = sp.getInt(PAGE_INDEX, 0);
+
+        return j;
+    }
     public static int getThemeSelection(Context ctx) {
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(ctx);
@@ -49,6 +66,7 @@ public class SharedUtil {
         //Log.w("SharedUtil", "#### scroll index saved: " + index);
 
     }
+
     public static int getScrollIndex(Context ctx) {
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(ctx);

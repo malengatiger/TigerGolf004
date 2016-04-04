@@ -145,7 +145,7 @@ public class TournamentPlayerListFragment extends Fragment {
 
 
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO r) {
 //                listener.setNotBusy();
@@ -326,7 +326,7 @@ public class TournamentPlayerListFragment extends Fragment {
                 });
             }
         });
-//        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //            @Override
 //            public void onResponseReceived(ResponseDTO response) {
 //                if (!ErrorUtil.checkServerError(ctx, response)) {
@@ -362,7 +362,7 @@ public class TournamentPlayerListFragment extends Fragment {
         w.setTournamentID(tournament.getTournamentID());
         w.setPlayerID(leaderBoard.getPlayer().getPlayerID());
         listener.setBusy();
-        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
             @Override
             public void onResponseReceived(ResponseDTO response) {
                 listener.setNotBusy();

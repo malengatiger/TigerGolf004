@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -42,6 +43,7 @@ import com.boha.malengagolf.library.util.CacheUtil;
 import com.boha.malengagolf.library.util.ErrorUtil;
 import com.boha.malengagolf.library.util.SharedUtil;
 import com.boha.malengagolf.library.util.Statics;
+import com.boha.malengagolf.library.util.SugarUtil;
 import com.boha.malengagolf.library.util.ToastUtil;
 import com.boha.malengagolf.library.util.NetUtil;
 import com.boha.malengagolf.library.volley.toolbox.BaseVolley;
@@ -56,18 +58,21 @@ public class TournamentListFragment extends Fragment implements PageFragment {
 
 
     public interface TournamentListener {
-        public void onManageTournamentRequest(TournamentDTO t);
+        void onManageTournamentRequest(TournamentDTO t);
 
-        public void onManagePlayersRequest(TournamentDTO t, List<PlayerDTO> list);
+        void onManagePlayersRequest(TournamentDTO t, List<PlayerDTO> list);
 
-        public void setBusy();
+        void setBusy();
 
-        public void setNotBusy();
+        void setNotBusy();
+
+        void onRefreshRequested();
 
     }
 
     TournamentListener tournamentListener;
     FragmentActivity act;
+    FloatingActionButton fab;
 
     @Override
     public void onAttach(Activity a) {
@@ -127,6 +132,13 @@ public class TournamentListFragment extends Fragment implements PageFragment {
     @Override
     public void setFields() {
         recyclerView = (RecyclerView) view.findViewById(R.id.FRAG_listView);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tournamentListener.onRefreshRequested();
+            }
+        });
     }
 
     public void setList() {
@@ -250,6 +262,22 @@ public class TournamentListFragment extends Fragment implements PageFragment {
 
                     }
                 });
+                SugarUtil.getLeaderBoards(tournament.getTournamentID(), new SugarUtil.SugarListener() {
+                    @Override
+                    public void onDataWritten(int statusCode) {
+
+                    }
+
+                    @Override
+                    public void onDataRead(ResponseDTO response) {
+
+                    }
+
+                    @Override
+                    public void onError(String message) {
+
+                    }
+                });
             }
 
             //0824431972 kalidas Dr.
@@ -272,7 +300,7 @@ public class TournamentListFragment extends Fragment implements PageFragment {
             }
         });
 
-        LinearLayoutManager lm = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(adapter);
         recyclerView.scrollToPosition(selectedTourneyIndex);
@@ -494,7 +522,7 @@ public class TournamentListFragment extends Fragment implements PageFragment {
 
 
                         });
-//                        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//                        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //                            @Override
 //                            public void onResponseReceived(ResponseDTO r) {
 //                                tournamentListener.setNotBusy();
@@ -576,7 +604,7 @@ public class TournamentListFragment extends Fragment implements PageFragment {
 
 
                         });
-//                        BaseVolley.getRemoteData(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
+//                        BaseVolley.sendRequest(Statics.SERVLET_ADMIN, w, ctx, new BaseVolley.BohaVolleyListener() {
 //                            @Override
 //                            public void onResponseReceived(ResponseDTO r) {
 //                                tournamentListener.setNotBusy();

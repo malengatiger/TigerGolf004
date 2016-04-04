@@ -5,6 +5,7 @@
 package com.boha.malengagolf.library.data;
 
 import com.boha.malengagolf.library.util.PersonInterface;
+import com.orm.SugarRecord;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Aubrey Malabie
  */
 @SuppressWarnings(value = "unused")
-public class AdministratorDTO implements Serializable, PersonInterface {
+public class AdministratorDTO extends SugarRecord implements Serializable, PersonInterface {
 
     private int administratorID, superUserFlag;
     private String cellphone;

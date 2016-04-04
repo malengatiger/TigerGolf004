@@ -3,12 +3,28 @@ package com.boha.malengagolf.library.util;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import com.boha.malengagolf.library.data.*;
+
+import com.boha.malengagolf.library.data.AdministratorDTO;
+import com.boha.malengagolf.library.data.ClubDTO;
+import com.boha.malengagolf.library.data.GolfGroupDTO;
+import com.boha.malengagolf.library.data.LeaderBoardCarrierDTO;
+import com.boha.malengagolf.library.data.LeaderBoardDTO;
+import com.boha.malengagolf.library.data.PlayerDTO;
+import com.boha.malengagolf.library.data.ResponseDTO;
+import com.boha.malengagolf.library.data.ScorerDTO;
+import com.boha.malengagolf.library.data.TournamentDTO;
 import com.google.gson.Gson;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by aubreyM on 2014/04/16.
@@ -93,8 +109,7 @@ public class CacheUtil {
                         json = gson.toJson(response);
                         outputStream = ctx.openFileOutput(Constants.ADMIN_LIST, Context.MODE_PRIVATE);
                         write(outputStream, json);
-                        file = ctx.getFileStreamPath(Constants.ADMIN_LIST);
-                        if (file != null) {
+                         if (file != null) {
                             Log.w(LOG, "......Admins Data cache json written to disk,  - path: " + file.getAbsolutePath() +
                                     " - length: " + file.length());
                         }
@@ -103,7 +118,6 @@ public class CacheUtil {
                         json = gson.toJson(response);
                         outputStream = ctx.openFileOutput(Constants.TOURNAMENT_LIST, Context.MODE_PRIVATE);
                         write(outputStream, json);
-                        file = ctx.getFileStreamPath(Constants.TOURNAMENT_LIST);
                         if (file != null) {
                             Log.w(LOG, ".....Tournament Data cache json written to disk,  - path: " + file.getAbsolutePath() +
                                     " - length: " + file.length());
@@ -113,7 +127,6 @@ public class CacheUtil {
                         json = gson.toJson(response);
                         outputStream = ctx.openFileOutput(Constants.GOLF_GROUPS, Context.MODE_PRIVATE);
                         write(outputStream, json);
-                        file = ctx.getFileStreamPath(Constants.GOLF_GROUPS);
                         if (file != null) {
                             Log.w(LOG, "......GolfGroup Data cache json written to disk,  - path: " + file.getAbsolutePath() +
                                     " - length: " + file.length());
@@ -137,7 +150,6 @@ public class CacheUtil {
                         json = gson.toJson(response);
                         outputStream = ctx.openFileOutput(Constants.TOURNAMENT_PLAYER_LIST + tournamentID, Context.MODE_PRIVATE);
                         write(outputStream, json);
-                        file = ctx.getFileStreamPath(Constants.TOURNAMENT_PLAYER_LIST + tournamentID);
                         if (file != null) {
                             Log.w(LOG, "......Data cache json written to disk,  - path: " + file.getAbsolutePath() +
                                     " - length: " + file.length() + " items: " + response.getLeaderBoardList().size());
@@ -148,7 +160,6 @@ public class CacheUtil {
                         json = gson.toJson(response);
                         outputStream = ctx.openFileOutput(Constants.LEADERBOARD_CARRIERS + tournamentID, Context.MODE_PRIVATE);
                         write(outputStream, json);
-                        file = ctx.getFileStreamPath(Constants.LEADERBOARD_CARRIERS + tournamentID);
                         if (file != null) {
                             Log.w(LOG, "......Data cache json written to disk,  - path: " + file.getAbsolutePath() +
                                     " - length: " + file.length() + " items: " + response.getLeaderBoardCarriers().size());
@@ -158,8 +169,7 @@ public class CacheUtil {
                         json = gson.toJson(response);
                         outputStream = ctx.openFileOutput(Constants.NEAREST_CLUBS, Context.MODE_PRIVATE);
                         write(outputStream, json);
-                        file = ctx.getFileStreamPath(Constants.NEAREST_CLUBS);
-                        if (file != null) {
+                         if (file != null) {
                             Log.w(LOG, "......Data cache json written to disk,  - path: " + file.getAbsolutePath() +
                                     " - length: " + file.length());
                         }
@@ -206,7 +216,7 @@ public class CacheUtil {
                     case CACHE_COUNTRY:
                         stream = ctx.openFileInput(Constants.COUNTRY_JSON);
                         response = getData(stream);
-                        break;
+                         break;
                     case CACHE_PLAYERS:
                         stream = ctx.openFileInput(Constants.PLAYER_LIST);
                         response = getData(stream);
@@ -220,21 +230,21 @@ public class CacheUtil {
                         if (response.getScorers() == null) {
                             response.setScorers(new ArrayList<ScorerDTO>());
                         }
-                        break;
+                         break;
                     case CACHE_ADMINS:
                         stream = ctx.openFileInput(Constants.ADMIN_LIST);
                         response = getData(stream);
                         if (response.getAdministrators() == null) {
                             response.setAdministrators(new ArrayList<AdministratorDTO>());
                         }
-                        break;
+                                                break;
                     case CACHE_TOURNAMENTS:
                         stream = ctx.openFileInput(Constants.TOURNAMENT_LIST);
                         response = getData(stream);
                         if (response.getTournaments() == null) {
                             response.setTournaments(new ArrayList<TournamentDTO>());
                         }
-                        break;
+                       break;
                     case CACHE_GOLFGROUPS:
                         stream = ctx.openFileInput(Constants.GOLF_GROUPS);
                         response = getData(stream);
@@ -248,7 +258,8 @@ public class CacheUtil {
                         if (response.getLeaderBoardList() == null) {
                             response.setLeaderBoardList(new ArrayList<LeaderBoardDTO>());
                         }
-                        break;
+                        Iterator<LeaderBoardDTO> lbIterator =  LeaderBoardDTO.findAll(LeaderBoardDTO.class);
+                         break;
                     case CACHE_TOURN_PLAYERS:
                         stream = ctx.openFileInput(Constants.TOURNAMENT_PLAYER_LIST + tournamentID);
                         response = getData(stream);
@@ -262,7 +273,7 @@ public class CacheUtil {
                         if (response.getLeaderBoardCarriers() == null) {
                             response.setLeaderBoardCarriers(new ArrayList<LeaderBoardCarrierDTO>());
                         }
-                        break;
+                         break;
                     case CACHE_NEAREST_CLUBS:
                         stream = ctx.openFileInput(Constants.NEAREST_CLUBS);
                         response = getData(stream);
@@ -284,8 +295,11 @@ public class CacheUtil {
                 Log.w(LOG, "$$$$$$$$$$$$ cached data retrieved");
             } else {
                 Log.w(LOG, "No existing cache file was found ....must be virgin signin");
+                v = new ResponseDTO();
+                v.setStatusCode(9);
+                v.setMessage("No cached data found");
             }
-
+            v.printDetails();
             listener.onFileDataDeserialized(v);
         }
     }
