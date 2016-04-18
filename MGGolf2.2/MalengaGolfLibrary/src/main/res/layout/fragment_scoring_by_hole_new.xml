@@ -32,9 +32,10 @@
             </RelativeLayout>
 
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/frontNine"
                 android:layout_below="@id/top"
+                android:orientation="vertical"
                 android:layout_margin="@dimen/mon_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -108,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/hole8"
                     android:layout_marginTop="@dimen/mon_padding" />
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/labelx"
@@ -119,7 +120,9 @@
                 android:layout_centerHorizontal="true"
                 android:text="Back Nine" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/backNine"
+                android:orientation="vertical"
                 android:layout_margin="@dimen/mon_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -195,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/hole17"
                     android:layout_marginTop="@dimen/mon_padding" />
-            </RelativeLayout>
+            </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>
