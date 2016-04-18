@@ -2,6 +2,9 @@ package com.boha.routebuilder;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by aubreymalabie on 4/18/16.
  */
@@ -10,6 +13,18 @@ public class MyLocation {
     String startAddress, endAddress;
     String stringDuration, stringDistance;
     double distance;
+    List<Step> steps;
+
+    public List<Step> getSteps() {
+        if (steps == null) {
+            steps = new ArrayList<>();
+        }
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
 
     public LatLng getStartLocation() {
         return startLocation;

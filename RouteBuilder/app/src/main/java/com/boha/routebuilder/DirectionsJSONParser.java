@@ -34,6 +34,7 @@ public class DirectionsJSONParser {
             sb.append("duration: ").append(duration).append("\n");
             sb.append("dist: ").append(dist).append("\n\n");
             Log.e("DirectionsParser",sb.toString());
+
             MyLocation myloc = new MyLocation();
             myloc.setEndAddress(endAddress);
             myloc.setStartAddress(startAddress);
@@ -43,7 +44,7 @@ public class DirectionsJSONParser {
             myloc.setStartLocation(start);
             myloc.setEndLocation(end);
 
-            myLocs.add(myloc);
+
 
             JSONArray steps = b.getJSONArray("steps");
             int count = steps.length();
@@ -54,6 +55,16 @@ public class DirectionsJSONParser {
                 JSONObject endLocX = x.getJSONObject("end_location");
                 JSONObject startLocX = x.getJSONObject("start_location");
                 String ins = x.getString("html_instructions");
+
+                Step step = new Step();
+                step.startLocation = new LatLng(startLocX.getDouble("lat"),startLocX.getDouble("lng"));
+                step.endLocation = new LatLng(endLocX.getDouble("lat"),endLocX.getDouble("lng"));
+                step.instruction = ins;
+                step.distance = (distx.getInt("value"));
+                step.distanceString = distx.getString("text");
+                step.duration = durationx.getString("text");
+                myloc.getSteps().add(step);
+
                 StringBuilder s = new StringBuilder();
                 s.append("instruction: ").append(ins).append("\n");
                 s.append("startLocx: " + startLocX).append(" endLocx: ").append(endLocX).append("\n");
@@ -63,7 +74,9 @@ public class DirectionsJSONParser {
 
                 JSONObject polyLine = x.getJSONObject("polyline");
                 Log.i("Dir","polyLine>>>: " + polyLine );
+
             }
+            myLocs.add(myloc);
         }
         return myLocs;
     }

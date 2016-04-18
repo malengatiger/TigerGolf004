@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/numberLayout"
+    android:background="@color/red_500"
+    android:gravity="center"
+    android:padding="4dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/number"
+        android:text="33"
+        style="@style/BlackCircleSmall"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/numberLabel"
+        android:text="Name of Stop"
+        android:textSize="12sp"
+        android:layout_toRightOf="@id/number"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
