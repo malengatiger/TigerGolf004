@@ -42,7 +42,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
         final CityDTO p = cities.get(position);
         holder.city.setText(p.getName());
         if (p.getRoutes() != null) {
-            holder.number.setText("" + p.getRoutes().size());
+            holder.number.setText("" + p.getRoutes().values().size());
         } else {
             holder.number.setText("0");
         }

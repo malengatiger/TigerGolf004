@@ -7,25 +7,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aftarobot.aftarobotmigrator.R;
-import com.aftarobot.aftarobotmigrator.newdata.RouteDTO;
+import com.aftarobot.aftarobotmigrator.newdata.RouteCityDTO;
 
 import java.util.List;
 
 /**
  * Created by aubreyM on 14/12/17.
  */
-public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHolder> {
+public class RouteCityAdapter extends RecyclerView.Adapter<RouteCityAdapter.RouteViewHolder> {
 
-    public interface RouteListener {
-        void onNameClicked(RouteDTO route);
-        void onNumberClicked(RouteDTO route);
+    public interface RouteCityListener {
+        void onNameClicked(RouteCityDTO city);
+        void onNumberClicked(RouteCityDTO city);
     }
 
-    private RouteListener mListener;
-    private List<RouteDTO> routes;
+    private RouteCityListener mListener;
+    private List<RouteCityDTO> routeCities;
 
-    public RouteAdapter(List<RouteDTO> routes, RouteListener listener) {
-        this.routes = routes;
+    public RouteCityAdapter(List<RouteCityDTO> routeCities, RouteCityListener listener) {
+        this.routeCities = routeCities;
         this.mListener = listener;
     }
 
@@ -39,16 +39,16 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
     @Override
     public void onBindViewHolder(final RouteViewHolder holder, final int position) {
 
-        final RouteDTO p = routes.get(position);
-        holder.route.setText(p.getName());
-        if (p.getRouteCities() != null) {
-            holder.number.setText("" + p.getRouteCities().values().size());
+        final RouteCityDTO p = routeCities.get(position);
+        holder.route.setText(p.getCityName());
+        if (p.getLandmarks() != null) {
+            holder.number.setText("" + p.getLandmarks().values().size());
         } else {
             holder.number.setText("0");
         }
         StringBuilder sb = new StringBuilder();
-        if (p.getAssociationName() != null) {
-            sb.append(p.getAssociationName());
+        if (p.getRouteName() != null) {
+            sb.append(p.getRouteName());
         }
         if (p.getStatus() != null) {
             sb.append(" : ").append(p.getStatus());
@@ -88,7 +88,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
     @Override
     public int getItemCount() {
-        return routes == null ? 0 : routes.size();
+        return routeCities == null ? 0 : routeCities.size();
     }
 
     public class RouteViewHolder extends RecyclerView.ViewHolder {
@@ -101,10 +101,10 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
             province = (TextView) itemView.findViewById(R.id.province);
             number = (TextView) itemView.findViewById(R.id.number);
             label = (TextView) itemView.findViewById(R.id.countLabel);
-            label.setText("Route Cities");
+            label.setText("Landmarks");
         }
 
     }
 
-    static final String LOG = RouteAdapter.class.getSimpleName();
+    static final String LOG = RouteCityAdapter.class.getSimpleName();
 }

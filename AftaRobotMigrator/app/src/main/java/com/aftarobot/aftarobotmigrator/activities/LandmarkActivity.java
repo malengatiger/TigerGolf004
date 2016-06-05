@@ -15,32 +15,28 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.aftarobot.aftarobotmigrator.R;
-import com.aftarobot.aftarobotmigrator.adapters.RouteAdapter;
-import com.aftarobot.aftarobotmigrator.newdata.CityDTO;
-import com.aftarobot.aftarobotmigrator.newdata.RouteDTO;
+import com.aftarobot.aftarobotmigrator.adapters.LandmarkAdapter;
+import com.aftarobot.aftarobotmigrator.newdata.LandmarkDTO;
+import com.aftarobot.aftarobotmigrator.newdata.RouteCityDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
-public class RouteActivity extends AppCompatActivity {
+public class LandmarkActivity extends AppCompatActivity {
     FirebaseDatabase db;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-    static final String TAG = RouteActivity.class.getSimpleName();
+    static final String TAG = LandmarkActivity.class.getSimpleName();
     ProgressBar progressBar;
     RecyclerView recycler;
     TextView title;
     Snackbar bar;
-    RouteAdapter routeAdapter;
-    ValueEventListener eventListener;
-    List<RouteDTO> routeList = new ArrayList<>();
-    CityDTO city;
-    HashMap<String, CityDTO> cities = new HashMap<>();
+    LandmarkAdapter landmarkAdapter;
+    List<LandmarkDTO> landmarks = new ArrayList<>();
+    RouteCityDTO routeCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +46,15 @@ public class RouteActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         recycler = (RecyclerView) findViewById(R.id.recycler);
         title = (TextView) findViewById(R.id.entityTitle);
-        city = (CityDTO)getIntent().getSerializableExtra("city");
-        title.setText("Routes - " + city.getName());
+        routeCity = (RouteCityDTO) getIntent().getSerializableExtra("routeCity");
+        title.setText("Landmarks - " + routeCity.getCityName());
         LinearLayoutManager lm = new LinearLayoutManager(getApplicationContext());
         recycler.setLayoutManager(lm);
-        progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+        db = FirebaseDatabase.getInstance();
 
-
-        setCityList();
+        setLandmarkList();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,31 +65,37 @@ public class RouteActivity extends AppCompatActivity {
         });
     }
 
-    private void setCityList() {
+    private void setLandmarkList() {
 
-        for (RouteDTO o: city.getRoutes().values()) {
-            routeList.add(o);
+        for (LandmarkDTO o : routeCity.getLandmarks().values()) {
+            landmarks.add(o);
         }
-        Collections.sort(routeList);
-        routeAdapter = new RouteAdapter(routeList, new RouteAdapter.RouteListener() {
+        Collections.sort(landmarks);
+        landmarkAdapter = new LandmarkAdapter(landmarks, new LandmarkAdapter.LandmarkListener() {
             @Override
-            public void onNameClicked(RouteDTO route) {
-                Log.d(TAG, "onNameClicked: routeCity: " + route.getName());
+            public void onNameClicked(LandmarkDTO landmark) {
+                Log.d(TAG, "onNameClicked: landmark: " + landmark.getLandmarkName());
             }
 
             @Override
-            public void onNumberClicked(RouteDTO route) {
-                Log.d(TAG, "onNumberClicked: routeCity: " + route.getName());
-                if (route.getRouteCities() != null && !route.getRouteCities().isEmpty()) {
-                    Intent m = new Intent(getApplicationContext(), RouteCityActivity.class);
-                    m.putExtra("routeCity", route);
-                    startActivity(m);
-                }
+            public void onNumberClicked(LandmarkDTO landmark) {
+                Log.d(TAG, "onNumberClicked: landmark: " + landmark.getLandmarkName());
+                getTrips(landmark);
             }
         });
-        recycler.setAdapter(routeAdapter);
+
+
+        recycler.setAdapter(landmarkAdapter);
     }
-      private void errorBar(String message) {
+
+    private void getTrips(final LandmarkDTO landmark) {
+        Intent m = new Intent(getApplicationContext(),TripActivity.class);
+        m.putExtra("landmark", landmark);
+        startActivity(m);
+
+    }
+
+    private void errorBar(String message) {
         bar = Snackbar.make(progressBar, message, Snackbar.LENGTH_INDEFINITE);
         bar.setActionTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.holo_red_light));
         bar.setAction("OK", new View.OnClickListener() {

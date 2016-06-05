@@ -6,12 +6,13 @@
 package com.aftarobot.aftarobotmigrator.newdata;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  * @author Sipho
  */
-public class TripDTO implements Serializable{
+public class TripDTO implements Serializable, Comparable<TripDTO> {
 
     private String tripID, marshalID, landmarkID, vehicleID, cityID, routeID, routeCityID, associationID;
     private int numberOfPassengers;
@@ -180,5 +181,10 @@ public class TripDTO implements Serializable{
 
     public void setDateArrived(long dateArrived) {
         this.dateArrived = dateArrived;
+    }
+
+    @Override
+    public int compareTo(TripDTO another) {
+        return new Date(this.dateDispatched).compareTo(new Date(another.dateDispatched)) * -1;
     }
 }

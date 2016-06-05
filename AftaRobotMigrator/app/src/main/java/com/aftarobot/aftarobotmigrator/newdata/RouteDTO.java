@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Sipho
  */
-public class RouteDTO implements Serializable {
+public class RouteDTO implements Serializable, Comparable<RouteDTO> {
 
     private String routeID, associationID, countryID, provinceID, cityID;
     private String name, status, associationName;
@@ -130,5 +130,10 @@ public class RouteDTO implements Serializable {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    @Override
+    public int compareTo(RouteDTO another) {
+        return this.name.compareTo(another.name);
     }
 }

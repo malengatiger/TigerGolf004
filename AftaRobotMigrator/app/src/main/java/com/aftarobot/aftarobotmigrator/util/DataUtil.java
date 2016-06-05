@@ -32,7 +32,7 @@ public class DataUtil {
     }
 
     static FirebaseDatabase db;
-    public static final String AFTAROBOT_DB = "AftaRobotDB-03", COUNTRIES = "countries", ASSOC_ROUTES = "associationRoutes", DRIVERS = "drivers",
+    public static final String AFTAROBOT_DB = "AftaRobotDB-04", COUNTRIES = "countries", ASSOC_ROUTES = "associationRoutes", DRIVERS = "drivers",
             VEHICLES = "vehicles", ADMINS = "admins", TRIPS = "trips",
             PROVINCES = "provinces", CITIES = "cities", ROUTES = "routes", ROUTE_CITIES = "routeCities", MARSHALS = "marshals",
             LANDMARKS = "landmarks", ROUTE_POUNTS = "routePoints", ASSOCS = "associations", DRIVER_PROFILES = "driverProfiles";
@@ -208,15 +208,16 @@ public class DataUtil {
 
     }
 
-    public static final String CITY_TRIPS = "cityTrips";
     public static void addTrip(final TripDTO trip, final DataAddedListener listener) {
         if (db == null) {
             db = FirebaseDatabase.getInstance();
         }
         DatabaseReference tripsRef = db.getReference(AFTAROBOT_DB)
+                .child(TRIPS)
+                .child(trip.getLandmarkID())
                 .child(TRIPS);
 
-
+        Log.d(TAG, "addTrip: trip marshal: " + trip.getMarshalName());
         tripsRef.push().setValue(trip, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {

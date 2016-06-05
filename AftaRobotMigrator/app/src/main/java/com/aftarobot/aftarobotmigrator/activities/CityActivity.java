@@ -1,11 +1,13 @@
 package com.aftarobot.aftarobotmigrator.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,8 +19,12 @@ import android.widget.TextView;
 
 import com.aftarobot.aftarobotmigrator.R;
 import com.aftarobot.aftarobotmigrator.adapters.CityAdapter;
+import com.aftarobot.aftarobotmigrator.dto.LandmarkDTO;
+import com.aftarobot.aftarobotmigrator.dto.ResponseDTO;
+import com.aftarobot.aftarobotmigrator.dto.TripDTO;
 import com.aftarobot.aftarobotmigrator.newdata.CityDTO;
 import com.aftarobot.aftarobotmigrator.util.DataUtil;
+import com.aftarobot.aftarobotmigrator.util.OldUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,6 +38,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,7 +73,7 @@ public class CityActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         db.setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
-
+        getOldLandmarks();
 
         check();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -84,18 +91,7 @@ public class CityActivity extends AppCompatActivity {
                 .child(DataUtil.CITIES);
 
         Query query = citiesRef.orderByChild("countryID");
-        eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e(TAG, "onDataChange: ValueEventListener: \n" + dataSnapshot.getChildrenCount() );
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -104,7 +100,7 @@ public class CityActivity extends AppCompatActivity {
                     CityDTO c = m.getValue(CityDTO.class);
                     cities.put(c.getCityID(),c);
                     cityList.add(c);
-                    Log.i(TAG, "onDataChange: route received: " + c.getName());
+                    Log.i(TAG, "onDataChange: City received: " + c.getName());
 
                 }
                 setCityList();
@@ -117,10 +113,12 @@ public class CityActivity extends AppCompatActivity {
         });
     }
     private void setCityList() {
+        Collections.sort(cityList);
         cityAdapter = new CityAdapter(cityList, new CityAdapter.CityListener() {
             @Override
             public void onNameClicked(CityDTO city) {
-
+                Log.d(TAG, "........onNameClicked: city: " + city.getName());
+                showDialog(city);
             }
 
             @Override
@@ -134,6 +132,24 @@ public class CityActivity extends AppCompatActivity {
             }
         });
         recycler.setAdapter(cityAdapter);
+    }
+    private void showDialog(final CityDTO city) {
+        AlertDialog.Builder dg = new AlertDialog.Builder(this);
+        dg.setTitle("Trip Migrator")
+                .setMessage("Do you want to add trips?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        addTrips(city);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .show();
     }
     private void check() {
         if (mAuth.getCurrentUser() != null) {
@@ -207,5 +223,79 @@ public class CityActivity extends AppCompatActivity {
         });
         bar.show();
     }
+    private void addTrips(com.aftarobot.aftarobotmigrator.newdata.CityDTO city) {
 
+
+        if (city.getRoutes() != null) {
+            for (com.aftarobot.aftarobotmigrator.newdata.RouteDTO r: city.getRoutes().values()) {
+                if (r.getRouteCities() != null) {
+                    for (com.aftarobot.aftarobotmigrator.newdata.RouteCityDTO rc: r.getRouteCities().values()) {
+                        if (rc.getLandmarks() != null) {
+                            for (com.aftarobot.aftarobotmigrator.newdata.LandmarkDTO l: rc.getLandmarks().values()) {
+
+                                LandmarkDTO x = map.get(l.getLandmarkName());
+                                if (x != null) {
+                                    if (!x.getTripList().isEmpty()) {
+                                        for (TripDTO t: x.getTripList()) {
+                                            com.aftarobot.aftarobotmigrator.newdata.TripDTO tx = new com.aftarobot.aftarobotmigrator.newdata.TripDTO();
+                                            tx.setLandmarkID(l.getLandmarkID());
+                                            tx.setLandmarkName(t.getLandmarkName());
+                                            tx.setVehicleReg(t.getVehicleReg());
+                                            tx.setRouteName(l.getRouteName());
+                                            tx.setRouteCityName(l.getRouteCityName());
+                                            tx.setCityID(l.getCityID());
+                                            tx.setCityName(l.getCityName());
+                                            tx.setDateArrived(t.getDateArrived());
+                                            tx.setDateDispatched(t.getDateDipatched());
+                                            tx.setMarshalName(t.getMarshalName());
+                                            tx.setNumberOfPassengers(t.getNumberOfPassengers());
+                                            tx.setRouteCityID(l.getRouteCityID());
+                                            tx.setAssociatioName(t.getAssociatioName());
+
+                                            DataUtil.addTrip(tx,null);
+
+                                        }
+                                    } else {
+                                        Log.d(TAG, "addTrips: NO TRIPS");
+                                    }
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "addTrips: No landmarks");
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "addTrips: No landmark cities");
+                }
+            }
+        } else {
+            Log.d(TAG, "addTrips: no ROUTES!!");
+        }
+    }
+    HashMap<String, LandmarkDTO> map = new HashMap<>();
+    List<LandmarkDTO> landmarks;
+    private void getOldLandmarks() {
+        OldUtil.getOldLandmarks(new OldUtil.OldListener() {
+            @Override
+            public void onResponse(ResponseDTO response) {
+                if (response.getStatusCode() == 0) {
+                    landmarks = response.getLandmarks();
+                    for (LandmarkDTO m: landmarks) {
+                        map.put(m.getLandmarkName(),m);
+                    }
+                    Log.d(TAG, "--------------- onResponse: landmarks: " + landmarks.size());
+//                    DatabaseReference ref = db.getReference(DataUtil.AFTAROBOT_DB)
+//                            .child(DataUtil.TRIPS);
+//                    ref.removeValue();
+                } else {
+                    errorBar(response.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                errorBar(message);
+            }
+        });
+    }
 }

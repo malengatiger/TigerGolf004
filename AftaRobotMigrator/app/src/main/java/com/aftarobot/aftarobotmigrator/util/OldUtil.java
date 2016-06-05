@@ -58,7 +58,9 @@ public class OldUtil {
                     Log.e("OldUtil", "doInBackground: Yeahh! data for migration is here, length: " + json.length() );
                 } else {
                     resp.setStatusCode(8);
-                    resp.setMessage("Network call is not OK");
+                    resp.setMessage("Network call is not OK: url: " + url + "\n"
+                    + oresp.message());
+                    Log.e("OldUtil", "doInBackground: " + resp.getMessage() );
                 }
             } catch (Exception e) {
                 resp.setStatusCode(8);

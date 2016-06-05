@@ -1,4 +1,4 @@
-package com.aftarobot.aftarobotmigrator;
+package com.aftarobot.aftarobotmigrator.activities;
 
 import android.app.Application;
 import android.util.Log;

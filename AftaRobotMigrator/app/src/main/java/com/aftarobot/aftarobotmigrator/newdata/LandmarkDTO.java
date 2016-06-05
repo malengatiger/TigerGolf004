@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Sipho
  */
-public class LandmarkDTO implements Serializable {
+public class LandmarkDTO implements Serializable, Comparable<LandmarkDTO> {
 
     private String landmarkID, routeCityID, cityID, routeID, countryID, provinceID,routeName, routeCityName;
     private int rankSequenceNumber;
@@ -209,5 +209,10 @@ public class LandmarkDTO implements Serializable {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    @Override
+    public int compareTo(LandmarkDTO another) {
+        return this.landmarkName.compareTo(another.landmarkName);
     }
 }

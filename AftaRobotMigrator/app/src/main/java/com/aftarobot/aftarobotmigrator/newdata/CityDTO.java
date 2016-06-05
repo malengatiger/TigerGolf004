@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Sipho
  */
-public class CityDTO implements Serializable{
+public class CityDTO implements Serializable, Comparable<CityDTO>{
 
     private String cityID, provinceID, countryID;
     private String name, status, provinceName;
@@ -153,5 +153,10 @@ public class CityDTO implements Serializable{
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
+    }
+
+    @Override
+    public int compareTo(CityDTO another) {
+        return this.name.compareTo(another.name);
     }
 }
