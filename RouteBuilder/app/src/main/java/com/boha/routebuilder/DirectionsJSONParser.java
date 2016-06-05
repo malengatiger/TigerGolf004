@@ -18,8 +18,8 @@ import java.util.List;
 
 public class DirectionsJSONParser {
 
-    private static List<MyLocation> getStartEndLocations(JSONArray legsArr) throws JSONException {
-        List<MyLocation> myLocs = new ArrayList<>();
+    private static List<TRouteDTO> getStartEndLocations(JSONArray legsArr) throws JSONException {
+        List<TRouteDTO> myLocs = new ArrayList<>();
         for (int m = 0; m < legsArr.length(); m++) {
             JSONObject b = legsArr.getJSONObject(m);
             JSONObject dist = b.getJSONObject("distance");
@@ -35,14 +35,16 @@ public class DirectionsJSONParser {
             sb.append("dist: ").append(dist).append("\n\n");
             Log.e("DirectionsParser",sb.toString());
 
-            MyLocation myloc = new MyLocation();
-            myloc.setEndAddress(endAddress);
-            myloc.setStartAddress(startAddress);
+            TRouteDTO route = new TRouteDTO();
+            route.setEndAddress(endAddress);
+            route.setStartAddress(startAddress);
             LatLng start = new LatLng(startLocation.getDouble("lat"), startLocation.getDouble("lng"));
             LatLng end = new LatLng(endLocation.getDouble("lat"), endLocation.getDouble("lng"));
 
-            myloc.setStartLocation(start);
-            myloc.setEndLocation(end);
+            route.setStartLatitude(start.latitude);
+            route.setStartLongitude(start.longitude);
+            route.setEndLatitude(end.latitude);
+            route.setEndLongitude(end.longitude);
 
 
 
@@ -56,14 +58,16 @@ public class DirectionsJSONParser {
                 JSONObject startLocX = x.getJSONObject("start_location");
                 String ins = x.getString("html_instructions");
 
-                Step step = new Step();
-                step.startLocation = new LatLng(startLocX.getDouble("lat"),startLocX.getDouble("lng"));
-                step.endLocation = new LatLng(endLocX.getDouble("lat"),endLocX.getDouble("lng"));
-                step.instruction = ins;
-                step.distance = (distx.getInt("value"));
-                step.distanceString = distx.getString("text");
-                step.duration = durationx.getString("text");
-                myloc.getSteps().add(step);
+                TStepDTO z = new TStepDTO();
+                z.setStartLatitude(startLocX.getDouble("lat"));
+                z.setStartLongitude(startLocX.getDouble("lng"));
+                z.setEndLatitude(endLocX.getDouble("lat"));
+                z.setEndLongitude(endLocX.getDouble("lng"));
+                z.setInstruction(ins);
+                z.setDistance(distx.getDouble("value"));
+                z.setDistanceString(distx.getString("text"));
+                z.setDurationString(durationx.getString("text"));
+                route.getSteps().add(z);
 
                 StringBuilder s = new StringBuilder();
                 s.append("instruction: ").append(ins).append("\n");
@@ -76,7 +80,7 @@ public class DirectionsJSONParser {
                 Log.i("Dir","polyLine>>>: " + polyLine );
 
             }
-            myLocs.add(myloc);
+            myLocs.add(route);
         }
         return myLocs;
     }
@@ -89,7 +93,7 @@ public class DirectionsJSONParser {
         JSONArray jRoutes = null;
         JSONArray jLegs = null;
         JSONArray jSteps = null;
-        List<MyLocation> myLocs = new ArrayList<>();
+        List<TRouteDTO> tRoutes = new ArrayList<>();
 
         try {
 
@@ -98,8 +102,8 @@ public class DirectionsJSONParser {
             /** Traversing all routes */
             for (int i = 0; i < jRoutes.length(); i++) {
                 jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
-                myLocs = getStartEndLocations(jLegs);
-                List path = new ArrayList<HashMap<String, String>>();
+                tRoutes = getStartEndLocations(jLegs);
+                List path = new ArrayList<>();
 
                 /** Traversing all legs */
                 for (int j = 0; j < jLegs.length(); j++) {
@@ -129,7 +133,7 @@ public class DirectionsJSONParser {
         }
         Bag bag = new Bag();
         bag.setList(routes);
-        bag.setMyLocations(myLocs);
+        bag.setRoutes(tRoutes);
 
         return bag;
     }

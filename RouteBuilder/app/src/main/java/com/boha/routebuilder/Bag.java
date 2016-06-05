@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Bag {
     List<List<HashMap<String, String>>> list;
-    List<MyLocation> myLocations;
+    List<TRouteDTO> routes;
 
     public List<List<HashMap<String, String>>> getList() {
         return list;
@@ -18,11 +18,11 @@ public class Bag {
         this.list = list;
     }
 
-    public List<MyLocation> getMyLocations() {
-        return myLocations;
+    public List<TRouteDTO> getRoutes() {
+        return routes;
     }
 
-    public void setMyLocations(List<MyLocation> myLocations) {
-        this.myLocations = myLocations;
+    public void setRoutes(List<TRouteDTO> routes) {
+        this.routes = routes;
     }
 }

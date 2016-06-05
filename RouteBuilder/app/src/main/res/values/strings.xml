@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RouteBuilder</string>
+    <string name="title_activity_maps">RouteBuilder Map</string>
+    <string name="google_app_id">308247905689</string>
+</resources>
